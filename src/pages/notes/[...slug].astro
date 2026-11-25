@@ -2,70 +2,64 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CanvasView from '../../components/CanvasView.astro';
+import Comments from '../../components/Comments.astro';
 import manifest from '../../data/manifest.json';
 
 export async function getStaticPaths() {
-  const notes = await getCollection('notes');
-  const sorted = [...notes].sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
-  return notes.map((note) => {
-    const index = sorted.findIndex((item) => item.id === note.id);
-    return {
-      params: { slug: note.data.slug },
-      props: {
-        note,
-        prev: index > 0 ? sorted[index - 1] : null,
-        next: index < sorted.length - 1 ? sorted[index + 1] : null,
-      },
-    };
-  });
+  const notes = (await getCollection('notes'))
+    .filter((note) => note.data.kind === 'canvas')
+    .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
+  return notes.map((note, index) => ({
+    params: { slug: note.data.slug },
+    props: {
+      note,
+      prev: index > 0 ? notes[index - 1] : null,
+      next: index < notes.length - 1 ? notes[index + 1] : null,
+    },
+  }));
 }
 
 const { note, prev, next } = Astro.props;
-const { Content, headings } = await render(note);
 const base = import.meta.env.BASE_URL;
 
-const backlinkSlugs = manifest.backlinks[note.data.slug] || [];
-const backlinks = backlinkSlugs
-  .map((slug) => manifest.notes.find((item) => item.slug === slug))
-  .filter(Boolean)
-  .slice(0, 8);
+const allNotes = await getCollection('notes');
+const noteContent = new Map();
+for (const entry of allNotes) {
+  noteContent.set(entry.data.slug, (await render(entry)).Content);
+}
 
 const canvas = (manifest.canvases as Record<string, any>)[note.data.slug] || null;
-const isCanvas = note.data.kind === 'canvas' || Boolean(canvas);
+const backlinkSlugs = manifest.backlinks[note.data.slug] || [];
+const backlinks = backlinkSlugs
+  .map((slug: string) => manifest.notes.find((item) => item.slug === slug))
+  .filter(Boolean)
+  .slice(0, 8);
 const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(note.data.updated);
-const readingTime = Math.max(1, Math.round((manifest.notes.find((n) => n.slug === note.data.slug)?.words || 300) / 180));
 ---
 
-<BaseLayout title={`${note.data.title} · ${manifest.siteTitle}`} description={note.data.description}>
+<BaseLayout title={`${note.data.title} · ${manifest.siteTitle}`} description={note.data.description} active="notes">
   <div class="note-layout">
     <article>
       <header class="note-header">
         <nav class="crumbs" aria-label="Навигация">
           <a href={base}>Главная</a><span>/</span>
-          <a href={`${base}notes/`}>Заметки</a><span>/</span>
+          <a href={`${base}notes/`}>Холсты</a><span>/</span>
           {note.data.folder && <><span>{note.data.folder}</span><span>/</span></>}
           <span>{note.data.title}</span>
         </nav>
         <h1 class="note-title">{note.data.title}</h1>
-        {isCanvas && <span class="kind-badge">◇ ОБЪЕКТНЫЙ ХОЛСТ</span>}
+        <span class="kind-badge">◇ ХОЛСТ</span>
         <div class="note-meta">
           <span>◷ {date}</span>
-          <span>⏱ {readingTime} мин чтения</span>
           {note.data.folder && <span>◈ {note.data.folder}</span>}
         </div>
       </header>
 
-      {canvas ? <CanvasView canvas={canvas} /> : <div class="prose"><Content /></div>}
+      {canvas && <CanvasView canvas={canvas} noteContent={noteContent} />}
+
+      <Comments pageId={note.data.slug} title={note.data.title} />
 
       <footer class="note-footer">
-        {note.data.tags.length > 0 && (
-          <div class="note-tags">
-            {note.data.tags.map((tag) => (
-              <a class="tag" href={`${base}tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
-            ))}
-          </div>
-        )}
-
         <div class="prev-next">
           {prev && (
             <a class="pn-card" href={`${base}notes/${prev.data.slug}/`}>
@@ -81,48 +75,17 @@ const readingTime = Math.max(1, Math.round((manifest.notes.find((n) => n.slug ==
       </footer>
     </article>
 
-    <aside class="side">
-      {headings.length > 0 && (
+    {backlinks.length > 0 && (
+      <aside class="side">
         <div class="side-box">
-          <p class="side-title">На этой странице</p>
-          <ul class="toc">
-            {headings.filter((heading) => heading.depth <= 3).map((heading) => (
-              <li class={heading.depth === 3 ? 'toc-3' : ''}>
-                <a href={`#${heading.slug}`} data-toc-link={heading.slug}>{heading.text}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {backlinks.length > 0 && (
-        <div class="side-box">
-          <p class="side-title">Ссылаются сюда · {backlinkSlugs.length}</p>
+          <p class="side-title">Связанные холсты · {backlinkSlugs.length}</p>
           <div class="backlink-list">
-            {backlinks.map((item) => (
+            {backlinks.map((item: any) => (
               <a href={`${base}notes/${item.slug}/`}>↳ {item.title}</a>
             ))}
           </div>
         </div>
-      )}
-    </aside>
+      </aside>
+    )}
   </div>
-
-  <script>
-    const links = [...document.querySelectorAll('[data-toc-link]')];
-    const targets = links
-      .map((link) => ({ link, el: document.getElementById(link.dataset.tocLink || '') }))
-      .filter((entry) => entry.el);
-
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        links.forEach((link) => { link.dataset.active = 'false'; });
-        const active = links.find((link) => link.dataset.tocLink === entry.target.id);
-        if (active) active.dataset.active = 'true';
-      }
-    }, { rootMargin: '-100px 0px -70% 0px' });
-
-    targets.forEach(({ el }) => observer.observe(el));
-  </script>
 </BaseLayout>

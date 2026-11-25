@@ -43,7 +43,7 @@ const graph = { nodes, links };
 const direct = scoped.filter((note) => note.folder === path);
 ---
 
-<BaseLayout title={`Граф · ${path}`} description={`Связи заметок в разделе ${path}`} active="graph" wide>
+<BaseLayout title={`Граф · ${path}`} description={`Связи холстов в разделе ${path}`} active="graph" wide>
   <div class="page-top">
     <nav class="crumbs">
       <a href={base}>Главная</a><span>/</span>
@@ -60,7 +60,7 @@ const direct = scoped.filter((note) => note.folder === path);
     </div>
   </div>
 
-  <GraphCanvas graph={graph} label="ГРАФ РАЗДЕЛА" hint="клик по узлу открывает заметку" compact />
+  <GraphCanvas graph={graph} label="ГРАФ РАЗДЕЛА" hint="клик по узлу открывает холст" compact />
 
   {children.length > 0 && (
     <section class="section">
@@ -72,7 +72,7 @@ const direct = scoped.filter((note) => note.folder === path);
           <a class="folder-card" href={folderUrl(child.path)}>
             <span class="folder-icon">◈</span>
             <div class="folder-name">{child.path.slice(path.length + 1)}</div>
-            <div class="folder-count">{child.count} записей · граф →</div>
+            <div class="folder-count">{child.count} холстов · граф →</div>
           </a>
         ))}
       </div>
@@ -81,7 +81,7 @@ const direct = scoped.filter((note) => note.folder === path);
 
   <section class="section">
     <div class="section-head">
-      <div><span class="eyebrow">Архив раздела</span><h2>Заметки</h2></div>
+      <div><span class="eyebrow">Архив раздела</span><h2>Холсты</h2></div>
       <p>{direct.length}</p>
     </div>
     <div class="note-list">

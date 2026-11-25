@@ -23,8 +23,8 @@ build:
       export SITE_BASE="$PAGE_PATH"
       echo "SITE_URL=$SITE_URL"
       echo "SITE_BASE=$SITE_BASE"
-    # Синхронизация с Obsidian происходит локально через update-site.bat.
-    # В CI собираем уже закоммиченные заметки и медиа.
+    # Синхронизация источника происходит локально через update-site.bat.
+    # В CI собираем уже закоммиченные холсты и медиа.
     - npm run build
   artifacts:
     paths:

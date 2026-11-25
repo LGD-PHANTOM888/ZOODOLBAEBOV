@@ -1,45 +1,38 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import manifest from '../data/manifest.json';
 import folderUrl from '../utils/folder-url';
 
 const base = import.meta.env.BASE_URL;
-const notes = await getCollection('notes');
-const sorted = [...notes].sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
-const recent = sorted.slice(0, 8);
+const canvases = [...manifest.notes];
+const canvasList = Object.values(manifest.canvases as Record<string, any>);
+const nodeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.nodes, 0);
+const edgeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.edges, 0);
+const linkCount = Object.values(manifest.backlinks).flat().length;
 
 const folders = new Map();
-for (const note of notes) {
-  const name = note.data.folder || 'Без папки';
+for (const canvas of canvases) {
+  const name = canvas.folder || 'Без раздела';
   folders.set(name, (folders.get(name) || 0) + 1);
 }
 const folderList = [...folders.entries()].sort((a, b) => b[1] - a[1]);
-
-const tags = new Map();
-for (const note of notes) {
-  for (const tag of note.data.tags) tags.set(tag, (tags.get(tag) || 0) + 1);
-}
-const tagList = [...tags.entries()].sort((a, b) => b[1] - a[1]);
-const canvasList = Object.values(manifest.canvases as Record<string, any>);
-
-const totalWords = notes.reduce((sum, note) => sum + (manifest.notes.find((n) => n.slug === note.data.slug)?.words || 0), 0);
-const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(date));
 ---
 
 <BaseLayout title={manifest.siteTitle} description={manifest.siteDescription}>
   <section class="hero">
     <div>
-      <span class="eyebrow">XXXLGDXXX // PRIVATE ARCHIVE</span>
+      <span class="eyebrow">XXXLGDXXX // ARCHIVE</span>
       <h1><span class="glitch" data-text="ЗООПАРК">ЗООПАРК</span><br /><em>ДОЛБОЕБОВ</em></h1>
       <p class="hero-lead terminal-line">
-        <span class="prompt">root@archive:~$</span> cat index.md<br />
-        Локальная сеть заметок, холстов и связей. Всё из Obsidian, всё под рукой, всё с автосинком.
+        <span class="prompt">root@archive:~$</span> cat index<br />
+        Архив холстов и связей.
         <span class="cursor">_</span>
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href={`${base}notes/`}>ВОЙТИ В АРХИВ <span>→</span></a>
-        <a class="btn btn-ghost" href={`${base}graph/`}>ОТКРЫТЬ ГРАФ</a>
+        <a class="btn btn-primary" href={`${base}notes/`}>ХОЛСТЫ <span>→</span></a>
+        <a class="btn btn-ghost" href={`${base}graph/`}>ГРАФ</a>
+        <a class="btn btn-ghost" href={`${base}predlozhka/`}>ПРЕДЛОЖКА</a>
       </div>
     </div>
 
@@ -47,38 +40,38 @@ const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', 
       <div class="orbit"></div>
       <div class="orbit orbit-2"></div>
       <div class="hero-core"><span>З</span></div>
-      <div class="float-chip chip-1">заметок <b>{notes.length}</b></div>
-      <div class="float-chip chip-2">связей <b>{Object.values(manifest.backlinks).flat().length}</b></div>
-      <div class="float-chip chip-3">тегов <b>{tagList.length}</b></div>
+      <div class="float-chip chip-1">холстов <b>{canvases.length}</b></div>
+      <div class="float-chip chip-2">связей <b>{linkCount}</b></div>
+      <div class="float-chip chip-3">узлов <b>{nodeCount}</b></div>
     </div>
   </section>
 
   <div class="stats">
-    <div class="stat"><span class="stat-value">{notes.length}</span><span class="stat-label">Заметок</span></div>
+    <div class="stat"><span class="stat-value">{canvases.length}</span><span class="stat-label">Холстов</span></div>
     <div class="stat"><span class="stat-value">{folderList.length}</span><span class="stat-label">Разделов</span></div>
-    <div class="stat"><span class="stat-value">{tagList.length}</span><span class="stat-label">Тегов</span></div>
-    <div class="stat"><span class="stat-value">{new Intl.NumberFormat('ru-RU').format(totalWords)}</span><span class="stat-label">Слов</span></div>
+    <div class="stat"><span class="stat-value">{nodeCount}</span><span class="stat-label">Узлов</span></div>
+    <div class="stat"><span class="stat-value">{edgeCount}</span><span class="stat-label">Связей</span></div>
   </div>
 
   <section class="section">
     <div class="section-head">
       <div>
-        <span class="eyebrow">Свежее</span>
-        <h2>Последние заметки</h2>
+        <span class="eyebrow">Архив</span>
+        <h2>Холсты</h2>
       </div>
-      <a href={`${base}notes/`}>Все заметки →</a>
+      <a href={`${base}notes/`}>Все холсты →</a>
     </div>
 
     <div class="note-list">
-      {recent.map((note, index) => (
-        <a class="note-row" href={`${base}notes/${note.data.slug}/`}>
+      {canvases.slice(0, 10).map((canvas, index) => (
+        <a class="note-row" href={`${base}notes/${canvas.slug}/`}>
           <span class="note-index">{String(index + 1).padStart(2, '0')}</span>
           <span>
-            <span class="note-row-title">{note.data.title}</span>
-            <span class="note-row-desc">{note.data.description || 'Без описания'}</span>
+            <span class="note-row-title">{canvas.title}</span>
+            <span class="note-row-desc">{canvas.folder || 'Без раздела'}</span>
           </span>
           <span class="note-row-meta">
-            <span>{formatDate(note.data.updated)}</span>
+            <span>{formatDate(canvas.updated)}</span>
             <span class="note-arrow">↗</span>
           </span>
         </a>
@@ -98,42 +91,8 @@ const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', 
         <a class="folder-card" href={folderUrl(name)}>
           <span class="folder-icon">◈</span>
           <div class="folder-name">{name}</div>
-          <div class="folder-count">{count} заметок</div>
+          <div class="folder-count">{count} холстов</div>
         </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="section" id="canvases">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Визуальные объекты</span>
-        <h2>Холсты</h2>
-      </div>
-      <p>{canvasList.length} интерактивных карт</p>
-    </div>
-    <div class="folder-grid">
-      {canvasList.map((canvas) => (
-        <a class="folder-card folder-card--canvas" href={`${base}notes/${canvas.slug}/`}>
-          <span class="folder-icon">◇</span>
-          <div class="folder-name">{canvas.title}</div>
-          <div class="folder-count">{canvas.stats.nodes} узлов · {canvas.stats.edges} связей · открыть →</div>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Метки</span>
-        <h2>Темы</h2>
-      </div>
-      <a href={`${base}tags/`}>Все теги →</a>
-    </div>
-    <div class="tag-cloud">
-      {tagList.map(([tag, count]) => (
-        <a class="tag" href={`${base}tags/${encodeURIComponent(tag)}/`}>#{tag} <span class="tag-count">{count}</span></a>
       ))}
     </div>
   </section>

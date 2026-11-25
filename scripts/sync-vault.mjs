@@ -8,11 +8,7 @@ const NOTES_DIR = path.join(ROOT, 'src/content/notes');
 const MEDIA_DIR = path.join(ROOT, 'public/media');
 const DATA_DIR = path.join(ROOT, 'src/data');
 
-const MEDIA_EXT = new Set([
-  '.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.avif',
-  '.mp4', '.mov', '.m4v', '.webm', '.mp3', '.wav',
-  '.pdf', '.canvas', '.excalidraw',
-]);
+const NOTE_EXT = new Set(['.md', '.canvas']);
 
 const CYR = {
   а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z',
@@ -36,17 +32,6 @@ function slugify(value) {
 
 const hash = (value) => crypto.createHash('sha1').update(value).digest('hex');
 const toPosix = (value) => value.split(path.sep).join('/');
-
-function isExcluded(rel, exclude, includeSensitive) {
-  if (includeSensitive) return false;
-  const parts = rel.split('/');
-  return exclude.some((rule) => {
-    const clean = rule.replace(/^\/+|\/+$/g, '').toLowerCase();
-    if (!clean) return false;
-    if (rule.endsWith('/')) return parts.some((part) => part.toLowerCase() === clean);
-    return parts.some((part) => part.toLowerCase() === clean) || rel.toLowerCase().includes(clean);
-  });
-}
 
 function parseFrontmatter(raw) {
   if (!raw.startsWith('---')) return { attrs: {}, body: raw };
@@ -118,7 +103,6 @@ async function walk(dir, base = '') {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
-    if (entry.name.startsWith('.') && entry.name !== '.obsidian') continue;
     const full = path.join(dir, entry.name);
     const rel = base ? `${base}/${toPosix(entry.name)}` : toPosix(entry.name);
     if (entry.isDirectory()) {
@@ -133,11 +117,9 @@ async function walk(dir, base = '') {
 async function main() {
   const config = JSON.parse(await fs.readFile(CONFIG_PATH, 'utf8'));
   const vault = path.resolve(ROOT, config.vault);
-  const exclude = config.exclude || [];
-  const includeSensitive = Boolean(config.includeSensitive);
 
-  console.log('┌─ Obsidian → Astro ─────────────────────────────');
-  console.log(`│ Vault: ${vault}`);
+  console.log('┌─ Public → Astro ───────────────────────────────');
+  console.log(`│ Source: ${vault}`);
 
   await fs.rm(NOTES_DIR, { recursive: true, force: true });
   await fs.rm(MEDIA_DIR, { recursive: true, force: true });
@@ -146,23 +128,15 @@ async function main() {
   await fs.mkdir(DATA_DIR, { recursive: true });
 
   const allFiles = await walk(vault);
-  const skipped = [];
-  const kept = allFiles.filter(({ rel }) => {
-    if (isExcluded(rel, exclude, includeSensitive)) {
-      skipped.push(rel);
-      return false;
-    }
-    return true;
-  });
 
   // --- Медиа ---
   const mediaByBasename = new Map();
   const mediaByPath = new Map();
   let mediaCount = 0;
 
-  for (const { full, rel } of kept) {
+  for (const { full, rel } of allFiles) {
     const ext = path.extname(rel).toLowerCase();
-    if (!MEDIA_EXT.has(ext)) continue;
+    if (NOTE_EXT.has(ext)) continue;
     const basename = path.basename(rel);
     const destName = `${hash(rel).slice(0, 10)}-${slugify(path.basename(rel, ext))}${ext}`;
     await fs.copyFile(full, path.join(MEDIA_DIR, destName));
@@ -174,7 +148,7 @@ async function main() {
 
   // --- Первый проход: собираем заголовки и slug'ы ---
   const drafts = [];
-  for (const { full, rel } of kept) {
+  for (const { full, rel } of allFiles) {
     const ext = path.extname(rel).toLowerCase();
     if (ext !== '.md' && ext !== '.canvas') continue;
 
@@ -232,7 +206,7 @@ async function main() {
     return slugByTitle.get(clean) || null;
   };
 
-  // --- Холсты: превращаем JSON Obsidian в данные для просмотра ---
+  // --- Холсты: превращаем JSON в данные для просмотра ---
   const canvases = {};
   for (const draft of drafts.filter((item) => item.ext === '.canvas')) {
     const data = draft.canvasData || { nodes: [], edges: [] };
@@ -258,17 +232,13 @@ async function main() {
           slug: noteSlug,
           url: `/notes/${noteSlug}/`,
           preview: stripMarkdown(target?.body).slice(0, 360),
+          search: stripMarkdown(target?.body).slice(0, 1200),
         };
       }
 
       const media = mediaByPath.get(clean) || mediaByBasename.get(path.posix.basename(clean));
       if (media) {
         return { kind: mediaKind(ext), title: basename, url: media, preview: '' };
-      }
-
-      const originalRel = String(fileValue).replace(/\\/g, '/').replace(/^Public\//i, '');
-      if (isExcluded(originalRel, exclude, includeSensitive)) {
-        return { kind: 'locked', title: basename, url: null, preview: 'Исключено из публикации' };
       }
 
       return { kind: 'missing', title: basename, url: null, preview: 'Файл не найден при синхронизации' };
@@ -332,7 +302,6 @@ async function main() {
         edges: edges.length,
         notes: nodes.filter((node) => node.kind === 'note').length,
         media: nodes.filter((node) => ['image', 'video', 'audio', 'pdf'].includes(node.kind)).length,
-        locked: nodes.filter((node) => node.kind === 'locked').length,
       },
     };
 
@@ -344,10 +313,31 @@ async function main() {
     }
   }
 
+  // --- Связи между холстами через общие вложенные записи ---
+  const canvasLinks = new Map(Object.keys(canvases).map((slug) => [slug, new Set()]));
+  const noteToCanvases = new Map();
+  for (const draft of drafts.filter((item) => item.ext === '.canvas')) {
+    for (const target of draft.canvasOutgoing) {
+      if (!noteToCanvases.has(target)) noteToCanvases.set(target, []);
+      noteToCanvases.get(target).push(draft.slug);
+    }
+  }
+  for (const slugs of noteToCanvases.values()) {
+    for (let i = 0; i < slugs.length; i++) {
+      for (let j = i + 1; j < slugs.length; j++) {
+        if (slugs[i] === slugs[j]) continue;
+        canvasLinks.get(slugs[i])?.add(slugs[j]);
+        canvasLinks.get(slugs[j])?.add(slugs[i]);
+      }
+    }
+  }
+
   // --- Второй проход: конвертируем ссылки и записываем файлы ---
   const notes = [];
   for (const draft of drafts) {
-    const outgoing = new Set(draft.canvasOutgoing);
+    const outgoing = new Set(
+      draft.ext === '.canvas' ? (canvasLinks.get(draft.slug) || []) : draft.canvasOutgoing
+    );
     let body = draft.body;
 
     const resolveMedia = (target) => {
@@ -444,9 +434,12 @@ async function main() {
     }
   }
 
+  // --- На сайте показываются только холсты ---
+  const published = notes.filter((note) => note.kind === 'canvas');
+
   // --- Папки для Explorer и графов по разделам ---
   const folderSet = new Set();
-  for (const note of notes) {
+  for (const note of published) {
     if (!note.folder) continue;
     const parts = note.folder.split('/');
     for (let i = 1; i <= parts.length; i++) folderSet.add(parts.slice(0, i).join('/'));
@@ -455,29 +448,24 @@ async function main() {
     .map((folder) => ({
       path: folder,
       segments: folder.split('/'),
-      count: notes.filter((note) => note.folder === folder || note.folder.startsWith(`${folder}/`)).length,
-      direct: notes.filter((note) => note.folder === folder).length,
+      count: published.filter((note) => note.folder === folder || note.folder.startsWith(`${folder}/`)).length,
+      direct: published.filter((note) => note.folder === folder).length,
     }))
     .sort((a, b) => a.path.localeCompare(b.path, 'ru'));
 
   const manifest = {
     generatedAt: new Date().toISOString(),
-    siteTitle: config.siteTitle || 'Мой сад',
+    siteTitle: config.siteTitle || 'Архив',
     siteDescription: config.siteDescription || '',
-    notes: notes.sort((a, b) => String(b.updated).localeCompare(String(a.updated))),
+    notes: published.sort((a, b) => String(b.updated).localeCompare(String(a.updated))),
     backlinks,
     canvases,
     folders,
   };
   await fs.writeFile(path.join(DATA_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
 
-  console.log(`│ Заметок: ${notes.length}, холстов: ${Object.keys(canvases).length}, медиа: ${mediaCount}`);
-  if (skipped.length) console.log(`│ Пропущено (личное/служебное): ${skipped.length}`);
+  console.log(`│ Холстов: ${published.length}, файлов: ${notes.length}, вложений: ${mediaCount}`);
   console.log('└────────────────────────────────────────────────');
-  if (skipped.length) {
-    console.log('Примеры пропущенного:');
-    skipped.slice(0, 10).forEach((item) => console.log('  • ' + item));
-  }
 }
 
 main().catch((error) => {

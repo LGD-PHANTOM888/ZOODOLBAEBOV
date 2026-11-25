@@ -1,30 +1,8 @@
 {
-  "generatedAt": "2026-11-25T19:06:34.416Z",
+  "generatedAt": "2026-11-25T19:24:32.905Z",
   "siteTitle": "Зоопарк Долбоебов",
-  "siteDescription": "Заметки, архив и всё остальное",
+  "siteDescription": "Архив холстов",
   "notes": [
-    {
-      "slug": "obnovleniya-10495d",
-      "title": "Обновление 1.0",
-      "folder": "",
-      "kind": "note",
-      "tags": [],
-      "description": "Тут не все пока дегенераты, но будет удобный поиск людей и их данных, также будут архивы с видео и тд. Добавлены базовые дегенераты, а также их видео.",
-      "updated": "2026-11-25",
-      "words": 52,
-      "outgoing": []
-    },
-    {
-      "slug": "predlozhka-tg-bot-predlozkadegeneratos-bot-7a517a",
-      "title": "Предложка тг-бот @Predlozkadegeneratos_bot",
-      "folder": "",
-      "kind": "note",
-      "tags": [],
-      "description": "@Predlozkadegeneratosbot",
-      "updated": "2026-11-25",
-      "words": 1,
-      "outgoing": []
-    },
     {
       "slug": "rbartem-goroshkoartem-goroshko-82bdb6",
       "title": "Артем Горошко",
@@ -35,9 +13,7 @@
       "updated": "2026-11-25",
       "words": 0,
       "outgoing": [
-        "rbartem-goroshkoprufy-9819f2",
-        "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e",
-        "rbartem-goroshkoucheba-artema-goroshko-eb1465"
+        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
       ]
     },
     {
@@ -50,20 +26,9 @@
       "updated": "2026-11-25",
       "words": 0,
       "outgoing": [
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmatiz-i-makar-ugro-68e7bd",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichzaprosy-na-pornoha-9b67a7",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichshkola-matiza-2cc3e7",
-        "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e",
-        "rbartem-goroshkoprufy-9819f2",
-        "rbartem-goroshkolichnye-foto-c7537d",
-        "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f",
-        "ukrcherkassyvlad-zasedkogeystvo-vlada-zasedko-2f717b",
-        "ukrcherkassyvlad-zasedkoizvineniya-vlada-zasedko-18afb3",
-        "rbartem-goroshkoucheba-artema-goroshko-eb1465",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a"
+        "rbartem-goroshkoartem-goroshko-82bdb6",
+        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791",
+        "ukrcherkassyvlad-zasedkovlad-zasedko-e32427"
       ]
     },
     {
@@ -76,21 +41,8 @@
       "updated": "2026-11-25",
       "words": 0,
       "outgoing": [
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734",
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2"
+        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
       ]
-    },
-    {
-      "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d",
-      "title": "Соц-сети Вики Алексеевны",
-      "folder": "РФ/Москва/Сергиев-Посад/Скоропусковск/Вика Алексеевна",
-      "kind": "note",
-      "tags": [],
-      "description": "ВКонтакте https://vk.com/id751889182 Одноклассники https://ok.ru/profile/591327213219 Telegram https://t.me/llovepasha500 Telegram https://t.me/ralinalove56k Telegram https://t.me/",
-      "updated": "2026-11-25",
-      "words": 14,
-      "outgoing": []
     },
     {
       "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9",
@@ -101,9 +53,7 @@
       "description": "Холст · 8 узлов · 7 связей",
       "updated": "2026-11-25",
       "words": 0,
-      "outgoing": [
-        "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d"
-      ]
+      "outgoing": []
     },
     {
       "slug": "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86",
@@ -125,10 +75,7 @@
       "description": "Холст · 7 узлов · 6 связей",
       "updated": "2026-11-25",
       "words": 0,
-      "outgoing": [
-        "rfomsksindyanov-artem-vladislavovichsindyanov-artem-vladislavovich-e395bd",
-        "rfomsksindyanov-artem-vladislavovichmat-sindyanova-artema-vladislavovich-495fcd"
-      ]
+      "outgoing": []
     },
     {
       "slug": "ukrcherkassyvlad-zasedkovlad-zasedko-e32427",
@@ -140,7 +87,7 @@
       "updated": "2026-11-25",
       "words": 0,
       "outgoing": [
-        "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f"
+        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
       ]
     },
     {
@@ -153,252 +100,78 @@
       "updated": "2026-11-25",
       "words": 0,
       "outgoing": []
-    },
-    {
-      "slug": "rfomsksindyanov-artem-vladislavovichmat-sindyanova-artema-vladislavovich-495fcd",
-      "title": "МАТЬ СИНДЯНОВА АРТЕМА ВЛАДИСЛАВОВИЧА",
-      "folder": "РФ/Омск/СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ",
-      "kind": "note",
-      "tags": [],
-      "description": "Фио: Синдянова Людмила Владимировна ДР: 11.09.1985 Телефоны: +79835218121 +79136408008 Паспорт: 5216558466 Снилс: 19271048473 Почты: lyudok1985@inbox.ru (Пароль 160185) Старый адре",
-      "updated": "2026-10-03",
-      "words": 28,
-      "outgoing": []
-    },
-    {
-      "slug": "rfomsksindyanov-artem-vladislavovichsindyanov-artem-vladislavovich-e395bd",
-      "title": "СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ",
-      "folder": "РФ/Омск/СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ",
-      "kind": "note",
-      "tags": [],
-      "description": "Фио: СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ Номер: +79088059244 Почты: artemsindanov175@gmail.com lyudok1985@inbox.ru ДР: 28.09.2008 Старый адрес: обл. Омская, г. Омск, ул. Завертяева,9,50 С",
-      "updated": "2026-10-03",
-      "words": 31,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a",
-      "title": "Класс 11-В",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "Ученики Данил Карташов Александрович Макар Семышев Влад Заседко",
-      "updated": "2026-09-30",
-      "words": 8,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichshkola-matiza-2cc3e7",
-      "title": "Школа Матиза",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "Название 1: Гбоу Свердловской Области Екатеринбургская Школа №1 Название 2: ГКОУ СО Екатеринбургская школа № 1 Адрес: ул. Татищева, 78, Екатеринбург, Свердловская обл., 620000 Сайт",
-      "updated": "2026-09-16",
-      "words": 79,
-      "outgoing": []
-    },
-    {
-      "slug": "rbartem-goroshkolichnye-foto-c7537d",
-      "title": "Личные фото",
-      "folder": "РБ/Артем Горошко",
-      "kind": "note",
-      "tags": [],
-      "description": "",
-      "updated": "2026-09-12",
-      "words": 0,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichzaprosy-na-pornoha-9b67a7",
-      "title": "Запросы на порнохабе Матиза",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "Порно на русском языке Порно українською мовою 3d AI Любительское Анальный Араб Азиатка ASMR Жопа BBW Би Большая Жопа Большой Член Большая Грудь Черная Блондинка Минет Брюнетка Кам",
-      "updated": "2026-09-12",
-      "words": 81,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmatiz-i-makar-ugro-68e7bd",
-      "title": "Матиз и Макар угрожают",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "Pasted image 20260912181813.png Дефы матиза: @gongonka +998779391154 (@MOGGmed)doc2026-09-1218-20-10.mp4",
-      "updated": "2026-09-12",
-      "words": 8,
-      "outgoing": []
-    },
-    {
-      "slug": "ukrcherkassyvlad-zasedkogeystvo-vlada-zasedko-2f717b",
-      "title": "Гейство Влада Заседко",
-      "folder": "УКР/Черкассы/Влад Заседко",
-      "kind": "note",
-      "tags": [],
-      "description": "",
-      "updated": "2026-09-12",
-      "words": 0,
-      "outgoing": []
-    },
-    {
-      "slug": "ukrcherkassyvlad-zasedkoizvineniya-vlada-zasedko-18afb3",
-      "title": "Извинения Влада Заседко",
-      "folder": "УКР/Черкассы/Влад Заседко",
-      "kind": "note",
-      "tags": [],
-      "description": "",
-      "updated": "2026-09-12",
-      "words": 0,
-      "outgoing": []
-    },
-    {
-      "slug": "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e",
-      "title": "Особые приметы Артема Горошко",
-      "folder": "РБ/Артем Горошко",
-      "kind": "note",
-      "tags": [],
-      "description": "Родинка на лобке слева, а также родинка на животе слева",
-      "updated": "2026-09-07",
-      "words": 10,
-      "outgoing": []
-    },
-    {
-      "slug": "rbartem-goroshkoprufy-9819f2",
-      "title": "Пруфы",
-      "folder": "РБ/Артем Горошко",
-      "kind": "note",
-      "tags": [],
-      "description": "",
-      "updated": "2026-09-07",
-      "words": 0,
-      "outgoing": []
-    },
-    {
-      "slug": "rbartem-goroshkoucheba-artema-goroshko-eb1465",
-      "title": "Учеба Артема Горошко",
-      "folder": "РБ/Артем Горошко",
-      "kind": "note",
-      "tags": [],
-      "description": "Специальность: Механик или Электрик, учится 3 курс Учится: Минский государственный машиностроительный колледж",
-      "updated": "2026-09-07",
-      "words": 12,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734",
-      "title": "Вселенные и разбор по Макару",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "Вселенная матизаподобных: Пожиратель людей, каратель, фашист Вселенная С404: Умер Вселенная С404: Не существовал Вселенная PDF-1: Убит Матизом (Данилом Карташовым Александровичем) ",
-      "updated": "2026-09-07",
-      "words": 34,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f",
-      "title": "Какую роль играет Макар",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "1) Роль девушки для Матиза (Данила Карташова Александровича) 2) Роль подруги в школе 3) Роль дефа Матиза (Данила Карташова Александровича) 4) Родил для Матиза девочку - Аня Карташо",
-      "updated": "2026-09-07",
-      "words": 28,
-      "outgoing": []
-    },
-    {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2",
-      "title": "Статус по политике Макара и Матиза",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "note",
-      "tags": [],
-      "description": "Политика: Украина Рожден: РФ",
-      "updated": "2026-09-07",
-      "words": 4,
-      "outgoing": []
-    },
-    {
-      "slug": "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f",
-      "title": "Цели и действия Влада Заседко",
-      "folder": "УКР/Черкассы/Влад Заседко",
-      "kind": "note",
-      "tags": [],
-      "description": "Поиск детей и несовершенно летних по Украине и насилование их при помощи своих 2 см",
-      "updated": "2026-09-07",
-      "words": 15,
-      "outgoing": []
     }
   ],
   "backlinks": {
     "obnovleniya-10495d": [],
     "predlozhka-tg-bot-predlozkadegeneratos-bot-7a517a": [],
-    "rbartem-goroshkoartem-goroshko-82bdb6": [],
-    "rbartem-goroshkolichnye-foto-c7537d": [
+    "rbartem-goroshkoakkaunty-artema-goroshko-d8749a": [],
+    "rbartem-goroshkoartem-goroshko-82bdb6": [
       "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
     ],
-    "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e": [
+    "rbartem-goroshkolichnye-dannye-artem-goroshko-976e9a": [],
+    "rbartem-goroshkolichnye-dannye-materi-artema-goroshko-58d633": [],
+    "rbartem-goroshkolichnye-dannye-syna-teti-artema-goroshko-02e41c": [],
+    "rbartem-goroshkolichnye-dannye-teti-artema-goroshko-8ac483": [],
+    "rbartem-goroshkolichnye-foto-c7537d": [],
+    "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e": [],
+    "rbartem-goroshkoprufy-9819f2": [],
+    "rbartem-goroshkoucheba-artema-goroshko-eb1465": [],
+    "rbvlad-okuroklichnye-dannye-vlada-okurka-41263e": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc": [
       "rbartem-goroshkoartem-goroshko-82bdb6",
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rbartem-goroshkoprufy-9819f2": [
-      "rbartem-goroshkoartem-goroshko-82bdb6",
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rbartem-goroshkoucheba-artema-goroshko-eb1465": [
-      "rbartem-goroshkoartem-goroshko-82bdb6",
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc",
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc": [],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichzaprosy-na-pornoha-9b67a7": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc",
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791": [],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmatiz-i-makar-ugro-68e7bd": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc",
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791"
-    ],
-    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichshkola-matiza-2cc3e7": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d": [
-      "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9"
-    ],
-    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9": [],
-    "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86": [],
-    "rfomsksindyanov-artem-vladislavovichbez-nazvaniya-14eab1": [],
-    "rfomsksindyanov-artem-vladislavovichmat-sindyanova-artema-vladislavovich-495fcd": [
-      "rfomsksindyanov-artem-vladislavovichbez-nazvaniya-14eab1"
-    ],
-    "rfomsksindyanov-artem-vladislavovichsindyanov-artem-vladislavovich-e395bd": [
-      "rfomsksindyanov-artem-vladislavovichbez-nazvaniya-14eab1"
-    ],
-    "ukrcherkassyvlad-zasedkovlad-zasedko-e32427": [],
-    "ukrcherkassyvlad-zasedkogeystvo-vlada-zasedko-2f717b": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "ukrcherkassyvlad-zasedkoizvineniya-vlada-zasedko-18afb3": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-    ],
-    "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f": [
-      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc",
+      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791",
       "ukrcherkassyvlad-zasedkovlad-zasedko-e32427"
     ],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichzaprosy-na-pornoha-9b67a7": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-bab-435d5d": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-bra-5db1bb": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ded-d29127": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dru-128d53": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dya-d1fa6e": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-zhe-6d695d": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-e68fab": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-4490ea": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-530c9e": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-8d051a": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-a414c6": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ses-bf28cd": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-syn-d748aa": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791": [
+      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
+    ],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmatiz-i-makar-ugro-68e7bd": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2": [],
+    "rfekaterinburgkartashovydanil-kartashov-aleksandrovichshkola-matiza-2cc3e7": [],
+    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-viki-ale-7e4313": [],
+    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-materi-v-6a40e7": [],
+    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-ottsa-vi-d3c780": [],
+    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d": [],
+    "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9": [],
+    "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-brata-yasminy-fathuloe-2740e7": [],
+    "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-deda-yasminy-fathuloev-1dbd95": [],
+    "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-materi-yasminy-fathulo-01810a": [],
+    "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-ottsa-yasminy-fathuloe-3bd03d": [],
+    "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-yasminy-fathuloevoy-586bb6": [],
+    "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86": [],
+    "rfomsksindyanov-artem-vladislavovichbez-nazvaniya-14eab1": [],
+    "rfomsksindyanov-artem-vladislavovichmat-sindyanova-artema-vladislavovich-495fcd": [],
+    "rfomsksindyanov-artem-vladislavovichsindyanov-artem-vladislavovich-e395bd": [],
+    "rfrespublika-buryatiyavikalichnye-dannye-viki-reny-ad5f6c": [],
+    "rfrespublika-buryatiyavikalichnye-dannye-materi-viki-reny-74d5f9": [],
+    "ukrcherkassyvlad-zasedkovlad-zasedko-e32427": [
+      "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
+    ],
+    "ukrcherkassyvlad-zasedkogeystvo-vlada-zasedko-2f717b": [],
+    "ukrcherkassyvlad-zasedkoizvineniya-vlada-zasedko-18afb3": [],
+    "ukrcherkassyvlad-zasedkolichnye-dannye-vlada-zasedko-c32206": [],
+    "ukrcherkassyvlad-zasedkolichnye-dannye-materi-vlada-zasedko-59c18a": [],
+    "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f": [],
+    "ukrchernigovakkaunty-evgeniya-43da3a": [],
+    "ukrchernigovlichnye-dannye-evgeniya-a4a3d7": [],
     "ukrchernigovholst-evgeniya-b63253": []
   },
   "canvases": {
@@ -415,10 +188,12 @@
           "width": 380,
           "height": 301,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Артем Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Артем Горошко",
+          "slug": "rbartem-goroshkolichnye-dannye-artem-goroshko-976e9a",
+          "url": "/notes/rbartem-goroshkolichnye-dannye-artem-goroshko-976e9a/",
+          "preview": "Фио: Артем Горошко Олегович Возраст: 16 лет Город: Минск Страна: Беларусь ДР: 2009 3 июня Живет: Общежитие № 22, Андреевская улица, 4 Родители: Тетя = ОПЕКУН",
+          "search": "Фио: Артем Горошко Олегович Возраст: 16 лет Город: Минск Страна: Беларусь ДР: 2009 3 июня Живет: Общежитие № 22, Андреевская улица, 4 Родители: Тетя = ОПЕКУН",
           "text": ""
         },
         {
@@ -504,6 +279,7 @@
           "slug": "rbartem-goroshkoprufy-9819f2",
           "url": "/notes/rbartem-goroshkoprufy-9819f2/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -673,6 +449,7 @@
           "slug": "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e",
           "url": "/notes/rbartem-goroshkoosobye-primety-artema-goroshko-723c7e/",
           "preview": "Родинка на лобке слева, а также родинка на животе слева",
+          "search": "Родинка на лобке слева, а также родинка на животе слева",
           "text": ""
         },
         {
@@ -683,10 +460,12 @@
           "width": 380,
           "height": 180,
           "color": null,
-          "kind": "locked",
-          "title": "Аккаунты Артема Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Аккаунты Артема Горошко",
+          "slug": "rbartem-goroshkoakkaunty-artema-goroshko-d8749a",
+          "url": "/notes/rbartem-goroshkoakkaunty-artema-goroshko-d8749a/",
+          "preview": "ТГ: @NightL1te2 ТТ: nightl1te6 ВК: @theshadowfromprime Почта: tokitomuichiro2719@gmail.com",
+          "search": "ТГ: @NightL1te2 ТТ: nightl1te6 ВК: @theshadowfromprime Почта: tokitomuichiro2719@gmail.com",
           "text": ""
         },
         {
@@ -856,6 +635,7 @@
           "slug": "rbartem-goroshkoucheba-artema-goroshko-eb1465",
           "url": "/notes/rbartem-goroshkoucheba-artema-goroshko-eb1465/",
           "preview": "Специальность: Механик или Электрик, учится 3 курс Учится: Минский государственный машиностроительный колледж",
+          "search": "Специальность: Механик или Электрик, учится 3 курс Учится: Минский государственный машиностроительный колледж",
           "text": ""
         },
         {
@@ -1360,9 +1140,8 @@
       "stats": {
         "nodes": 44,
         "edges": 46,
-        "notes": 3,
-        "media": 39,
-        "locked": 2
+        "notes": 5,
+        "media": 39
       }
     },
     "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc": {
@@ -1378,10 +1157,12 @@
           "width": 400,
           "height": 601,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-530c9e",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-530c9e/",
+          "preview": "Фио: Карташов Даниил Александрович Адрес старый: Россия, Свердловская область, Екатеринбург, ул. Ереванская, д 60, кв 138 Адрес: Россия, Свердловская область, Екатеринбург, ул. Фролова, д 21, 9 этаж, кв 122 Номер: +79396091909 Старый телефон: +79680465395 ДР: 26 мар. 2007 (19 лет) ТГ: @Mattiss96 ВК: Mattiss95, Mattiss96 Одноклассники: https://ok.ru/profile/5",
+          "search": "Фио: Карташов Даниил Александрович Адрес старый: Россия, Свердловская область, Екатеринбург, ул. Ереванская, д 60, кв 138 Адрес: Россия, Свердловская область, Екатеринбург, ул. Фролова, д 21, 9 этаж, кв 122 Номер: +79396091909 Старый телефон: +79680465395 ДР: 26 мар. 2007 (19 лет) ТГ: @Mattiss96 ВК: Mattiss95, Mattiss96 Одноклассники: https://ok.ru/profile/588724579840 ИНН: 662341416871 Паспорт: 6506915103 СНИЛС: 09442641677 · 19752380004 Тип полиса ОМС: 6696299723000265 Мед учреждение: ДГКБ 11 Екатеринбург Страховая компания: ООО СМК Урал-Рецепт М Адрес: ВЕРХ-ИСЕТСКИЙ, ЕКАТЕРИНБУРГ, ФРОЛОВА д.23 кв.122",
           "text": ""
         },
         {
@@ -1392,10 +1173,12 @@
           "width": 400,
           "height": 672,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные матери Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные матери Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-4490ea",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-4490ea/",
+          "preview": "Фио: Карташова Ольга Викторовна ДР: 18 ноября 1969г Адрес: Свердловская обл, г Екатеринбург, ул Фролова,23,122 Номер: +79045402003 ВК: https://vk.ru/id864439567?from=gifts Одноклассники: https://ok.ru/profile/570522534772 Паспорт: 6515077279 ИНН: 665900866170 Снилс: 07688600715 Тип полиса ОМС: 6648030881000683 Мед учреждение: ЦГБ 3 Екатеринбург Страховая ком",
+          "search": "Фио: Карташова Ольга Викторовна ДР: 18 ноября 1969г Адрес: Свердловская обл, г Екатеринбург, ул Фролова,23,122 Номер: +79045402003 ВК: https://vk.ru/id864439567?from=gifts Одноклассники: https://ok.ru/profile/570522534772 Паспорт: 6515077279 ИНН: 665900866170 Снилс: 07688600715 Тип полиса ОМС: 6648030881000683 Мед учреждение: ЦГБ 3 Екатеринбург Страховая компания: ООО СМК Урал-Рецепт М Почты: sergejmontaj380@gmail.com kartashova801@gmail.com kartahova801@gmail.com Поездки: Адрес 1: Откуда: Фролова ул.,Екатеринбург/, 231 Куда: Ильича ул.,Екатеринбург/, 17",
           "text": ""
         },
         {
@@ -1406,10 +1189,12 @@
           "width": 400,
           "height": 212,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные отца Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные отца Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-a414c6",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-a414c6/",
+          "preview": "Фио: Карташов Александр Номер: ??? ВК: ??? Одноклассники: ???",
+          "search": "Фио: Карташов Александр Номер: ??? ВК: ??? Одноклассники: ???",
           "text": ""
         },
         {
@@ -1420,10 +1205,12 @@
           "width": 400,
           "height": 336,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные бабы Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные бабы Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-bab-435d5d",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-bab-435d5d/",
+          "preview": "Фио: Карташова Ирина Александровна ДР: 02.07.1990 Паспорт: Отделом УФМС России по Свердловской области в Железнодорожном районе города Екатеринбурга, id 6510994978 Снилс: 09590546710 Адрес: Россия, Свердловская область, г. Екатеринбург, ул. Сортировочная, д. 12, кв. 20",
+          "search": "Фио: Карташова Ирина Александровна ДР: 02.07.1990 Паспорт: Отделом УФМС России по Свердловской области в Железнодорожном районе города Екатеринбурга, id 6510994978 Снилс: 09590546710 Адрес: Россия, Свердловская область, г. Екатеринбург, ул. Сортировочная, д. 12, кв. 20",
           "text": ""
         },
         {
@@ -1434,10 +1221,12 @@
           "width": 400,
           "height": 212,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные деда Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные деда Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ded-d29127",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ded-d29127/",
+          "preview": "ВК: https://vk.ru/id208190223",
+          "search": "ВК: https://vk.ru/id208190223",
           "text": ""
         },
         {
@@ -1448,10 +1237,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные дяди Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные дяди Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dya-d1fa6e",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dya-d1fa6e/",
+          "preview": "Фио: Сергей Карташев ДР: 30 декабря Воинслужб: 57330 0РВБ-БТ Срок воинслужб: 2005-2007 Номер: +789024411462 ВК: https://vk.ru/id122195316 Одноклассники: https://ok.ru/profile/373998438674/photos",
+          "search": "Фио: Сергей Карташев ДР: 30 декабря Воинслужб: 57330 0РВБ-БТ Срок воинслужб: 2005-2007 Номер: +789024411462 ВК: https://vk.ru/id122195316 Одноклассники: https://ok.ru/profile/373998438674/photos",
           "text": ""
         },
         {
@@ -1462,10 +1253,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные жена дяди Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные жена дяди Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-zhe-6d695d",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-zhe-6d695d/",
+          "preview": "Фио: Светлана Евтюгина Школа: Еланская средняя школа '88 Годы в школе: 1980–1988Номер: +79041711247 ВК: https://vk.ru/id155468868",
+          "search": "Фио: Светлана Евтюгина Школа: Еланская средняя школа '88 Годы в школе: 1980–1988Номер: +79041711247 ВК: https://vk.ru/id155468868",
           "text": ""
         },
         {
@@ -1476,10 +1269,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные друга Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные друга Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dru-128d53",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dru-128d53/",
+          "preview": "Личные данные: Фио: Макар Семышев Номер: +79676386121 ТГ: @Makar1160 ВК: https://vk.ru/id1098404804 Почты: monarchbog620@mail.ru ruliz620@mail.ru Паспорт: 6514951869 · 6502015842 Статус: Умер от рака сердца, 15.09.2026",
+          "search": "Личные данные: Фио: Макар Семышев Номер: +79676386121 ТГ: @Makar1160 ВК: https://vk.ru/id1098404804 Почты: monarchbog620@mail.ru ruliz620@mail.ru Паспорт: 6514951869 · 6502015842 Статус: Умер от рака сердца, 15.09.2026",
           "text": ""
         },
         {
@@ -1495,6 +1290,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734/",
           "preview": "Вселенная матизаподобных: Пожиратель людей, каратель, фашист Вселенная С404: Умер Вселенная С404: Не существовал Вселенная PDF-1: Убит Матизом (Данилом Карташовым Александровичем) Вселенная J19C7: Живет и процветает Вселенная С-137 (Наша): Умер 26 мая, воскрес 4 сентября",
+          "search": "Вселенная матизаподобных: Пожиратель людей, каратель, фашист Вселенная С404: Умер Вселенная С404: Не существовал Вселенная PDF-1: Убит Матизом (Данилом Карташовым Александровичем) Вселенная J19C7: Живет и процветает Вселенная С-137 (Наша): Умер 26 мая, воскрес 4 сентября",
           "text": ""
         },
         {
@@ -1510,6 +1306,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f/",
           "preview": "1) Роль девушки для Матиза (Данила Карташова Александровича) 2) Роль подруги в школе 3) Роль дефа Матиза (Данила Карташова Александровича) 4) Родил для Матиза девочку - Аня Карташова",
+          "search": "1) Роль девушки для Матиза (Данила Карташова Александровича) 2) Роль подруги в школе 3) Роль дефа Матиза (Данила Карташова Александровича) 4) Родил для Матиза девочку - Аня Карташова",
           "text": ""
         },
         {
@@ -1525,6 +1322,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2/",
           "preview": "Политика: Украина Рожден: РФ",
+          "search": "Политика: Украина Рожден: РФ",
           "text": ""
         },
         {
@@ -1535,10 +1333,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные отца Макара.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные отца Макара",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-8d051a",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-8d051a/",
+          "preview": "Фио: Семышев Михаил Викторович Адрес: Екатеринбург ул Авиационная дом 65/1 кв 33, подъезд 1, этаж 17 Номер: +79126276364 ДР: 28.01.1970 (56 лет) Имя на Miltor: Avantbeton.ru Почта: avantbeton@mail.ru",
+          "search": "Фио: Семышев Михаил Викторович Адрес: Екатеринбург ул Авиационная дом 65/1 кв 33, подъезд 1, этаж 17 Номер: +79126276364 ДР: 28.01.1970 (56 лет) Имя на Miltor: Avantbeton.ru Почта: avantbeton@mail.ru",
           "text": ""
         },
         {
@@ -1549,10 +1349,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные матери Макара.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные матери Макара",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-e68fab",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-e68fab/",
+          "preview": "Фио: Поспелова Надежда Николаевна Телефон: +79321218390",
+          "search": "Фио: Поспелова Надежда Николаевна Телефон: +79321218390",
           "text": ""
         },
         {
@@ -1596,6 +1398,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmatiz-i-makar-ugro-68e7bd",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichmatiz-i-makar-ugro-68e7bd/",
           "preview": "Pasted image 20260912181813.png Дефы матиза: @gongonka +998779391154 (@MOGGmed)doc2026-09-1218-20-10.mp4",
+          "search": "Pasted image 20260912181813.png Дефы матиза: @gongonka +998779391154 (@MOGGmed)doc2026-09-1218-20-10.mp4",
           "text": ""
         },
         {
@@ -1634,10 +1437,12 @@
           "width": 400,
           "height": 200,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные сестры Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные сестры Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ses-bf28cd",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ses-bf28cd/",
+          "preview": "ВК: https://vk.ru/foxoscorp909 Инфа: или сестра или твинк Статус: Умерла",
+          "search": "ВК: https://vk.ru/foxoscorp909 Инфа: или сестра или твинк Статус: Умерла",
           "text": ""
         },
         {
@@ -1793,6 +1598,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichzaprosy-na-pornoha-9b67a7",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichzaprosy-na-pornoha-9b67a7/",
           "preview": "Порно на русском языке Порно українською мовою 3d AI Любительское Анальный Араб Азиатка ASMR Жопа BBW Би Большая Жопа Большой Член Большая Грудь Черная Блондинка Минет Брюнетка Камера Порно Кастинг Компиляция Ковбойша Кремпай Рогоносец/Горячая Жена Сперма Выстрел Глубокий минет Доггистайл ДП Фембой Фемдом FFM Фильм Фистинг Трахнутая Семья Фута Групповой секс",
+          "search": "Порно на русском языке Порно українською мовою 3d AI Любительское Анальный Араб Азиатка ASMR Жопа BBW Би Большая Жопа Большой Член Большая Грудь Черная Блондинка Минет Брюнетка Камера Порно Кастинг Компиляция Ковбойша Кремпай Рогоносец/Горячая Жена Сперма Выстрел Глубокий минет Доггистайл ДП Фембой Фемдом FFM Фильм Фистинг Трахнутая Семья Фута Групповой секс Растянутая вагина Гей Хардкор Горячий Индийский Межрасовый Латина Лесбиянка Нижнее белье Зрелая Милф Милф анальный Смазанный Оргазм Рыжеволосая Roblox Русская Худая Соло Сквиртинг Чулки Подросток Транссексуал Xxx Гей-порно Транссексуальное порно",
           "text": ""
         },
         {
@@ -1803,10 +1609,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные сыновей дяди Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные сыновей дяди Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-syn-d748aa",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-syn-d748aa/",
+          "preview": "Фио: Максим Карташев ВК: https://vk.ru/br1ghton --- Фио: Саша Карташев Школа: Еланская средняя школа '16 ДР: 7 Апреля Номер: +789527331302 ВК: https://vk.ru/id144359686",
+          "search": "Фио: Максим Карташев ВК: https://vk.ru/br1ghton --- Фио: Саша Карташев Школа: Еланская средняя школа '16 ДР: 7 Апреля Номер: +789527331302 ВК: https://vk.ru/id144359686",
           "text": ""
         },
         {
@@ -1822,6 +1630,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichshkola-matiza-2cc3e7",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichshkola-matiza-2cc3e7/",
           "preview": "Название 1: Гбоу Свердловской Области Екатеринбургская Школа №1 Название 2: ГКОУ СО Екатеринбургская школа № 1 Адрес: ул. Татищева, 78, Екатеринбург, Свердловская обл., 620000 Сайт: https://xn--1-itbpro4b.xn--p1ai/ Телефон: +83432325550 Почта: esh73@inbox.ru Номер: +73432325550 ВК: Екатеринбургская школа № 1 Директор бюджетного учреждения Фио: Плетенецкая Ол",
+          "search": "Название 1: Гбоу Свердловской Области Екатеринбургская Школа №1 Название 2: ГКОУ СО Екатеринбургская школа № 1 Адрес: ул. Татищева, 78, Екатеринбург, Свердловская обл., 620000 Сайт: https://xn--1-itbpro4b.xn--p1ai/ Телефон: +83432325550 Почта: esh73@inbox.ru Номер: +73432325550 ВК: Екатеринбургская школа № 1 Директор бюджетного учреждения Фио: Плетенецкая Ольга Анатольевна Адрес: здание по адресу ул. Татищева, 78 Телефон: +73432325550 Почта: esh73@inbox.ru Часы приёма: среда с 14.00 до 17.00 Заместитель директора по УВР Фио: Хисматуллина Надежда Филициановна Адрес: здание по адресу ул. Татищева, 78 Телефон: +73432325550",
           "text": ""
         },
         {
@@ -1832,10 +1641,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Артем Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Артем Горошко",
+          "slug": "rbartem-goroshkolichnye-dannye-artem-goroshko-976e9a",
+          "url": "/notes/rbartem-goroshkolichnye-dannye-artem-goroshko-976e9a/",
+          "preview": "Фио: Артем Горошко Олегович Возраст: 16 лет Город: Минск Страна: Беларусь ДР: 2009 3 июня Живет: Общежитие № 22, Андреевская улица, 4 Родители: Тетя = ОПЕКУН",
+          "search": "Фио: Артем Горошко Олегович Возраст: 16 лет Город: Минск Страна: Беларусь ДР: 2009 3 июня Живет: Общежитие № 22, Андреевская улица, 4 Родители: Тетя = ОПЕКУН",
           "text": ""
         },
         {
@@ -1851,6 +1662,7 @@
           "slug": "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e",
           "url": "/notes/rbartem-goroshkoosobye-primety-artema-goroshko-723c7e/",
           "preview": "Родинка на лобке слева, а также родинка на животе слева",
+          "search": "Родинка на лобке слева, а также родинка на животе слева",
           "text": ""
         },
         {
@@ -1861,10 +1673,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Аккаунты Артема Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Аккаунты Артема Горошко",
+          "slug": "rbartem-goroshkoakkaunty-artema-goroshko-d8749a",
+          "url": "/notes/rbartem-goroshkoakkaunty-artema-goroshko-d8749a/",
+          "preview": "ТГ: @NightL1te2 ТТ: nightl1te6 ВК: @theshadowfromprime Почта: tokitomuichiro2719@gmail.com",
+          "search": "ТГ: @NightL1te2 ТТ: nightl1te6 ВК: @theshadowfromprime Почта: tokitomuichiro2719@gmail.com",
           "text": ""
         },
         {
@@ -1880,6 +1694,7 @@
           "slug": "rbartem-goroshkoprufy-9819f2",
           "url": "/notes/rbartem-goroshkoprufy-9819f2/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -2091,6 +1906,7 @@
           "slug": "rbartem-goroshkolichnye-foto-c7537d",
           "url": "/notes/rbartem-goroshkolichnye-foto-c7537d/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -2395,10 +2211,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Влада Заседко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Влада Заседко",
+          "slug": "ukrcherkassyvlad-zasedkolichnye-dannye-vlada-zasedko-c32206",
+          "url": "/notes/ukrcherkassyvlad-zasedkolichnye-dannye-vlada-zasedko-c32206/",
+          "preview": "Фио: Влад Заседко ДР: 2007 ВК: Удален ТГ: Удален ТТ: Удален",
+          "search": "Фио: Влад Заседко ДР: 2007 ВК: Удален ТГ: Удален ТТ: Удален",
           "text": ""
         },
         {
@@ -2414,6 +2232,7 @@
           "slug": "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f",
           "url": "/notes/ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f/",
           "preview": "Поиск детей и несовершенно летних по Украине и насилование их при помощи своих 2 см",
+          "search": "Поиск детей и несовершенно летних по Украине и насилование их при помощи своих 2 см",
           "text": ""
         },
         {
@@ -2424,10 +2243,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные матери Влада Заседко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные матери Влада Заседко",
+          "slug": "ukrcherkassyvlad-zasedkolichnye-dannye-materi-vlada-zasedko-59c18a",
+          "url": "/notes/ukrcherkassyvlad-zasedkolichnye-dannye-materi-vlada-zasedko-59c18a/",
+          "preview": "Фио: Ольга Заседко ВК: Facebook Был также брат, но Влад его убил и съел.",
+          "search": "Фио: Ольга Заседко ВК: Facebook Был также брат, но Влад его убил и съел.",
           "text": ""
         },
         {
@@ -2471,6 +2292,7 @@
           "slug": "rbartem-goroshkoprufy-9819f2",
           "url": "/notes/rbartem-goroshkoprufy-9819f2/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -2598,6 +2420,7 @@
           "slug": "rbartem-goroshkolichnye-foto-c7537d",
           "url": "/notes/rbartem-goroshkolichnye-foto-c7537d/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -2655,6 +2478,7 @@
           "slug": "ukrcherkassyvlad-zasedkogeystvo-vlada-zasedko-2f717b",
           "url": "/notes/ukrcherkassyvlad-zasedkogeystvo-vlada-zasedko-2f717b/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -2754,6 +2578,7 @@
           "slug": "ukrcherkassyvlad-zasedkoizvineniya-vlada-zasedko-18afb3",
           "url": "/notes/ukrcherkassyvlad-zasedkoizvineniya-vlada-zasedko-18afb3/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -2862,10 +2687,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные матери Артема Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные матери Артема Горошко",
+          "slug": "rbartem-goroshkolichnye-dannye-materi-artema-goroshko-58d633",
+          "url": "/notes/rbartem-goroshkolichnye-dannye-materi-artema-goroshko-58d633/",
+          "preview": "ФИО: Алексеева Виктория Андреевна ДАТА РОЖДЕНИЯ: 30.05.2005 ТЕЛЕФОН: 79267188737 АДРЕС ФАКТИЧЕСКИЙ: ПЕРВОМАЙСКАЯ 4 АКТУАЛЬНОСТЬ: 2021-03-31 ОМС: 7794499769000307 КОММЕНТАРИЙ: Категория: Контактные с заболевшими COVID-19 Предварительный диагноз: Контакт с больным и возможность заражения другими инфекционными болезнями",
+          "search": "ФИО: Алексеева Виктория Андреевна ДАТА РОЖДЕНИЯ: 30.05.2005 ТЕЛЕФОН: 79267188737 АДРЕС ФАКТИЧЕСКИЙ: ПЕРВОМАЙСКАЯ 4 АКТУАЛЬНОСТЬ: 2021-03-31 ОМС: 7794499769000307 КОММЕНТАРИЙ: Категория: Контактные с заболевшими COVID-19 Предварительный диагноз: Контакт с больным и возможность заражения другими инфекционными болезнями",
           "text": ""
         },
         {
@@ -2881,6 +2708,7 @@
           "slug": "rbartem-goroshkoucheba-artema-goroshko-eb1465",
           "url": "/notes/rbartem-goroshkoucheba-artema-goroshko-eb1465/",
           "preview": "Специальность: Механик или Электрик, учится 3 курс Учится: Минский государственный машиностроительный колледж",
+          "search": "Специальность: Механик или Электрик, учится 3 курс Учится: Минский государственный машиностроительный колледж",
           "text": ""
         },
         {
@@ -2891,10 +2719,12 @@
           "width": 400,
           "height": 3479,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные тети Артема Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Основные:",
+          "slug": "rbartem-goroshkolichnye-dannye-teti-artema-goroshko-8ac483",
+          "url": "/notes/rbartem-goroshkolichnye-dannye-teti-artema-goroshko-8ac483/",
+          "preview": "Основные: ФИО: Алексеева Дарья Михайловна ПОЧТА: alekseeva.dm3040@gmail.com ДАТА РОЖДЕНИЯ: 27.09.1987 ТЕЛЕФОН: +79267188737 ПАСПОРТ: 4509335207 КЕМ ВЫДАН: ОТДЕЛЕНИЕМ ПО Р-НУ ПРЕСНЕНСКИЙ ОУФМ СР ПО ГОР. МОСКВЕ В ЦАО 10.10.2007 СНИЛС: 13986053902 ИНН: 770302452776 ОМС: 7750210872000965 ОКРУГ: ЦАО РАЙОН РЕГИСТРАЦИИ: Пресненский АДРЕС РЕГИСТРАЦИИ: город Москва ,",
+          "search": "Основные: ФИО: Алексеева Дарья Михайловна ПОЧТА: alekseeva.dm3040@gmail.com ДАТА РОЖДЕНИЯ: 27.09.1987 ТЕЛЕФОН: +79267188737 ПАСПОРТ: 4509335207 КЕМ ВЫДАН: ОТДЕЛЕНИЕМ ПО Р-НУ ПРЕСНЕНСКИЙ ОУФМ СР ПО ГОР. МОСКВЕ В ЦАО 10.10.2007 СНИЛС: 13986053902 ИНН: 770302452776 ОМС: 7750210872000965 ОКРУГ: ЦАО РАЙОН РЕГИСТРАЦИИ: Пресненский АДРЕС РЕГИСТРАЦИИ: город Москва , 123317, Стрельбищенский переулок, дом 5, строение 3 ,кв. 19 МЕСТО РАБОТЫ: ОАО БАНК МОСКВЫ ДОЛЖНОСТЬ: ВЕДУЩИЙ СПЕЦИАЛИСТ КОММЕНТАРИЙ: Количество денй просрочки: 266 Карты: КАРТА МЕТРО: 6430107400194688011778 --- НОМЕР КАРТЫ АЛЬФА БАНКА: 1111110090411449 ДАТА ИСТЕЧЕНИЯ КАРТЫ: 2028-09-30 --- НОМЕР КАРТЫ АЛЬФА БАНКА 2: 1111110055711510 ДАТА ИСТЕЧЕНИЯ КАРТЫ: 2026-04-30 --- НОМЕР КАРТЫ АЛЬФА БАНКА 3: 5211782687419025 ДАТА ИСТЕЧЕНИЯ КАРТЫ: 2028-12-31 --- НОМЕР КАРТЫ АЛЬФА БАНКА 4: 1111110077728666 ДАТА ИСТЕЧЕНИЯ КАРТЫ: 2026-10-31 Адреса: АДРЕС 1: город Москва, поселение Кокошкино, дачный поселок Кокошкино, улица Первомайская, дом 4 АДРЕС 2: 108804, Россия, г Москва, п Кокошкино, дп Кокошкино, ул Дзержинского, дом 2А АДРЕС 3: Москва Город, Стрельбищенский Переулок,5,19 АДРЕС 4: г Москва, Стрельбищенский пер, д 5 к 3 КОММЕНТАРИЙ: Телефо",
           "text": ""
         },
         {
@@ -2919,10 +2749,12 @@
           "width": 630,
           "height": 820,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные сына тети Артема Горошко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "СТРАХОВАЯ КОМПАНИЯ:",
+          "slug": "rbartem-goroshkolichnye-dannye-syna-teti-artema-goroshko-02e41c",
+          "url": "/notes/rbartem-goroshkolichnye-dannye-syna-teti-artema-goroshko-02e41c/",
+          "preview": "ФИО: Алексеев Владимир Андреевич ДАТА РОЖДЕНИЯ: 11.11.2009 ТЕЛЕФОН: 79267188737 АДРЕС ФАКТИЧЕСКИЙ: ПЕРВОМАЙСКАЯ 4 АКТУАЛЬНОСТЬ: 2021-03-31 ОМС: 7700002133615109 КОММЕНТАРИЙ: Категория: Контактные с заболевшими COVID-19 Предварительный диагноз: Контакт с больным и возможность заражения другими инфекционными болезнями ТРУДОУСТРОЙСТВО: УЧАЩИЙСЯ СНИЛС: 185971296",
+          "search": "ФИО: Алексеев Владимир Андреевич ДАТА РОЖДЕНИЯ: 11.11.2009 ТЕЛЕФОН: 79267188737 АДРЕС ФАКТИЧЕСКИЙ: ПЕРВОМАЙСКАЯ 4 АКТУАЛЬНОСТЬ: 2021-03-31 ОМС: 7700002133615109 КОММЕНТАРИЙ: Категория: Контактные с заболевшими COVID-19 Предварительный диагноз: Контакт с больным и возможность заражения другими инфекционными болезнями ТРУДОУСТРОЙСТВО: УЧАЩИЙСЯ СНИЛС: 18597129629 АДРЕС ФАКТИЧЕСКИЙ: Москва Г, Кокошкино Д, Майская, Д. 16 АДРЕС ПОСТОЯННЫЙ: Москва Г, Кокошкино Д, Майская, Д. 16 СТРАХОВАЯ КОМПАНИЯ: СТРАХОВАЯ КОМПАНИЯ: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ СТРАХОВАЯ МЕДИЦИНСКАЯ КОМПАНИЯ РЕСО-МЕД (МОСКОВСКИЙ ФИЛИАЛ) ОГРН СТРАХОВОЙ: 1025004642519 МЕСТОПОЛОЖЕНИЕ ОРГАНИЗАЦИИ:Г. Москва ИНДЕКС МЕСТОПОЛОЖЕНИЯ:45000 ТИП СТРАХОВОГО ПОЛИСА:ПОЛИС ОМС СТАРОГО ОБРАЗЦА НОМЕР СТРАХОВОГО ПОЛИСА:770000 2133615109 ДАТА ВЫДАЧИ ПОЛИСА: 03.08.2023 ДАТА ОКОНЧАНИЯ ПОЛИСА: 31.12.2099 ТИП ДОКУМЕНТА: свидетельство о рожд. ДОКУМЕНТ: IV-МЮ769129 ОМС ПОЛИС: 7700002133615109",
           "text": ""
         },
         {
@@ -2952,6 +2784,7 @@
           "slug": "rbartem-goroshkolichnye-foto-c7537d",
           "url": "/notes/rbartem-goroshkolichnye-foto-c7537d/",
           "preview": "",
+          "search": "",
           "text": ""
         },
         {
@@ -3303,6 +3136,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a/",
           "preview": "Ученики Данил Карташов Александрович Макар Семышев Влад Заседко",
+          "search": "Ученики Данил Карташов Александрович Макар Семышев Влад Заседко",
           "text": ""
         },
         {
@@ -3327,10 +3161,12 @@
           "width": 400,
           "height": 800,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные брата Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные брата Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-bra-5db1bb",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-bra-5db1bb/",
+          "preview": "Фио: Карташов Сергей Александрович Адрес: Россия, Свердловская область, Екатеринбург, ул. Ереванская, д 60, кв 138 Адрес 2: Екатеринбург ул Сортировочная дом 12 кв 20, подъезд 1, этаж 9 ДР: 09.04.1987 Телефоны: +79321220808, +79506425498, +79533810808 ВК: https://vk.ru/id31978474 Скайп: skype:devil666heart666?call Одноклассники: https://ok.ru/profile/4939378",
+          "search": "Фио: Карташов Сергей Александрович Адрес: Россия, Свердловская область, Екатеринбург, ул. Ереванская, д 60, кв 138 Адрес 2: Екатеринбург ул Сортировочная дом 12 кв 20, подъезд 1, этаж 9 ДР: 09.04.1987 Телефоны: +79321220808, +79506425498, +79533810808 ВК: https://vk.ru/id31978474 Скайп: skype:devil666heart666?call Одноклассники: https://ok.ru/profile/493937831977 Почты: sergejmontaj380@gmail.com devilheart@eka-net.ru (пароль ghbdtn666) Номер карты: 5321304667300898 Паспорт: 2019-11-21 Выдан: ГУ МВД РОССИИ ПО СВЕРДЛОВСКОЙ ОБЛ. Код подразделения: 660-005 Работа: Электрик Школа: №83 Екатеринбург Фейсбук: https://www.facebook.com/profile.php?id=100028191466182",
           "text": ""
         },
         {
@@ -4591,9 +4427,8 @@
       "stats": {
         "nodes": 144,
         "edges": 168,
-        "notes": 17,
-        "media": 104,
-        "locked": 20
+        "notes": 37,
+        "media": 104
       }
     },
     "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791": {
@@ -4609,10 +4444,12 @@
           "width": 316,
           "height": 254,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные друга Матиза.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные друга Матиза",
+          "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dru-128d53",
+          "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dru-128d53/",
+          "preview": "Личные данные: Фио: Макар Семышев Номер: +79676386121 ТГ: @Makar1160 ВК: https://vk.ru/id1098404804 Почты: monarchbog620@mail.ru ruliz620@mail.ru Паспорт: 6514951869 · 6502015842 Статус: Умер от рака сердца, 15.09.2026",
+          "search": "Личные данные: Фио: Макар Семышев Номер: +79676386121 ТГ: @Makar1160 ВК: https://vk.ru/id1098404804 Почты: monarchbog620@mail.ru ruliz620@mail.ru Паспорт: 6514951869 · 6502015842 Статус: Умер от рака сердца, 15.09.2026",
           "text": ""
         },
         {
@@ -4628,6 +4465,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichkakuyu-rol-igraet-ac9c6f/",
           "preview": "1) Роль девушки для Матиза (Данила Карташова Александровича) 2) Роль подруги в школе 3) Роль дефа Матиза (Данила Карташова Александровича) 4) Родил для Матиза девочку - Аня Карташова",
+          "search": "1) Роль девушки для Матиза (Данила Карташова Александровича) 2) Роль подруги в школе 3) Роль дефа Матиза (Данила Карташова Александровича) 4) Родил для Матиза девочку - Аня Карташова",
           "text": ""
         },
         {
@@ -4643,6 +4481,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichvselennye-i-razbor-675734/",
           "preview": "Вселенная матизаподобных: Пожиратель людей, каратель, фашист Вселенная С404: Умер Вселенная С404: Не существовал Вселенная PDF-1: Убит Матизом (Данилом Карташовым Александровичем) Вселенная J19C7: Живет и процветает Вселенная С-137 (Наша): Умер 26 мая, воскрес 4 сентября",
+          "search": "Вселенная матизаподобных: Пожиратель людей, каратель, фашист Вселенная С404: Умер Вселенная С404: Не существовал Вселенная PDF-1: Убит Матизом (Данилом Карташовым Александровичем) Вселенная J19C7: Живет и процветает Вселенная С-137 (Наша): Умер 26 мая, воскрес 4 сентября",
           "text": ""
         },
         {
@@ -4658,6 +4497,7 @@
           "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2",
           "url": "/notes/rfekaterinburgkartashovydanil-kartashov-aleksandrovichstatus-po-politike-e9d8e2/",
           "preview": "Политика: Украина Рожден: РФ",
+          "search": "Политика: Украина Рожден: РФ",
           "text": ""
         },
         {
@@ -5099,9 +4939,8 @@
       "stats": {
         "nodes": 24,
         "edges": 21,
-        "notes": 3,
-        "media": 17,
-        "locked": 1
+        "notes": 4,
+        "media": 17
       }
     },
     "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9": {
@@ -5117,10 +4956,12 @@
           "width": 400,
           "height": 460,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные матери Вики Алексеевны.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные матери Вики Алексеевны",
+          "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-materi-v-6a40e7",
+          "url": "/notes/rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-materi-v-6a40e7/",
+          "preview": "Мать: Алексеева Татьяна Александровна 19.04.1984 Номер мамы: +79670131543 Почта мамы: alexeeva8484@yandex.ru ВК мамы: https://vk.com/id198630608",
+          "search": "Мать: Алексеева Татьяна Александровна 19.04.1984 Номер мамы: +79670131543 Почта мамы: alexeeva8484@yandex.ru ВК мамы: https://vk.com/id198630608",
           "text": ""
         },
         {
@@ -5131,10 +4972,12 @@
           "width": 360,
           "height": 460,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные отца Вики Алексеевны.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные отца Вики Алексеевны",
+          "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-ottsa-vi-d3c780",
+          "url": "/notes/rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-ottsa-vi-d3c780/",
+          "preview": "Отец: Алексеев Сергей Андреевич 29.12.1988 Adres: РОССИЯ, МОСКОВСКАЯ ОБЛ., СЕРГИЕВО-ПОСАДСКИЙ Р-Н, СЕРГИЕВ ПОСАД-14 ГОРОДОК, ул Связистов, Д. 7, КВ. 66 Pochta: v526733692@gmail.com Бабушка: Алексеева Ирина Александровна 15.09.1971, 55 лет Номер отца: +79771479772 Номер пиздаболки: +79933640198 Pasport отца: 4612952256 Банковский schet: 40817810600066255009",
+          "search": "Отец: Алексеев Сергей Андреевич 29.12.1988 Adres: РОССИЯ, МОСКОВСКАЯ ОБЛ., СЕРГИЕВО-ПОСАДСКИЙ Р-Н, СЕРГИЕВ ПОСАД-14 ГОРОДОК, ул Связистов, Д. 7, КВ. 66 Pochta: v526733692@gmail.com Бабушка: Алексеева Ирина Александровна 15.09.1971, 55 лет Номер отца: +79771479772 Номер пиздаболки: +79933640198 Pasport отца: 4612952256 Банковский schet: 40817810600066255009",
           "text": ""
         },
         {
@@ -5145,10 +4988,12 @@
           "width": 800,
           "height": 175,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Вики Алексеевны.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Вики Алексеевны",
+          "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-viki-ale-7e4313",
+          "url": "/notes/rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-viki-ale-7e4313/",
+          "preview": "АЛЕКСЕЕВА ВИКТОРИЯ СЕРГЕЕВНА 19.12.2010 - Скоропусаовская пиздаболка Школа: бужиновская средне образовательная школа, 9Б класс Пиздаболит, сливает фотки, издеваться над людьми, сводит людей в драки",
+          "search": "АЛЕКСЕЕВА ВИКТОРИЯ СЕРГЕЕВНА 19.12.2010 - Скоропусаовская пиздаболка Школа: бужиновская средне образовательная школа, 9Б класс Пиздаболит, сливает фотки, издеваться над людьми, сводит людей в драки",
           "text": ""
         },
         {
@@ -5164,6 +5009,7 @@
           "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d",
           "url": "/notes/rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d/",
           "preview": "ВКонтакте https://vk.com/id751889182 Одноклассники https://ok.ru/profile/591327213219 Telegram https://t.me/llovepasha500 Telegram https://t.me/ralinalove56k Telegram https://t.me/vikxxxboss Telegram https://t.me/+79933640198 MAX https://max.me/+79933640198",
+          "search": "ВКонтакте https://vk.com/id751889182 Одноклассники https://ok.ru/profile/591327213219 Telegram https://t.me/llovepasha500 Telegram https://t.me/ralinalove56k Telegram https://t.me/vikxxxboss Telegram https://t.me/+79933640198 MAX https://max.me/+79933640198",
           "text": ""
         },
         {
@@ -5283,9 +5129,8 @@
       "stats": {
         "nodes": 8,
         "edges": 7,
-        "notes": 1,
-        "media": 4,
-        "locked": 3
+        "notes": 4,
+        "media": 4
       }
     },
     "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86": {
@@ -5301,10 +5146,12 @@
           "width": 400,
           "height": 601,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Ясмины Фатхулоевой.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Ясмины Фатхулоевой",
+          "slug": "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-yasminy-fathuloevoy-586bb6",
+          "url": "/notes/rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-yasminy-fathuloevoy-586bb6/",
+          "preview": "Фио: Ясмина Фатхулоева Фатхуллоевна ВК: https://vk.ru/id766072839 Школа: Школа номер 1, 9-Б класс Номер: +79251981531 НОМЕР МАМЫ: +79150546041 +79990014537 Адрес: 141370, РОССИЯ, ОБЛ МОСКОВСКАЯ, Р-Н СЕРГИЕВО-ПОСАДСКИЙ, Г ХОТЬКОВО, УЛ РАБОЧАЯ 2-Я, ДОМ 48, КВ. 17 подъезд 1 Тик ток: belonauhapodnebecnaya Фамилия: Фатхуллоева Имя: Ясмина Отчество: Фатхуллоевна Д",
+          "search": "Фио: Ясмина Фатхулоева Фатхуллоевна ВК: https://vk.ru/id766072839 Школа: Школа номер 1, 9-Б класс Номер: +79251981531 НОМЕР МАМЫ: +79150546041 +79990014537 Адрес: 141370, РОССИЯ, ОБЛ МОСКОВСКАЯ, Р-Н СЕРГИЕВО-ПОСАДСКИЙ, Г ХОТЬКОВО, УЛ РАБОЧАЯ 2-Я, ДОМ 48, КВ. 17 подъезд 1 Тик ток: belonauhapodnebecnaya Фамилия: Фатхуллоева Имя: Ясмина Отчество: Фатхуллоевна Дата рождения: 28.06.2011 Возраст: 15 Почта: fathasmina@gmail.com Полис ОМС: 5093889771000869 Паспорт: IVИK558393 СНИЛС: 16767410297",
           "text": ""
         },
         {
@@ -5315,10 +5162,12 @@
           "width": 400,
           "height": 601,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные матери Ясмины Фатхулоевой.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные матери Ясмины Фатхулоевой",
+          "slug": "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-materi-yasminy-fathulo-01810a",
+          "url": "/notes/rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-materi-yasminy-fathulo-01810a/",
+          "preview": "ФИО:САМОФАЛОВА ЕКАТЕРИНА АЛЕКСАНДРОВНА ДР: 18.07.1988 ВК: https://vk.com/id321392841 ВК2: https://vk.com/id571709323 ПОЧТА: samirafath@mail.ru ОК: https://ok.ru/profile/578067135883 ТГ: https://t.me/samirafath88 БАНКИ: АЛЬФА БАНК РАЙФФАЙЗЕН БАНК СБЕРБАНК ПОЛИС: 5052110881002649 БОЛЬНИЦА: Первичная консультация терапевта.; Повторная консультация + лечение гиг",
+          "search": "ФИО:САМОФАЛОВА ЕКАТЕРИНА АЛЕКСАНДРОВНА ДР: 18.07.1988 ВК: https://vk.com/id321392841 ВК2: https://vk.com/id571709323 ПОЧТА: samirafath@mail.ru ОК: https://ok.ru/profile/578067135883 ТГ: https://t.me/samirafath88 БАНКИ: АЛЬФА БАНК РАЙФФАЙЗЕН БАНК СБЕРБАНК ПОЛИС: 5052110881002649 БОЛЬНИЦА: Первичная консультация терапевта.; Повторная консультация + лечение гигиениста. Место работы: ООО ИВ РОЛИС ВОСТОК ФИО врача: Подаева С.Е.; Колесникова К.А.",
           "text": ""
         },
         {
@@ -5329,10 +5178,12 @@
           "width": 820,
           "height": 1081,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные деда Ясмины Фатхулоевой.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные деда Ясмины Фатхулоевой",
+          "slug": "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-deda-yasminy-fathuloev-1dbd95",
+          "url": "/notes/rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-deda-yasminy-fathuloev-1dbd95/",
+          "preview": "телефоны: +79909278402 \\ +79672278402 \\ +79851890596 \\ +79169194018 \\ +78124488888 паспорт 4600146872 \\ 4697059228 \\ 4610818416 инн 504226294628 снилс 13706725257 email sashasamofalov686@gmail.com",
+          "search": "телефоны: +79909278402 \\ +79672278402 \\ +79851890596 \\ +79169194018 \\ +78124488888 паспорт 4600146872 \\ 4697059228 \\ 4610818416 инн 504226294628 снилс 13706725257 email sashasamofalov686@gmail.com",
           "text": ""
         },
         {
@@ -5469,10 +5320,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные отца Ясмины Фатхулоевой.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные отца Ясмины Фатхулоевой",
+          "slug": "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-ottsa-yasminy-fathuloe-3bd03d",
+          "url": "/notes/rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-ottsa-yasminy-fathuloe-3bd03d/",
+          "preview": "Неизвестно, он был нариком, оттрахал мать Ясмины и слинял за рубеж.",
+          "search": "Неизвестно, он был нариком, оттрахал мать Ясмины и слинял за рубеж.",
           "text": ""
         },
         {
@@ -5483,10 +5336,12 @@
           "width": 810,
           "height": 221,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные брата Ясмины Фатхулоевой.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные брата Ясмины Фатхулоевой",
+          "slug": "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-brata-yasminy-fathuloe-2740e7",
+          "url": "/notes/rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-brata-yasminy-fathuloe-2740e7/",
+          "preview": "ФИО: САМОФАЛОВ АМИР АЛИШЭРОВИЧ ПАСПОРТ: VIИK639053 ПОЛИС: 5087289720000250 ДР: 29.12.2017 СНИЛС: 20108441398",
+          "search": "ФИО: САМОФАЛОВ АМИР АЛИШЭРОВИЧ ПАСПОРТ: VIИK639053 ПОЛИС: 5087289720000250 ДР: 29.12.2017 СНИЛС: 20108441398",
           "text": ""
         },
         {
@@ -5683,9 +5538,8 @@
       "stats": {
         "nodes": 19,
         "edges": 16,
-        "notes": 0,
-        "media": 10,
-        "locked": 5
+        "notes": 5,
+        "media": 10
       }
     },
     "rfomsksindyanov-artem-vladislavovichbez-nazvaniya-14eab1": {
@@ -5720,6 +5574,7 @@
           "slug": "rfomsksindyanov-artem-vladislavovichsindyanov-artem-vladislavovich-e395bd",
           "url": "/notes/rfomsksindyanov-artem-vladislavovichsindyanov-artem-vladislavovich-e395bd/",
           "preview": "Фио: СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ Номер: +79088059244 Почты: artemsindanov175@gmail.com lyudok1985@inbox.ru ДР: 28.09.2008 Старый адрес: обл. Омская, г. Омск, ул. Завертяева,9,50 Старые ВК: Артем Синдянов Artem Sindyanov ВК: Артём Владиславович Школа: №14 омск",
+          "search": "Фио: СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ Номер: +79088059244 Почты: artemsindanov175@gmail.com lyudok1985@inbox.ru ДР: 28.09.2008 Старый адрес: обл. Омская, г. Омск, ул. Завертяева,9,50 Старые ВК: Артем Синдянов Artem Sindyanov ВК: Артём Владиславович Школа: №14 омск",
           "text": ""
         },
         {
@@ -5735,6 +5590,7 @@
           "slug": "rfomsksindyanov-artem-vladislavovichmat-sindyanova-artema-vladislavovich-495fcd",
           "url": "/notes/rfomsksindyanov-artem-vladislavovichmat-sindyanova-artema-vladislavovich-495fcd/",
           "preview": "Фио: Синдянова Людмила Владимировна ДР: 11.09.1985 Телефоны: +79835218121 +79136408008 Паспорт: 5216558466 Снилс: 19271048473 Почты: lyudok1985@inbox.ru (Пароль 160185) Старый адрес: обл. Омская, г. Омск, ул. Завертяева,9,50 ВК: Людмила Синдянова",
+          "search": "Фио: Синдянова Людмила Владимировна ДР: 11.09.1985 Телефоны: +79835218121 +79136408008 Паспорт: 5216558466 Снилс: 19271048473 Почты: lyudok1985@inbox.ru (Пароль 160185) Старый адрес: обл. Омская, г. Омск, ул. Завертяева,9,50 ВК: Людмила Синдянова",
           "text": ""
         },
         {
@@ -5848,8 +5704,7 @@
         "nodes": 7,
         "edges": 6,
         "notes": 2,
-        "media": 4,
-        "locked": 0
+        "media": 4
       }
     },
     "ukrcherkassyvlad-zasedkovlad-zasedko-e32427": {
@@ -5865,10 +5720,12 @@
           "width": 280,
           "height": 380,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Влада Заседко.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Влада Заседко",
+          "slug": "ukrcherkassyvlad-zasedkolichnye-dannye-vlada-zasedko-c32206",
+          "url": "/notes/ukrcherkassyvlad-zasedkolichnye-dannye-vlada-zasedko-c32206/",
+          "preview": "Фио: Влад Заседко ДР: 2007 ВК: Удален ТГ: Удален ТТ: Удален",
+          "search": "Фио: Влад Заседко ДР: 2007 ВК: Удален ТГ: Удален ТТ: Удален",
           "text": ""
         },
         {
@@ -5884,6 +5741,7 @@
           "slug": "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f",
           "url": "/notes/ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f/",
           "preview": "Поиск детей и несовершенно летних по Украине и насилование их при помощи своих 2 см",
+          "search": "Поиск детей и несовершенно летних по Украине и насилование их при помощи своих 2 см",
           "text": ""
         },
         {
@@ -6766,9 +6624,8 @@
       "stats": {
         "nodes": 43,
         "edges": 42,
-        "notes": 1,
-        "media": 25,
-        "locked": 1
+        "notes": 2,
+        "media": 25
       }
     },
     "ukrchernigovholst-evgeniya-b63253": {
@@ -6784,10 +6641,12 @@
           "width": 400,
           "height": 590,
           "color": null,
-          "kind": "locked",
-          "title": "Личные данные Евгения.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Личные данные Евгения",
+          "slug": "ukrchernigovlichnye-dannye-evgeniya-a4a3d7",
+          "url": "/notes/ukrchernigovlichnye-dannye-evgeniya-a4a3d7/",
+          "preview": "Фио: АНТОНЕНКО ЕВГЕНИЙ ИГОРЕВИЧ ДР: 20.11.1979 Работа: ЧАСТНЫЙ ПРЕДПРИНИМАТЕЛЬ - 2016 Мать: АНТОНЕНКО АНТОНИНА ВАСИЛЬЕВНА Адрес 1: УКРАЇНА, ЧЕРНІГІВСЬКА ОБЛ., М. ЧЕРНІГІВ, ВУЛ. РОКОССОВСЬКОГО 41 КВ. 35 Адрес 2: 14000, UA, ЧЕРНИГОВСКАЯ, , КРАСНОСЕЛЬСКОГО, 71, 79 ИНН: 2917802017 Паспорт: Антоненко Евгений Игоревич 20.11.1979 гр 14000 UA, ЧЕРНИГОВСКАЯ,КРАСНОСЕЛ",
+          "search": "Фио: АНТОНЕНКО ЕВГЕНИЙ ИГОРЕВИЧ ДР: 20.11.1979 Работа: ЧАСТНЫЙ ПРЕДПРИНИМАТЕЛЬ - 2016 Мать: АНТОНЕНКО АНТОНИНА ВАСИЛЬЕВНА Адрес 1: УКРАЇНА, ЧЕРНІГІВСЬКА ОБЛ., М. ЧЕРНІГІВ, ВУЛ. РОКОССОВСЬКОГО 41 КВ. 35 Адрес 2: 14000, UA, ЧЕРНИГОВСКАЯ, , КРАСНОСЕЛЬСКОГО, 71, 79 ИНН: 2917802017 Паспорт: Антоненко Евгений Игоревич 20.11.1979 гр 14000 UA, ЧЕРНИГОВСКАЯ,КРАСНОСЕЛЬСКОГО, 71, 79 ИНН: 2917802017 паспорт: НК 155198 выдан: ДЕСНЯНСКИМ ОМ УМВД УКРАИНЫ В ЧЕРНИГОВСКОЙ ОБЛАСТИ 02.07.1996 Дата выдачи паспорта: 02.07.1996 Паспорт: НК155198 Телефоны: +380462615019 +380632821983 +380632058604",
           "text": ""
         },
         {
@@ -6798,10 +6657,12 @@
           "width": 400,
           "height": 400,
           "color": null,
-          "kind": "locked",
-          "title": "Аккаунты Евгения.md",
-          "url": null,
-          "preview": "Исключено из публикации",
+          "kind": "note",
+          "title": "Аккаунты Евгения",
+          "slug": "ukrchernigovakkaunty-evgeniya-43da3a",
+          "url": "/notes/ukrchernigovakkaunty-evgeniya-43da3a/",
+          "preview": "Фейсбук: https://www.facebook.com/evgenij.antonenko.544109 Анкета: никогда в браке не состоял(а) жилье: в личной собственности образование высшее, пенсионер ТГ: @zeniaaa44",
+          "search": "Фейсбук: https://www.facebook.com/evgenij.antonenko.544109 Анкета: никогда в браке не состоял(а) жилье: в личной собственности образование высшее, пенсионер ТГ: @zeniaaa44",
           "text": ""
         },
         {
@@ -6991,9 +6852,8 @@
       "stats": {
         "nodes": 10,
         "edges": 9,
-        "notes": 0,
-        "media": 8,
-        "locked": 2
+        "notes": 2,
+        "media": 8
       }
     }
   },
@@ -7003,7 +6863,7 @@
       "segments": [
         "РБ"
       ],
-      "count": 5,
+      "count": 1,
       "direct": 0
     },
     {
@@ -7012,15 +6872,15 @@
         "РБ",
         "Артем Горошко"
       ],
-      "count": 5,
-      "direct": 5
+      "count": 1,
+      "direct": 1
     },
     {
       "path": "РФ",
       "segments": [
         "РФ"
       ],
-      "count": 15,
+      "count": 5,
       "direct": 0
     },
     {
@@ -7029,7 +6889,7 @@
         "РФ",
         "Екатеринбург"
       ],
-      "count": 9,
+      "count": 2,
       "direct": 0
     },
     {
@@ -7039,7 +6899,7 @@
         "Екатеринбург",
         "Карташовы"
       ],
-      "count": 9,
+      "count": 2,
       "direct": 0
     },
     {
@@ -7050,8 +6910,8 @@
         "Карташовы",
         "Данил Карташов Александрович"
       ],
-      "count": 9,
-      "direct": 9
+      "count": 2,
+      "direct": 2
     },
     {
       "path": "РФ/Москва",
@@ -7059,7 +6919,7 @@
         "РФ",
         "Москва"
       ],
-      "count": 3,
+      "count": 2,
       "direct": 0
     },
     {
@@ -7069,7 +6929,7 @@
         "Москва",
         "Сергиев-Посад"
       ],
-      "count": 3,
+      "count": 2,
       "direct": 0
     },
     {
@@ -7080,7 +6940,7 @@
         "Сергиев-Посад",
         "Скоропусковск"
       ],
-      "count": 2,
+      "count": 1,
       "direct": 0
     },
     {
@@ -7092,8 +6952,8 @@
         "Скоропусковск",
         "Вика Алексеевна"
       ],
-      "count": 2,
-      "direct": 2
+      "count": 1,
+      "direct": 1
     },
     {
       "path": "РФ/Москва/Сергиев-Посад/Хотьково",
@@ -7124,7 +6984,7 @@
         "РФ",
         "Омск"
       ],
-      "count": 3,
+      "count": 1,
       "direct": 0
     },
     {
@@ -7134,15 +6994,15 @@
         "Омск",
         "СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ"
       ],
-      "count": 3,
-      "direct": 3
+      "count": 1,
+      "direct": 1
     },
     {
       "path": "УКР",
       "segments": [
         "УКР"
       ],
-      "count": 5,
+      "count": 2,
       "direct": 0
     },
     {
@@ -7151,7 +7011,7 @@
         "УКР",
         "Черкассы"
       ],
-      "count": 4,
+      "count": 1,
       "direct": 0
     },
     {
@@ -7161,8 +7021,8 @@
         "Черкассы",
         "Влад Заседко"
       ],
-      "count": 4,
-      "direct": 4
+      "count": 1,
+      "direct": 1
     },
     {
       "path": "УКР/Чернигов",

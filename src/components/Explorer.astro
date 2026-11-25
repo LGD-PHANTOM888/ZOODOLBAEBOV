@@ -3,7 +3,7 @@ import manifest from '../data/manifest.json';
 import folderUrl from '../utils/folder-url';
 
 const base = import.meta.env.BASE_URL;
-const canvasCount = manifest.notes.filter((note) => note.kind === 'canvas').length;
+const canvases = [...manifest.notes];
 ---
 
 <div class="explorer-backdrop" data-explorer-backdrop></div>
@@ -19,19 +19,31 @@ const canvasCount = manifest.notes.filter((note) => note.kind === 'canvas').leng
 
   <label class="explorer-filter">
     <span>❯</span>
-    <input type="search" data-explorer-filter placeholder="найти раздел..." autocomplete="off" />
+    <input type="search" data-explorer-filter placeholder="найти холст..." autocomplete="off" />
   </label>
 
-  <nav class="explorer-tree" aria-label="Разделы">
-    <a class="explorer-item explorer-item--root" href={`${base}notes/`} data-explorer-item data-search="все заметки archive notes">
-      <span class="explorer-icon">▣</span><span>Все заметки</span><span class="explorer-count">{manifest.notes.length}</span>
+  <nav class="explorer-tree" aria-label="Холсты и разделы">
+    <a class="explorer-item explorer-item--root" href={`${base}notes/`} data-explorer-item data-search="все холсты archive notes">
+      <span class="explorer-icon">▣</span><span>Все холсты</span><span class="explorer-count">{canvases.length}</span>
     </a>
     <a class="explorer-item explorer-item--root" href={`${base}graph/`} data-explorer-item data-search="граф graph">
       <span class="explorer-icon">⌘</span><span>Глобальный граф</span><span class="explorer-count">∞</span>
     </a>
-    <a class="explorer-item explorer-item--root" href={`${base}notes/#canvases`} data-explorer-item data-search="холсты canvas">
-      <span class="explorer-icon">◇</span><span>Холсты</span><span class="explorer-count">{canvasCount}</span>
+    <a class="explorer-item explorer-item--root" href={`${base}predlozhka/`} data-explorer-item data-search="предложка feedback">
+      <span class="explorer-icon">✎</span><span>Предложка</span><span class="explorer-count">+</span>
     </a>
+
+    <div class="explorer-divider">ХОЛСТЫ / {canvases.length}</div>
+    {canvases.map((canvas) => (
+      <a
+        class="explorer-item explorer-item--canvas"
+        href={`${base}notes/${canvas.slug}/`}
+        data-explorer-item
+        data-search={`${canvas.title} ${canvas.folder}`.toLowerCase()}
+      >
+        <span class="explorer-icon">◇</span><span class="explorer-name">{canvas.title}</span>
+      </a>
+    ))}
 
     <div class="explorer-divider">РАЗДЕЛЫ / {manifest.folders.length}</div>
 

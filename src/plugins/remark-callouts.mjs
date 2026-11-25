@@ -15,7 +15,7 @@ const ICONS = {
   abstract: '≡', summary: '≡', tldr: '≡', example: '◈', examples: '◈', todo: '☐',
 };
 
-/** Obsidian-каллауты `> [!note] Заголовок` -> стилизованный div. */
+/** Каллауты `> [!note] Заголовок` -> стилизованный div. */
 export default function remarkCallouts() {
   return (tree) => {
     visit(tree, 'blockquote', (node, index, parent) => {

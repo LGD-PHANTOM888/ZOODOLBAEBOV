@@ -1,0 +1,56 @@
+---
+---
+
+<div class="auth-control" data-auth-control>
+  <button class="auth-btn" type="button" data-auth-login>GOOGLE</button>
+  <div class="auth-user" data-auth-user hidden>
+    <img class="auth-avatar" data-auth-avatar alt="" hidden />
+    <span class="auth-name" data-auth-name></span>
+    <button class="auth-exit" type="button" data-auth-logout title="Выйти">×</button>
+  </div>
+</div>
+
+<script>
+  import { configured, subscribeAuth, loginWithGoogle, logoutGoogle } from '../scripts/firebase';
+
+  const root = document.querySelector('[data-auth-control]');
+  const loginBtn = root?.querySelector('[data-auth-login]');
+  const userBox = root?.querySelector('[data-auth-user]');
+  const userName = root?.querySelector('[data-auth-name]');
+  const avatar = root?.querySelector('[data-auth-avatar]');
+  const logoutBtn = root?.querySelector('[data-auth-logout]');
+
+  if (!configured && loginBtn instanceof HTMLButtonElement) {
+    loginBtn.disabled = true;
+    loginBtn.title = 'Нужна конфигурация Firebase';
+  }
+
+  subscribeAuth((user) => {
+    if (!user) {
+      if (loginBtn) loginBtn.hidden = false;
+      if (userBox) userBox.hidden = true;
+      return;
+    }
+    if (loginBtn) loginBtn.hidden = true;
+    if (userBox) userBox.hidden = false;
+    if (userName) userName.textContent = user.displayName || user.email || 'USER';
+    if (avatar instanceof HTMLImageElement) {
+      avatar.hidden = !user.photoURL;
+      if (user.photoURL) avatar.src = user.photoURL;
+    }
+  });
+
+  loginBtn?.addEventListener('click', async () => {
+    if (!configured) return;
+    loginBtn.textContent = '…';
+    try {
+      await loginWithGoogle();
+    } catch (_) {
+      loginBtn.textContent = 'ПОВТОРИТЬ';
+    }
+  });
+
+  logoutBtn?.addEventListener('click', async () => {
+    await logoutGoogle();
+  });
+</script>

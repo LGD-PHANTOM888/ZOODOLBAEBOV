@@ -21,19 +21,19 @@ for (const note of manifest.notes) {
 const graph = { nodes, links };
 ---
 
-<BaseLayout title="Граф связей" description="Граф связей между заметками" active="graph" wide>
+<BaseLayout title="Граф связей" description="Граф связей между холстами" active="graph" wide>
   <div class="page-top">
     <nav class="crumbs"><a href={base}>Главная</a><span>/</span><span>Граф</span></nav>
     <div class="section-head">
       <div>
         <span class="eyebrow">Глобальная сеть</span>
-        <h2>Граф заметок</h2>
+        <h2>Граф холстов</h2>
       </div>
       <p>{nodes.length} узлов · {links.length} связей</p>
     </div>
   </div>
 
-  <GraphCanvas graph={graph} label="ВСЕ СВЯЗИ" hint="перетаскивайте узлы · клик открывает заметку" />
+  <GraphCanvas graph={graph} label="ВСЕ СВЯЗИ" hint="перетаскивайте узлы · клик открывает холст" />
 
   <section class="section">
     <div class="section-head">
@@ -48,7 +48,7 @@ const graph = { nodes, links };
         <a class="folder-card" href={folderUrl(folder.path)}>
           <span class="folder-icon">◈</span>
           <div class="folder-name">{folder.path}</div>
-          <div class="folder-count">{folder.count} записей · граф раздела →</div>
+          <div class="folder-count">{folder.count} холстов · граф раздела →</div>
         </a>
       ))}
     </div>

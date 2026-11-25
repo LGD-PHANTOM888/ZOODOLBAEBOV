@@ -1,13 +1,13 @@
 @echo off
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
-title XXXLGDXXX // OBSIDIAN SYNC
+title XXXLGDXXX // ARCHIVE SYNC
 cd /d "%~dp0"
 
 echo.
 echo  ============================================================
-echo   XXXLGDXXX // OBSIDIAN -^> ASTRO -^> GITLAB PAGES
-echo   one-click sync: Public -^> media -^> notes -^> build -^> push
+echo   XXXLGDXXX // SOURCE -^> ASTRO -^> GITLAB PAGES
+echo   one-click sync: Public -^> media -^> canvases -^> build -^> push
 echo  ============================================================
 echo.
 

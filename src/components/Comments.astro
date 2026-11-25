@@ -1,0 +1,122 @@
+---
+interface Props { pageId: string; title?: string }
+const { pageId } = Astro.props;
+---
+
+<section class="comments" data-comments data-page={pageId}>
+  <div class="comments-head">
+    <span class="eyebrow" style="font-size:9px">COMMENTS</span>
+    <span class="comments-count" data-comments-count>0</span>
+  </div>
+
+  <div class="comments-auth">
+    <button class="auth-btn" type="button" data-comments-login>GOOGLE</button>
+  </div>
+
+  <form class="comments-form" data-comments-form hidden>
+    <textarea data-comments-text maxlength="2000" rows="3" placeholder="Комментарий" required></textarea>
+    <div class="comments-form-foot">
+      <span data-comments-status></span>
+      <button class="btn btn-primary btn--small" type="submit">ОТПРАВИТЬ</button>
+    </div>
+  </form>
+
+  <div class="comments-list" data-comments-list></div>
+</section>
+
+<script>
+  import { collection, addDoc, onSnapshot, query, where, serverTimestamp } from 'firebase/firestore';
+  import { configured, db, subscribeAuth, loginWithGoogle } from '../scripts/firebase';
+
+  const root = document.querySelector('[data-comments]');
+  const pageId = root?.getAttribute('data-page');
+  const list = root?.querySelector('[data-comments-list]');
+  const count = root?.querySelector('[data-comments-count]');
+  const form = root?.querySelector('[data-comments-form]');
+  const textarea = root?.querySelector('[data-comments-text]');
+  const loginBtn = root?.querySelector('[data-comments-login]');
+  const status = root?.querySelector('[data-comments-status]');
+
+  const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[char]);
+
+  let currentUser = null;
+
+  function renderItems(items) {
+    if (!list || !count) return;
+    count.textContent = String(items.length);
+    if (!items.length) {
+      list.innerHTML = '<div class="comments-empty">Нет комментариев</div>';
+      return;
+    }
+    list.innerHTML = items.map((item) => {
+      const time = item.createdAt?.toMillis?.() || 0;
+      const date = time ? new Date(time).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '';
+      return `
+        <article class="comment">
+          <div class="comment-head">
+            <strong>${escapeHtml(item.authorName || 'USER')}</strong>
+            <span>${escapeHtml(date)}</span>
+          </div>
+          <p>${escapeHtml(item.text)}</p>
+        </article>`;
+    }).join('');
+  }
+
+  if (db && pageId) {
+    const feed = query(collection(db, 'comments'), where('pageId', '==', pageId));
+    onSnapshot(feed, (snapshot) => {
+      const items = snapshot.docs
+        .map((doc) => ({ id: doc.id, ...doc.data() }))
+        .sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+      renderItems(items);
+    });
+  } else if (status) {
+    status.textContent = 'НЕТ ПОДКЛЮЧЕНИЯ';
+    if (textarea instanceof HTMLTextAreaElement) textarea.disabled = true;
+    if (form instanceof HTMLFormElement) form.hidden = false;
+  }
+
+  subscribeAuth((user) => {
+    currentUser = user;
+    if (form instanceof HTMLFormElement) form.hidden = !user;
+    if (loginBtn instanceof HTMLButtonElement) {
+      loginBtn.hidden = Boolean(user);
+      loginBtn.disabled = !configured;
+    }
+  });
+
+  loginBtn?.addEventListener('click', async () => {
+    if (!configured) return;
+    loginBtn.textContent = '…';
+    try {
+      await loginWithGoogle();
+    } catch (_) {
+      loginBtn.textContent = 'ПОВТОРИТЬ';
+    }
+  });
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!db || !currentUser || !textarea || !status) return;
+    const text = textarea.value.trim();
+    if (!text) return;
+    status.textContent = '…';
+    try {
+      await addDoc(collection(db, 'comments'), {
+        pageId,
+        text,
+        uid: currentUser.uid,
+        authorName: currentUser.displayName || currentUser.email || 'USER',
+        authorEmail: currentUser.email || '',
+        authorPhotoURL: currentUser.photoURL || '',
+        createdAt: serverTimestamp(),
+      });
+      textarea.value = '';
+      status.textContent = '';
+    } catch (_) {
+      status.textContent = 'ОШИБКА';
+    }
+  });
+</script>

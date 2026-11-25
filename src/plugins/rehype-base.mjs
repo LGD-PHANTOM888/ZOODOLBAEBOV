@@ -12,7 +12,7 @@ export default function rehypeBase({ base = '/' } = {}) {
 
   return (tree) => {
     visit(tree, 'element', (node) => {
-      // Видео в Obsidian вставляется как ![[file.mp4]], после синха это <img>.
+      // Вложенное видео после синха превращается в <img>.
       if (node.tagName === 'img' && typeof node.properties?.src === 'string') {
         const src = node.properties.src.split(/[?#]/)[0].toLowerCase();
         if (/\.(mp4|mov|m4v|webm)$/.test(src)) {

@@ -1,5 +1,5 @@
 ---
-const { node, label } = Astro.props;
+const { node, label, noteContent } = Astro.props;
 
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -7,15 +7,18 @@ const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
 
 const style = `left:${node.x}px;top:${node.y}px;width:${node.width}px;height:${node.height}px;${node.color ? `--node-color:${node.color};` : ''}`;
 const classes = `canvas-node canvas-node--${node.kind}`;
+const Note = node.kind === 'note' && noteContent ? noteContent.get(node.slug) : null;
 
 const parts = [
   `<span class="canvas-node-kind">${esc(label)}</span>`,
   `<span class="canvas-node-title">${esc(node.title || 'Без названия')}</span>`,
 ];
 
-if (node.kind === 'text') parts.push(`<span class="canvas-node-text">${esc(node.text)}</span>`);
-if (node.kind === 'note') parts.push(`<span class="canvas-node-text">${esc(node.preview || 'Открыть заметку →')}</span>`);
-if (node.kind === 'locked' || node.kind === 'missing') {
+if (node.kind === 'text') {
+  parts.push(`<span class="canvas-node-text">${esc(node.text)}</span>`);
+  parts.push('<button class="canvas-node-expand" type="button" data-canvas-expand title="Развернуть">⤢</button>');
+}
+if (node.kind === 'missing') {
   parts.push(`<span class="canvas-node-text">${esc(node.preview)}</span>`);
 }
 if (node.kind === 'image') {
@@ -34,13 +37,22 @@ if (node.kind === 'pdf' || node.kind === 'other' || node.kind === 'link') {
 const body = parts.join('');
 ---
 
-{node.url ? (
+{node.kind === 'note' ? (
+  <div class={classes} style={style} data-canvas-node={node.id}>
+    <span class="canvas-node-kind" set:html={esc(label)} />
+    <span class="canvas-node-title" set:html={esc(node.title || 'Без названия')} />
+    <button class="canvas-node-expand" type="button" data-canvas-expand title="Развернуть">⤢</button>
+    <div class="canvas-node-body prose">
+      {Note ? <Note /> : <span class="canvas-node-text">{node.preview || 'Открыть запись'}</span>}
+    </div>
+  </div>
+) : node.url ? (
   <a
     class={classes}
     style={style}
     href={node.url}
-    target={node.kind === 'note' ? undefined : '_blank'}
-    rel={node.kind === 'note' ? undefined : 'noopener'}
+    target={node.kind === 'link' ? '_blank' : undefined}
+    rel={node.kind === 'link' ? 'noopener' : undefined}
     data-canvas-node={node.id}
   >
     <Fragment set:html={body} />
