@@ -32,6 +32,7 @@ git init
 git remote add origin https://gitlab.com/ВАС_ИМЯ/ВАС_ПРОЕКТ.git
 git add -A
 git commit -m "initial cyber archive"
+git pull --rebase origin main
 git push -u origin main
 ```
 
