@@ -75,32 +75,9 @@ npm run dev
 
 Большие холсты по умолчанию вписываются целиком. Приближайте колесом или кнопкой `+`.
 
-## Google-вход и комментарии
+## Обратная связь
 
-1. Создайте проект Firebase.
-2. Включите **Authentication → Sign-in method → Google**.
-3. Создайте **Firestore Database**.
-4. В **Authentication → Settings → Authorized domains** добавьте `localhost`, `127.0.0.1`, домен GitHub Pages и свой домен, если есть.
-5. Скопируйте правила из `firestore.rules` в **Firestore → Rules** и опубликуйте.
-6. Скопируйте `.env.example` в `.env` и заполните значения из **Project settings → Your apps → Web app**:
-
-```bat
-copy .env.example .env
-```
-
-```env
-PUBLIC_FIREBASE_API_KEY=...
-PUBLIC_FIREBASE_AUTH_DOMAIN=...
-PUBLIC_FIREBASE_PROJECT_ID=...
-PUBLIC_FIREBASE_APP_ID=...
-PUBLIC_FIREBASE_STORAGE_BUCKET=
-PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-PUBLIC_FIREBASE_MEASUREMENT_ID=
-```
-
-Для GitHub Pages добавьте те же имена в **Settings → Secrets and variables → Actions → Secrets**. Значения попадают в клиентский бандл — это нормально, доступ к записи ограничен правилами Firestore.
-
-Без конфигурации сайт работает без ошибок, но вход и комментарии неактивны. Предложка при этом работает через Telegram-бота.
+Google-вход и комментарии убраны. Предложения и сообщения отправляются через Telegram-бота [@Predlozkadegeneratos_bot](https://t.me/Predlozkadegeneratos_bot).
 
 ## Настройки
 

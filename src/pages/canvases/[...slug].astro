@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CanvasView from '../../components/CanvasView.astro';
-import Comments from '../../components/Comments.astro';
 import manifest from '../../data/manifest.json';
 
 export async function getStaticPaths() {
@@ -56,8 +55,6 @@ const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', y
       </header>
 
       {canvas && <CanvasView canvas={canvas} noteContent={noteContent} />}
-
-      <Comments pageId={note.data.slug} title={note.data.title} />
 
       <footer class="note-footer">
         <div class="prev-next">
