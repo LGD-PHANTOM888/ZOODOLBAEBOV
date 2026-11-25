@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 
 const ROOT = process.cwd();
 const CONFIG_PATH = path.join(ROOT, 'sync.config.json');
 const NOTES_DIR = path.join(ROOT, 'src/content/notes');
-const MEDIA_DIR = path.join(ROOT, 'public/media');
+const MIRROR_DIR = path.join(ROOT, 'public/vault');
 const DATA_DIR = path.join(ROOT, 'src/data');
 
 const NOTE_EXT = new Set(['.md', '.canvas']);
@@ -32,6 +33,34 @@ function slugify(value) {
 
 const hash = (value) => crypto.createHash('sha1').update(value).digest('hex');
 const toPosix = (value) => value.split(path.sep).join('/');
+
+// GitHub Pages project pages живут под /<repo>/. Manifest используют и шаблоны,
+// и прямой JS, поэтому базу нужно добавлять здесь, а не только в rehype-плагине.
+function repoFromOrigin() {
+  try {
+    const remote = execFileSync('git', ['remote', 'get-url', 'origin'], {
+      cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    const match = remote.match(/github\.com[:/]([^/]+)\/([^/]+?)(?:\.git)?\/?$/i);
+    return match ? `${match[1]}/${match[2]}` : '';
+  } catch {
+    return '';
+  }
+}
+
+function siteBase() {
+  // Локальный наблюдатель и Actions должны получать одну и ту же базу,
+  // иначе сгенерированные manifest.json и dist разойдутся.
+  const repo = process.env.GITHUB_REPOSITORY || repoFromOrigin();
+  const [owner = '', name = ''] = repo.split('/');
+  const isUserPage = name.toLowerCase() === `${owner.toLowerCase()}.github.io`;
+  const base = process.env.SITE_BASE || (repo && !isUserPage ? `/${name}/` : '/');
+  return base.endsWith('/') ? base : `${base}/`;
+}
+
+const BASE = siteBase();
+const withBase = (url) => (url.startsWith('/') ? `${BASE}${url.slice(1)}` : url);
+const mirrorUrl = (rel) => `${BASE}vault/${toPosix(rel).split('/').map(encodeURIComponent).join('/')}`;
 
 function parseFrontmatter(raw) {
   if (!raw.startsWith('---')) return { attrs: {}, body: raw };
@@ -78,6 +107,15 @@ function stripMarkdown(text) {
     .trim();
 }
 
+function textTitle(value) {
+  const firstLine = String(value || '')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .find(Boolean);
+  if (!firstLine) return 'Пустой текст';
+  return firstLine.length > 120 ? `${firstLine.slice(0, 119)}…` : firstLine;
+}
+
 function normalizeColor(value) {
   if (!value) return null;
   if (typeof value === 'string') {
@@ -122,26 +160,28 @@ async function main() {
   console.log(`│ Source: ${vault}`);
 
   await fs.rm(NOTES_DIR, { recursive: true, force: true });
-  await fs.rm(MEDIA_DIR, { recursive: true, force: true });
+  await fs.rm(MIRROR_DIR, { recursive: true, force: true });
   await fs.mkdir(NOTES_DIR, { recursive: true });
-  await fs.mkdir(MEDIA_DIR, { recursive: true });
+  await fs.mkdir(MIRROR_DIR, { recursive: true });
   await fs.mkdir(DATA_DIR, { recursive: true });
 
   const allFiles = await walk(vault);
 
-  // --- Медиа ---
+  // --- Зеркало Public: исходные имена, папки и вложения ---
+  // Папка очищается целиком, поэтому удалённые в Obsidian файлы исчезают и на сайте.
   const mediaByBasename = new Map();
   const mediaByPath = new Map();
   let mediaCount = 0;
 
   for (const { full, rel } of allFiles) {
+    const dest = path.join(MIRROR_DIR, ...rel.split('/'));
+    await fs.mkdir(path.dirname(dest), { recursive: true });
+    await fs.copyFile(full, dest);
+
     const ext = path.extname(rel).toLowerCase();
     if (NOTE_EXT.has(ext)) continue;
-    const basename = path.basename(rel);
-    const destName = `${hash(rel).slice(0, 10)}-${slugify(path.basename(rel, ext))}${ext}`;
-    await fs.copyFile(full, path.join(MEDIA_DIR, destName));
-    const url = `/media/${encodeURIComponent(destName)}`;
-    mediaByBasename.set(basename.toLowerCase(), url);
+    const url = mirrorUrl(rel);
+    mediaByBasename.set(path.basename(rel).toLowerCase(), url);
     mediaByPath.set(rel.toLowerCase(), url);
     mediaCount++;
   }
@@ -237,7 +277,7 @@ async function main() {
           kind: 'note',
           title: target?.title || basename,
           slug: noteSlug,
-          url: target?.ext === '.canvas' ? `/canvases/${noteSlug}/` : null,
+          url: target?.ext === '.canvas' ? withBase(`/canvases/${noteSlug}/`) : null,
           preview: stripMarkdown(target?.body).slice(0, 360),
           search: stripMarkdown(target?.body).slice(0, 1200),
         };
@@ -263,7 +303,8 @@ async function main() {
       };
 
       if (base.type === 'text') {
-        return { ...base, kind: 'text', title: 'Текст', text: String(node.text || ''), preview: '', url: null };
+        const text = String(node.text || '');
+        return { ...base, kind: 'text', title: textTitle(text), text, preview: '', url: null };
       }
       if (base.type === 'link') {
         return { ...base, kind: 'link', title: String(node.label || node.url || 'Ссылка'), text: '', preview: String(node.url || ''), url: String(node.url || '') };

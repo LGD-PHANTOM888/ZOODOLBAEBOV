@@ -26,6 +26,7 @@ function signature() {
       const full = path.join(dir, entry.name);
       const relPath = rel ? `${rel}/${entry.name}` : entry.name;
       if (entry.isDirectory()) {
+        entries.push(`DIR|${relPath}`);
         walk(full, relPath);
       } else if (entry.isFile()) {
         try {

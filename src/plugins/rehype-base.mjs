@@ -32,7 +32,8 @@ export default function rehypeBase({ base = '/' } = {}) {
       for (const key of keys) {
         const value = node.properties[key];
         if (typeof value !== 'string') continue;
-        if (!prefix || !value.startsWith('/') || value.startsWith('//')) continue;
+        // manifest уже содержит базу — не добавляем её второй раз.
+        if (!prefix || !value.startsWith('/') || value.startsWith('//') || value.startsWith(prefix)) continue;
         node.properties[key] = prefix + value.slice(1);
       }
     });
