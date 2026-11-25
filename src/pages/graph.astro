@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GraphCanvas from '../components/GraphCanvas.astro';
+import manifest from '../data/manifest.json';
+import folderUrl from '../utils/folder-url';
+
+const base = import.meta.env.BASE_URL;
+const nodes = manifest.notes.map((note) => ({ id: note.slug, title: note.title, group: note.folder || '—' }));
+const ids = new Set(nodes.map((node) => node.id));
+const links = [];
+const seen = new Set();
+for (const note of manifest.notes) {
+  for (const target of note.outgoing) {
+    if (!ids.has(target)) continue;
+    const key = [note.slug, target].sort().join('::');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    links.push({ source: note.slug, target });
+  }
+}
+const graph = { nodes, links };
+---
+
+<BaseLayout title="Граф связей" description="Граф связей между заметками" active="graph" wide>
+  <div class="page-top">
+    <nav class="crumbs"><a href={base}>Главная</a><span>/</span><span>Граф</span></nav>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Глобальная сеть</span>
+        <h2>Граф заметок</h2>
+      </div>
+      <p>{nodes.length} узлов · {links.length} связей</p>
+    </div>
+  </div>
+
+  <GraphCanvas graph={graph} label="ВСЕ СВЯЗИ" hint="перетаскивайте узлы · клик открывает заметку" />
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">По разделам</span>
+        <h2>Локальные графы</h2>
+      </div>
+      <p>каждая папка — своя сеть</p>
+    </div>
+    <div class="folder-grid">
+      {manifest.folders.slice(0, 24).map((folder) => (
+        <a class="folder-card" href={folderUrl(folder.path)}>
+          <span class="folder-icon">◈</span>
+          <div class="folder-name">{folder.path}</div>
+          <div class="folder-count">{folder.count} записей · граф раздела →</div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

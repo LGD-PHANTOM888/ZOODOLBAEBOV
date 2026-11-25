@@ -1,0 +1,196 @@
+---
+const { graph, compact = false, label = 'ОБЗОР', hint = 'перетаскивайте узлы · клик открывает заметку' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const palette = ['#00ffc8', '#7cff6b', '#45b7ff', '#ff4d9d', '#ffb84d', '#b98cff', '#ff6b6b'];
+const groups = [...new Set(graph.nodes.map((node) => node.group))];
+const prepared = {
+  nodes: graph.nodes.map((node) => ({
+    ...node,
+    color: palette[groups.indexOf(node.group) % palette.length],
+  })),
+  links: graph.links,
+};
+---
+
+<div class:list={['graph-wrap', { 'graph-wrap--compact': compact }]} data-graph-wrap>
+  <div class="graph-toolbar">
+    <span class="eyebrow" style="font-size:9px">{label}</span>
+    <span>{hint}</span>
+  </div>
+  <canvas data-graph-canvas></canvas>
+  <div class="graph-hint">{graph.nodes.length} УЗЛОВ · {graph.links.length} СВЯЗЕЙ</div>
+</div>
+
+<script define:vars={{ graph: prepared, base, compact }}>
+  const wrap = document.querySelector('[data-graph-wrap]');
+  const canvas = wrap?.querySelector('[data-graph-canvas]');
+  if (wrap && canvas) {
+    const ctx = canvas.getContext('2d');
+    const css = getComputedStyle(document.documentElement);
+    let width = 0, height = 0, dpr = 1;
+    let hovered = null, dragged = null, raf = 0, tick = 0;
+
+    const nodes = graph.nodes.map((node, i) => {
+      const angle = (i / Math.max(1, graph.nodes.length)) * Math.PI * 2;
+      const radius = 90 + (i % 7) * 14;
+      return {
+        ...node,
+        x: Math.cos(angle) * radius + (Math.random() - 0.5) * 24,
+        y: Math.sin(angle) * radius + (Math.random() - 0.5) * 24,
+        vx: 0, vy: 0, degree: 0,
+      };
+    });
+    const byId = new Map(nodes.map((node) => [node.id, node]));
+    const edges = graph.links
+      .map((link) => ({ a: byId.get(link.source), b: byId.get(link.target) }))
+      .filter((edge) => edge.a && edge.b);
+    edges.forEach(({ a, b }) => { a.degree++; b.degree++; });
+
+    const color = (name, fallback) => css.getPropertyValue(name).trim() || fallback;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = wrap.clientWidth;
+      height = canvas.clientHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function step() {
+      const cx = width / 2, cy = height / 2;
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          let dx = b.x - a.x, dy = b.y - a.y;
+          let dist = Math.hypot(dx, dy) || 1;
+          if (dist > 340) continue;
+          const force = 1100 / (dist * dist);
+          dx /= dist; dy /= dist;
+          a.vx -= dx * force; a.vy -= dy * force;
+          b.vx += dx * force; b.vy += dy * force;
+        }
+      }
+
+      for (const { a, b } of edges) {
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const force = (dist - 118) * 0.0045;
+        const ux = dx / dist, uy = dy / dist;
+        a.vx += ux * force; a.vy += uy * force;
+        b.vx -= ux * force; b.vy -= uy * force;
+      }
+
+      for (const node of nodes) {
+        node.vx += (cx - node.x) * 0.0017;
+        node.vy += (cy - node.y) * 0.0017;
+        if (node === dragged) { node.vx = 0; node.vy = 0; continue; }
+        node.vx *= 0.86; node.vy *= 0.86;
+        node.x += Math.max(-8, Math.min(8, node.vx));
+        node.y += Math.max(-8, Math.min(8, node.vy));
+      }
+    }
+
+    function draw() {
+      tick++;
+      ctx.clearRect(0, 0, width, height);
+      const line = color('--line', '#1b3336');
+      const paper = color('--panel', '#0b1114');
+      const ink = color('--text', '#d7f7ef');
+      const accent = color('--accent', '#00ffc8');
+
+      const neighbors = new Set();
+      if (hovered) {
+        neighbors.add(hovered.id);
+        edges.forEach(({ a, b }) => {
+          if (a.id === hovered.id) neighbors.add(b.id);
+          if (b.id === hovered.id) neighbors.add(a.id);
+        });
+      }
+
+      ctx.lineWidth = 1;
+      ctx.shadowBlur = 0;
+      for (const { a, b } of edges) {
+        const active = hovered && (a.id === hovered.id || b.id === hovered.id);
+        ctx.strokeStyle = active ? accent : line;
+        ctx.globalAlpha = active ? 0.95 : (hovered ? 0.1 : 0.5);
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      for (const node of nodes) {
+        const radius = 4 + Math.min(7, node.degree * 1.3);
+        const active = !hovered || neighbors.has(node.id);
+        const pulse = 0.5 + 0.5 * Math.sin(tick / 26 + node.x * 0.01);
+
+        ctx.globalAlpha = active ? 1 : 0.16;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, radius + (node.degree > 6 ? pulse * 3 : 0), 0, Math.PI * 2);
+        ctx.fillStyle = node === hovered ? accent : node.color;
+        ctx.shadowBlur = node === hovered ? 22 : 10;
+        ctx.shadowColor = node.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = paper;
+        ctx.stroke();
+
+        if (node === hovered || node.degree > 6 || (hovered && neighbors.has(node.id))) {
+          ctx.globalAlpha = node === hovered ? 1 : 0.78;
+          ctx.fillStyle = node === hovered ? accent : ink;
+          ctx.font = `${node === hovered ? '700 ' : '500 '}12px "JetBrains Mono", monospace`;
+          ctx.textAlign = 'center';
+          ctx.fillText(
+            node.title.length > 30 ? `${node.title.slice(0, 28)}…` : node.title,
+            node.x,
+            node.y + radius + 16,
+          );
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function loop() { step(); draw(); raf = requestAnimationFrame(loop); }
+
+    function pointerPosition(event) {
+      const rect = canvas.getBoundingClientRect();
+      return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    }
+    function findNode(point) {
+      let best = null, bestDist = 26;
+      for (const node of nodes) {
+        const dist = Math.hypot(node.x - point.x, node.y - point.y);
+        if (dist < bestDist + node.degree) { best = node; bestDist = dist; }
+      }
+      return best;
+    }
+
+    canvas.addEventListener('pointermove', (event) => {
+      const point = pointerPosition(event);
+      if (dragged) { dragged.x = point.x; dragged.y = point.y; return; }
+      hovered = findNode(point);
+      canvas.style.cursor = hovered ? 'pointer' : 'grab';
+    });
+    canvas.addEventListener('pointerdown', (event) => {
+      const point = pointerPosition(event);
+      dragged = findNode(point);
+      if (dragged) canvas.setPointerCapture(event.pointerId);
+    });
+    canvas.addEventListener('pointerup', (event) => {
+      if (dragged && Math.hypot(dragged.x - pointerPosition(event).x, dragged.y - pointerPosition(event).y) < 5) {
+        window.location.href = `${base}notes/${dragged.id}/`;
+      }
+      dragged = null;
+    });
+    canvas.addEventListener('pointerleave', () => { hovered = null; dragged = null; });
+
+    addEventListener('resize', resize);
+    resize();
+    loop();
+  }
+</script>

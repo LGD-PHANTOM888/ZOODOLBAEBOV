@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+const notes = await getCollection('notes');
+const tags = new Map();
+for (const note of notes) {
+  for (const tag of note.data.tags) tags.set(tag, (tags.get(tag) || 0) + 1);
+}
+const entries = [...tags.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ru'));
+const max = Math.max(1, ...entries.map(([, count]) => count));
+---
+
+<BaseLayout title="Теги" description="Все теги и метки" active="tags">
+  <div style="padding-top:58px">
+    <span class="eyebrow">Навигация по смыслам</span>
+    <div class="section-head" style="margin-top:10px">
+      <h2>Теги</h2>
+      <p>{entries.length} меток</p>
+    </div>
+    <div class="tag-cloud" style="gap:12px">
+      {entries.map(([tag, count]) => (
+        <a
+          class="tag"
+          href={`${base}tags/${encodeURIComponent(tag)}/`}
+          style={`font-size:${13 + Math.round((count / max) * 8)}px`}
+        >
+          #{tag} <span class="tag-count">{count}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

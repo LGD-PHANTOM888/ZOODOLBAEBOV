@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  const tags = new Set(notes.flatMap((note) => note.data.tags));
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: { tag, notes: notes.filter((note) => note.data.tags.includes(tag)) },
+  }));
+}
+
+const { tag, notes } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`#${tag} · заметки`} description={`Заметки с тегом ${tag}`} active="tags">
+  <div style="padding-top:58px">
+    <nav class="crumbs"><a href={base}>Главная</a><span>/</span><a href={`${base}tags/`}>Теги</a><span>/</span><span>#{tag}</span></nav>
+    <div class="section-head" style="margin-top:10px">
+      <div>
+        <span class="eyebrow">Метка</span>
+        <h2>#{tag}</h2>
+      </div>
+      <p>{notes.length} заметок</p>
+    </div>
+    <div class="note-list">
+      {notes.map((note, i) => (
+        <a class="note-row" href={`${base}notes/${note.data.slug}/`}>
+          <span class="note-index">{String(i + 1).padStart(2, '0')}</span>
+          <span>
+            <span class="note-row-title">{note.data.title}</span>
+            <span class="note-row-desc">{note.data.description || '—'}</span>
+          </span>
+          <span class="note-row-meta"><span class="note-arrow">↗</span></span>
+        </a>
+      ))}
+    </div>
+    <div style="margin-top:30px"><a class="btn btn-ghost" href={`${base}tags/`}>← все теги</a></div>
+  </div>
+</BaseLayout>

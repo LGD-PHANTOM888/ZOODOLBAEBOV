@@ -1,0 +1,95 @@
+---
+import manifest from '../data/manifest.json';
+import folderUrl from '../utils/folder-url';
+
+const base = import.meta.env.BASE_URL;
+const canvasCount = manifest.notes.filter((note) => note.kind === 'canvas').length;
+---
+
+<div class="explorer-backdrop" data-explorer-backdrop></div>
+
+<aside class="explorer" data-explorer aria-label="Проводник разделов">
+  <div class="explorer-head">
+    <div>
+      <span class="eyebrow" style="font-size:9px">EXPLORER</span>
+      <strong>Файловая система</strong>
+    </div>
+    <button class="icon-btn" id="explorer-close" type="button" aria-label="Закрыть проводник">×</button>
+  </div>
+
+  <label class="explorer-filter">
+    <span>❯</span>
+    <input type="search" data-explorer-filter placeholder="найти раздел..." autocomplete="off" />
+  </label>
+
+  <nav class="explorer-tree" aria-label="Разделы">
+    <a class="explorer-item explorer-item--root" href={`${base}notes/`} data-explorer-item data-search="все заметки archive notes">
+      <span class="explorer-icon">▣</span><span>Все заметки</span><span class="explorer-count">{manifest.notes.length}</span>
+    </a>
+    <a class="explorer-item explorer-item--root" href={`${base}graph/`} data-explorer-item data-search="граф graph">
+      <span class="explorer-icon">⌘</span><span>Глобальный граф</span><span class="explorer-count">∞</span>
+    </a>
+    <a class="explorer-item explorer-item--root" href={`${base}notes/#canvases`} data-explorer-item data-search="холсты canvas">
+      <span class="explorer-icon">◇</span><span>Холсты</span><span class="explorer-count">{canvasCount}</span>
+    </a>
+
+    <div class="explorer-divider">РАЗДЕЛЫ / {manifest.folders.length}</div>
+
+    {manifest.folders.map((folder) => (
+      <a
+        class="explorer-item"
+        style={`--depth:${Math.max(0, folder.segments.length - 1)}`}
+        href={folderUrl(folder.path)}
+        data-explorer-item
+        data-search={folder.path.toLowerCase()}
+      >
+        <span class="explorer-branch">{folder.segments.length > 1 ? '└' : '▸'}</span>
+        <span class="explorer-name">{folder.segments[folder.segments.length - 1]}</span>
+        <span class="explorer-count">{folder.direct}</span>
+      </a>
+    ))}
+  </nav>
+
+  <div class="explorer-foot">
+    <span class="status-dot"></span>
+    синхронизировано {new Date(manifest.generatedAt).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
+  </div>
+</aside>
+
+<script>
+  const panel = document.querySelector('[data-explorer]');
+  const backdrop = document.querySelector('[data-explorer-backdrop]');
+  const openBtn = document.getElementById('explorer-open');
+  const closeBtn = document.getElementById('explorer-close');
+  const filter = document.querySelector('[data-explorer-filter]');
+  const items = [...document.querySelectorAll('[data-explorer-item]')];
+
+  function open() {
+    panel.dataset.open = 'true';
+    backdrop.dataset.open = 'true';
+    setTimeout(() => filter?.focus(), 30);
+  }
+  function close() {
+    panel.dataset.open = 'false';
+    backdrop.dataset.open = 'false';
+    if (filter) filter.value = '';
+    items.forEach((item) => { item.hidden = false; });
+  }
+
+  openBtn?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  items.forEach((item) => item.addEventListener('click', close));
+
+  filter?.addEventListener('input', () => {
+    const query = filter.value.trim().toLowerCase();
+    items.forEach((item) => {
+      item.hidden = Boolean(query) && !(item.dataset.search || '').includes(query);
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel.dataset.open === 'true') close();
+    if (event.key.toLowerCase() === 'e' && !event.ctrlKey && !event.metaKey && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) open();
+  });
+</script>

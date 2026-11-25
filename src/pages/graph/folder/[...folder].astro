@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GraphCanvas from '../../../components/GraphCanvas.astro';
+import manifest from '../../../data/manifest.json';
+import folderUrl from '../../../utils/folder-url';
+
+export function getStaticPaths() {
+  return manifest.folders.map((folder) => ({
+    params: { folder: folder.path },
+    props: { folder },
+  }));
+}
+
+const { folder } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const path = folder.path as string;
+const parts = path.split('/');
+const parent = parts.length > 1 ? parts.slice(0, -1).join('/') : '';
+const children = manifest.folders.filter((item) => {
+  if (!item.path.startsWith(`${path}/`)) return false;
+  return !item.path.slice(path.length + 1).includes('/');
+});
+
+const scoped = manifest.notes.filter((note) => note.folder === path || note.folder.startsWith(`${path}/`));
+const ids = new Set(scoped.map((note) => note.slug));
+const nodes = scoped.map((note) => ({
+  id: note.slug,
+  title: note.title,
+  group: note.folder || '—',
+}));
+const links = [];
+const seen = new Set();
+for (const note of scoped) {
+  for (const target of note.outgoing) {
+    if (!ids.has(target)) continue;
+    const key = [note.slug, target].sort().join('::');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    links.push({ source: note.slug, target });
+  }
+}
+const graph = { nodes, links };
+const direct = scoped.filter((note) => note.folder === path);
+---
+
+<BaseLayout title={`Граф · ${path}`} description={`Связи заметок в разделе ${path}`} active="graph" wide>
+  <div class="page-top">
+    <nav class="crumbs">
+      <a href={base}>Главная</a><span>/</span>
+      <a href={`${base}graph/`}>Граф</a><span>/</span>
+      {parent && <><a href={folderUrl(parent)}>{parent}</a><span>/</span></>}
+      <span>{parts[parts.length - 1]}</span>
+    </nav>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Локальная сеть · {direct.length} здесь / {scoped.length} всего</span>
+        <h2>{path}</h2>
+      </div>
+      <p>{nodes.length} узлов · {links.length} связей</p>
+    </div>
+  </div>
+
+  <GraphCanvas graph={graph} label="ГРАФ РАЗДЕЛА" hint="клик по узлу открывает заметку" compact />
+
+  {children.length > 0 && (
+    <section class="section">
+      <div class="section-head">
+        <div><span class="eyebrow">Внутри</span><h2>Подразделы</h2></div>
+      </div>
+      <div class="folder-grid">
+        {children.map((child) => (
+          <a class="folder-card" href={folderUrl(child.path)}>
+            <span class="folder-icon">◈</span>
+            <div class="folder-name">{child.path.slice(path.length + 1)}</div>
+            <div class="folder-count">{child.count} записей · граф →</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="section-head">
+      <div><span class="eyebrow">Архив раздела</span><h2>Заметки</h2></div>
+      <p>{direct.length}</p>
+    </div>
+    <div class="note-list">
+      {direct.map((note, index) => (
+        <a class="note-row" href={`${base}notes/${note.slug}/`}>
+          <span class="note-index">{String(index + 1).padStart(2, '0')}</span>
+          <span>
+            <span class="note-row-title">{note.title}</span>
+            <span class="note-row-desc">{note.description || '—'}</span>
+          </span>
+          <span class="note-row-meta">
+            {note.kind === 'canvas' && <span class="mini-badge">ХОЛСТ</span>}
+            <span class="note-arrow">↗</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

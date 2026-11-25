@@ -1,0 +1,45 @@
+image: node:20-alpine
+
+stages:
+  - build
+  - deploy
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - node_modules/
+
+variables:
+  GIT_DEPTH: "1"
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - |
+      export SITE_URL="${CI_PAGES_URL:-https://$CI_PROJECT_ROOT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/}"
+      PAGE_PATH=$(printf '%s' "$SITE_URL" | sed -E 's#^https?://[^/]+##')
+      if [ -z "$PAGE_PATH" ]; then PAGE_PATH="/"; fi
+      export SITE_BASE="$PAGE_PATH"
+      echo "SITE_URL=$SITE_URL"
+      echo "SITE_BASE=$SITE_BASE"
+    # Синхронизация с Obsidian происходит локально через update-site.bat.
+    # В CI собираем уже закоммиченные заметки и медиа.
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+
+pages:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - rm -rf public
+    - mv dist public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

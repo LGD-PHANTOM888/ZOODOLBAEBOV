@@ -1,0 +1,186 @@
+---
+const { canvas } = Astro.props;
+import CanvasNode from './CanvasNode.astro';
+const bounds = canvas.bounds;
+
+const byId = new Map(canvas.nodes.map((node) => [node.id, node]));
+const point = (node, side) => {
+  const cx = node.x - bounds.x + node.width / 2;
+  const cy = node.y - bounds.y + node.height / 2;
+  const left = node.x - bounds.x;
+  const top = node.y - bounds.y;
+  if (side === 'left') return { x: left, y: cy };
+  if (side === 'right') return { x: left + node.width, y: cy };
+  if (side === 'top') return { x: cx, y: top };
+  return { x: cx, y: top + node.height };
+};
+
+const lines = canvas.edges.map((edge) => {
+  const from = byId.get(edge.from);
+  const to = byId.get(edge.to);
+  if (!from || !to) return null;
+  const a = point(from, edge.fromSide);
+  const b = point(to, edge.toSide);
+  return { ...edge, x1: a.x, y1: a.y, x2: b.x, y2: b.y };
+}).filter(Boolean);
+
+const orderedNodes = canvas.nodes
+  .map((node) => ({ ...node, x: node.x - bounds.x, y: node.y - bounds.y }))
+  .sort((a, b) => {
+    if (a.kind === 'group' && b.kind !== 'group') return -1;
+    if (b.kind === 'group' && a.kind !== 'group') return 1;
+    return 0;
+  });
+
+const kindLabel = {
+  note: 'ЗАМЕТКА', image: 'ИЗОБРАЖЕНИЕ', video: 'ВИДЕО', audio: 'АУДИО',
+  pdf: 'PDF', other: 'ФАЙЛ', text: 'ТЕКСТ', link: 'ССЫЛКА',
+  group: 'ГРУППА', locked: 'СКРЫТО', missing: 'НЕ НАЙДЕН',
+};
+---
+
+<div class="canvas-shell" data-canvas-shell>
+  <div class="canvas-toolbar">
+    <span class="eyebrow" style="font-size:9px">CANVAS VIEWER</span>
+    <span class="canvas-toolbar-sep"></span>
+    <button type="button" data-canvas-action="out" title="Уменьшить">−</button>
+    <span class="canvas-zoom" data-canvas-zoom>100%</span>
+    <button type="button" data-canvas-action="in" title="Увеличить">+</button>
+    <button type="button" data-canvas-action="fit" title="Вписать всё">ВМЕСТИТЬ</button>
+    <span class="canvas-toolbar-sep"></span>
+    <span class="canvas-toolbar-hint">колесо — масштаб · тянуть фон — панорама</span>
+  </div>
+
+  <div class="canvas-viewport" data-canvas-viewport>
+    <div
+      class="canvas-stage"
+      data-canvas-stage
+      style={`width:${bounds.width}px;height:${bounds.height}px;`}
+    >
+      <svg
+        class="canvas-edges"
+        viewBox={`0 0 ${bounds.width} ${bounds.height}`}
+        width={bounds.width}
+        height={bounds.height}
+        aria-hidden="true"
+      >
+        {lines.map((line) => (
+          <line
+            x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
+            data-edge-from={line.from} data-edge-to={line.to}
+          />
+        ))}
+      </svg>
+
+      {orderedNodes.map((node) => (
+        <CanvasNode node={node} label={kindLabel[node.kind] || node.kind.toUpperCase()} />
+      ))}
+    </div>
+  </div>
+
+  <div class="canvas-status">
+    <span>УЗЛОВ <b>{canvas.stats.nodes}</b></span>
+    <span>СВЯЗЕЙ <b>{canvas.stats.edges}</b></span>
+    <span>ЗАМЕТОК <b>{canvas.stats.notes}</b></span>
+    <span>МЕДИА <b>{canvas.stats.media}</b></span>
+    {canvas.stats.locked > 0 && <span class="canvas-status-locked">СКРЫТО <b>{canvas.stats.locked}</b></span>}
+  </div>
+</div>
+
+<script define:vars={{ canvas }}>
+  const shell = document.querySelector('[data-canvas-shell]');
+  const viewport = shell?.querySelector('[data-canvas-viewport]');
+  const stage = shell?.querySelector('[data-canvas-stage]');
+  const zoomLabel = shell?.querySelector('[data-canvas-zoom]');
+  const bounds = canvas.bounds;
+
+  let scale = 1;
+  let tx = 0;
+  let ty = 0;
+  let touched = false;
+  let drag = null;
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+  function apply() {
+    stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    if (zoomLabel) zoomLabel.textContent = `${Math.round(scale * 100)}%`;
+  }
+
+  function fit() {
+    const w = viewport.clientWidth || 800;
+    const h = viewport.clientHeight || 600;
+    scale = clamp(Math.min((w - 80) / bounds.width, (h - 80) / bounds.height), 0.03, 1.25);
+    tx = (w - bounds.width * scale) / 2;
+    ty = (h - bounds.height * scale) / 2;
+    apply();
+  }
+
+  function zoomAt(factor, px, py) {
+    const next = clamp(scale * factor, 0.03, 2.5);
+    tx = px - (px - tx) * (next / scale);
+    ty = py - (py - ty) * (next / scale);
+    scale = next;
+    touched = true;
+    apply();
+  }
+
+  function center() {
+    return { px: viewport.clientWidth / 2, py: viewport.clientHeight / 2 };
+  }
+
+  shell?.querySelectorAll('[data-canvas-action]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const action = button.dataset.canvasAction;
+      const { px, py } = center();
+      if (action === 'in') zoomAt(1.2, px, py);
+      if (action === 'out') zoomAt(1 / 1.2, px, py);
+      if (action === 'fit') { touched = false; fit(); }
+    });
+  });
+
+  viewport?.addEventListener('wheel', (event) => {
+    event.preventDefault();
+    const rect = viewport.getBoundingClientRect();
+    zoomAt(event.deltaY < 0 ? 1.12 : 1 / 1.12, event.clientX - rect.left, event.clientY - rect.top);
+  }, { passive: false });
+
+  viewport?.addEventListener('pointerdown', (event) => {
+    if (event.target.closest('.canvas-node') || event.button !== 0) return;
+    drag = { x: event.clientX, y: event.clientY, tx, ty };
+    viewport.setPointerCapture(event.pointerId);
+    viewport.classList.add('is-dragging');
+  });
+
+  viewport?.addEventListener('pointermove', (event) => {
+    if (!drag) return;
+    tx = drag.tx + event.clientX - drag.x;
+    ty = drag.ty + event.clientY - drag.y;
+    touched = true;
+    apply();
+  });
+
+  const endDrag = () => {
+    drag = null;
+    viewport?.classList.remove('is-dragging');
+  };
+  viewport?.addEventListener('pointerup', endDrag);
+  viewport?.addEventListener('pointercancel', endDrag);
+
+  shell?.querySelectorAll('[data-canvas-node]').forEach((node) => {
+    node.addEventListener('pointerenter', () => {
+      shell.dataset.activeNode = node.dataset.canvasNode;
+      shell.querySelectorAll('[data-edge-from]').forEach((line) => {
+        const active = line.dataset.edgeFrom === node.dataset.canvasNode || line.dataset.edgeTo === node.dataset.canvasNode;
+        line.classList.toggle('is-active', active);
+      });
+    });
+    node.addEventListener('pointerleave', () => {
+      delete shell.dataset.activeNode;
+      shell.querySelectorAll('[data-edge-from]').forEach((line) => line.classList.remove('is-active'));
+    });
+  });
+
+  new ResizeObserver(() => { if (!touched) fit(); }).observe(viewport);
+  fit();
+</script>

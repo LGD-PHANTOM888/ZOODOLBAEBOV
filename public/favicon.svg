@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#26231f"/>
+  <rect x="12" y="12" width="36" height="36" rx="10" fill="#b4512b" transform="rotate(-6 30 30)"/>
+  <text x="32" y="43" font-family="Georgia,serif" font-size="38" font-style="italic" fill="#fffdf8" text-anchor="middle">З</text>
+</svg>

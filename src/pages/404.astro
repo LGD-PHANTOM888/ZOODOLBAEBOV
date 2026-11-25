@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="404 · Страница не найдена">
+  <div style="min-height:60vh;display:grid;place-items:center;text-align:center;padding-top:60px">
+    <div>
+      <div style="font-family:var(--font-display);font-size:120px;line-height:1;color:var(--accent)">404</div>
+      <h1 style="font-family:var(--font-display);font-size:30px;margin:0 0 12px">Здесь ничего нет</h1>
+      <p style="color:var(--muted);margin:0 0 28px">Возможно, заметка переехала или её никогда не было.</p>
+      <a class="btn btn-primary" href={base}>На главную →</a>
+    </div>
+  </div>
+</BaseLayout>
