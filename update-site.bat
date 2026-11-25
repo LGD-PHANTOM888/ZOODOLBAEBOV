@@ -13,14 +13,14 @@ echo.
 
 where node >nul 2>nul
 if errorlevel 1 (
-  echo [ERROR] Node.js not found. Install Node 20 LTS: https://nodejs.org
+  echo [ERROR] Node.js not found. Install Node 22 LTS: https://nodejs.org
   pause
   exit /b 1
 )
 
 where npm >nul 2>nul
 if errorlevel 1 (
-  echo [ERROR] npm not found. Install Node 20 LTS: https://nodejs.org
+  echo [ERROR] npm not found. Install Node 22 LTS: https://nodejs.org
   pause
   exit /b 1
 )

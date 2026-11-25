@@ -44,7 +44,7 @@ git push -u origin main
 
 ## Локальный запуск
 
-Node.js 20+:
+Node.js 22.23.4+:
 
 ```bat
 npm ci
