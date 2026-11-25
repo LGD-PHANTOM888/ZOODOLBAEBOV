@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FolderTree from '../../components/FolderTree.astro';
+import manifest from '../../data/manifest.json';
+
+const canvases = [...manifest.notes];
+---
+
+<BaseLayout title={`Холсты · ${canvases.length}`} description="Дерево холстов" active="canvases">
+  <div class="page-top">
+    <span class="eyebrow">ДЕРЕВО</span>
+    <div class="section-head" style="margin-top:10px">
+      <h2>Холсты</h2>
+      <p>{canvases.length}</p>
+    </div>
+    <FolderTree label="КОРЕНЬ" />
+  </div>
+</BaseLayout>

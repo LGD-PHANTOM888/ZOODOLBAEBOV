@@ -38,7 +38,7 @@ const graph = { nodes, links };
   <section class="section">
     <div class="section-head">
       <div>
-        <span class="eyebrow">По разделам</span>
+        <span class="eyebrow">По папкам</span>
         <h2>Локальные графы</h2>
       </div>
       <p>каждая папка — своя сеть</p>
@@ -48,7 +48,7 @@ const graph = { nodes, links };
         <a class="folder-card" href={folderUrl(folder.path)}>
           <span class="folder-icon">◈</span>
           <div class="folder-name">{folder.path}</div>
-          <div class="folder-count">{folder.count} холстов · граф раздела →</div>
+          <div class="folder-count">{folder.count} холстов · граф папки →</div>
         </a>
       ))}
     </div>

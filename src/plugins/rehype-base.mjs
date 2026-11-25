@@ -1,6 +1,6 @@
 import { visit } from 'unist-util-visit';
 
-/** Добавляет base ко всем внутренним абсолютным ссылкам (для GitLab project pages). */
+/** Добавляет base ко всем внутренним абсолютным ссылкам (для project pages). */
 export default function rehypeBase({ base = '/' } = {}) {
   const prefix = !base || base === '/' ? '' : (base.endsWith('/') ? base : `${base}/`);
   const attrs = {

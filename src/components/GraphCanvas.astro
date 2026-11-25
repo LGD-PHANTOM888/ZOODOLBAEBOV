@@ -183,7 +183,7 @@ const prepared = {
     });
     canvas.addEventListener('pointerup', (event) => {
       if (dragged && Math.hypot(dragged.x - pointerPosition(event).x, dragged.y - pointerPosition(event).y) < 5) {
-        window.location.href = `${base}notes/${dragged.id}/`;
+        window.location.href = `${base}canvases/${dragged.id}/`;
       }
       dragged = null;
     });

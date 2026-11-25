@@ -72,7 +72,7 @@ const base = import.meta.env.BASE_URL;
       return;
     }
     results.innerHTML = current.map((item, i) => `
-      <a class="search-result" href="${base}notes/${item.slug}/" data-selected="${i === 0}">
+      <a class="search-result" href="${base}canvases/${item.slug}/" data-selected="${i === 0}">
         <strong>${escapeHtml(item.title)}</strong>
         <p>${escapeHtml(item.description || item.folder || 'Холст')}</p>
       </a>`).join('');
@@ -107,7 +107,7 @@ const base = import.meta.env.BASE_URL;
     if (event.key === 'ArrowDown') { event.preventDefault(); move(1); }
     if (event.key === 'ArrowUp') { event.preventDefault(); move(-1); }
     if (event.key === 'Enter' && current[selected]) {
-      window.location.href = `${base}notes/${current[selected].slug}/`;
+      window.location.href = `${base}canvases/${current[selected].slug}/`;
     }
   });
   document.addEventListener('keydown', (event) => {

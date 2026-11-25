@@ -1,0 +1,53 @@
+---
+import manifest from '../data/manifest.json';
+
+interface Props { label?: string }
+const { label = 'КОРЕНЬ' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+type Tree = { name: string; folders: Map<string, Tree>; canvases: any[] };
+const makeNode = (name: string): Tree => ({ name, folders: new Map(), canvases: [] });
+const root = makeNode('');
+
+for (const canvas of manifest.notes) {
+  const parts = canvas.folder ? String(canvas.folder).split('/').filter(Boolean) : [];
+  let current = root;
+  for (const part of parts) {
+    if (!current.folders.has(part)) current.folders.set(part, makeNode(part));
+    current = current.folders.get(part);
+  }
+  current.canvases.push(canvas);
+}
+
+const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+})[char]);
+
+const nodeHtml = (node: Tree, depth: number): string => {
+  const folders = [...node.folders.values()].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  const canvases = [...node.canvases].sort((a, b) => String(a.title).localeCompare(String(b.title), 'ru'));
+  const children = [
+    ...folders.map((folder) => {
+      const total = countCanvases(folder);
+      return `<li><details open><summary><span class="tree-caret">▾</span><span class="tree-name">${esc(folder.name)}</span><span class="tree-count">${total}</span></summary>${nodeHtml(folder, depth + 1)}</details></li>`;
+    }),
+    ...canvases.map((canvas) => `<li><a class="tree-leaf" href="${base}canvases/${encodeURIComponent(canvas.slug)}/"><span class="tree-icon">◇</span><span class="tree-name">${esc(canvas.title)}</span></a></li>`),
+  ].join('');
+  return children ? `<ul class="tree-list${depth === 0 ? ' tree-list--root' : ''}">${children}</ul>` : '';
+};
+
+function countCanvases(node: Tree): number {
+  return node.canvases.length + [...node.folders.values()].reduce((sum, child) => sum + countCanvases(child), 0);
+}
+---
+
+<div class="folder-tree">
+  <details open>
+    <summary>
+      <span class="tree-caret">▾</span>
+      <span class="tree-name">{label}</span>
+      <span class="tree-count">{manifest.notes.length}</span>
+    </summary>
+    <Fragment set:html={nodeHtml(root, 0)} />
+  </details>
+</div>

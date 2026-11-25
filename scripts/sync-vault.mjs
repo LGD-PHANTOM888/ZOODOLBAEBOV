@@ -184,6 +184,13 @@ async function main() {
 
   const draftByRel = new Map(drafts.map((draft) => [draft.rel.toLowerCase(), draft]));
   const draftBySlug = new Map(drafts.map((draft) => [draft.slug, draft]));
+
+  // Отдельные страницы есть только у холстов. Обычные записи остаются внутри холстов.
+  const internalLink = (slug, label, anchor = '') => {
+    const target = draftBySlug.get(slug);
+    if (!target || target.ext !== '.canvas') return label;
+    return `[${label}](/canvases/${slug}/${anchor})`;
+  };
   const slugByTitle = new Map();
   const slugByPath = new Map();
   for (const note of drafts) {
@@ -230,7 +237,7 @@ async function main() {
           kind: 'note',
           title: target?.title || basename,
           slug: noteSlug,
-          url: `/notes/${noteSlug}/`,
+          url: target?.ext === '.canvas' ? `/canvases/${noteSlug}/` : null,
           preview: stripMarkdown(target?.body).slice(0, 360),
           search: stripMarkdown(target?.body).slice(0, 1200),
         };
@@ -352,7 +359,7 @@ async function main() {
       const media = resolveMedia(target);
       if (media) return `![${path.posix.basename(target)}](${media})`;
       const slug = resolveNoteTarget(target);
-      if (slug) { outgoing.add(slug); return `[📎 ${target}](/notes/${slug}/)`; }
+      if (slug) { outgoing.add(slug); return internalLink(slug, target); }
       return match;
     });
 
@@ -363,7 +370,7 @@ async function main() {
       if (!slug) return match;
       outgoing.add(slug);
       const anchor = target.includes('#') ? `#${slugify(target.split('#')[1])}` : '';
-      return `[${alias || target.trim().split('#')[0]}](/notes/${slug}/${anchor})`;
+      return internalLink(slug, alias || target.trim().split('#')[0], anchor);
     });
 
     // Обычные markdown-картинки с относительными путями
@@ -379,7 +386,7 @@ async function main() {
       if (!slug) return match;
       outgoing.add(slug);
       const anchor = target.includes('#') ? `#${slugify(target.split('#')[1])}` : '';
-      return `[${label}](/notes/${slug}/${anchor})`;
+      return internalLink(slug, label, anchor);
     });
 
     const frontmatterTags = Array.isArray(draft.attrs.tags)
@@ -455,7 +462,7 @@ async function main() {
 
   const manifest = {
     generatedAt: new Date().toISOString(),
-    siteTitle: config.siteTitle || 'Архив',
+    siteTitle: config.siteTitle || 'Холсты',
     siteDescription: config.siteDescription || '',
     notes: published.sort((a, b) => String(b.updated).localeCompare(String(a.updated))),
     backlinks,

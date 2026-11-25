@@ -1,38 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FolderTree from '../components/FolderTree.astro';
 import manifest from '../data/manifest.json';
-import folderUrl from '../utils/folder-url';
 
 const base = import.meta.env.BASE_URL;
+const botUrl = 'https://t.me/Predlozkadegeneratos_bot';
 const canvases = [...manifest.notes];
 const canvasList = Object.values(manifest.canvases as Record<string, any>);
 const nodeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.nodes, 0);
 const edgeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.edges, 0);
 const linkCount = Object.values(manifest.backlinks).flat().length;
-
-const folders = new Map();
-for (const canvas of canvases) {
-  const name = canvas.folder || 'Без раздела';
-  folders.set(name, (folders.get(name) || 0) + 1);
-}
-const folderList = [...folders.entries()].sort((a, b) => b[1] - a[1]);
+const folderCount = new Set(canvases.map((canvas) => canvas.folder).filter(Boolean)).size;
 const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(date));
 ---
 
 <BaseLayout title={manifest.siteTitle} description={manifest.siteDescription}>
   <section class="hero">
     <div>
-      <span class="eyebrow">XXXLGDXXX // ARCHIVE</span>
+      <span class="eyebrow">ЗООПАРК ДОЛБОЕБОВ</span>
       <h1><span class="glitch" data-text="ЗООПАРК">ЗООПАРК</span><br /><em>ДОЛБОЕБОВ</em></h1>
       <p class="hero-lead terminal-line">
-        <span class="prompt">root@archive:~$</span> cat index<br />
-        Архив холстов и связей.
+        <span class="prompt">root@zoo:~$</span> cat index<br />
+        Холсты и связи.
         <span class="cursor">_</span>
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href={`${base}notes/`}>ХОЛСТЫ <span>→</span></a>
+        <a class="btn btn-primary" href={`${base}canvases/`}>ХОЛСТЫ <span>→</span></a>
         <a class="btn btn-ghost" href={`${base}graph/`}>ГРАФ</a>
-        <a class="btn btn-ghost" href={`${base}predlozhka/`}>ПРЕДЛОЖКА</a>
+        <a class="btn btn-ghost" href={botUrl} target="_blank" rel="noopener noreferrer">ПРЕДЛОЖКА ↗</a>
       </div>
     </div>
 
@@ -48,7 +43,7 @@ const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', 
 
   <div class="stats">
     <div class="stat"><span class="stat-value">{canvases.length}</span><span class="stat-label">Холстов</span></div>
-    <div class="stat"><span class="stat-value">{folderList.length}</span><span class="stat-label">Разделов</span></div>
+    <div class="stat"><span class="stat-value">{folderCount}</span><span class="stat-label">Папок</span></div>
     <div class="stat"><span class="stat-value">{nodeCount}</span><span class="stat-label">Узлов</span></div>
     <div class="stat"><span class="stat-value">{edgeCount}</span><span class="stat-label">Связей</span></div>
   </div>
@@ -56,19 +51,19 @@ const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', 
   <section class="section">
     <div class="section-head">
       <div>
-        <span class="eyebrow">Архив</span>
+        <span class="eyebrow">Корень</span>
         <h2>Холсты</h2>
       </div>
-      <a href={`${base}notes/`}>Все холсты →</a>
+      <a href={`${base}canvases/`}>Все холсты →</a>
     </div>
 
     <div class="note-list">
       {canvases.slice(0, 10).map((canvas, index) => (
-        <a class="note-row" href={`${base}notes/${canvas.slug}/`}>
+        <a class="note-row" href={`${base}canvases/${canvas.slug}/`}>
           <span class="note-index">{String(index + 1).padStart(2, '0')}</span>
           <span>
             <span class="note-row-title">{canvas.title}</span>
-            <span class="note-row-desc">{canvas.folder || 'Без раздела'}</span>
+            <span class="note-row-desc">{canvas.folder || 'Корень'}</span>
           </span>
           <span class="note-row-meta">
             <span>{formatDate(canvas.updated)}</span>
@@ -82,18 +77,11 @@ const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', 
   <section class="section">
     <div class="section-head">
       <div>
-        <span class="eyebrow">Карта</span>
-        <h2>Разделы</h2>
+        <span class="eyebrow">Корень</span>
+        <h2>Дерево холстов</h2>
       </div>
+      <a href={`${base}canvases/`}>Открыть всё →</a>
     </div>
-    <div class="folder-grid">
-      {folderList.map(([name, count]) => (
-        <a class="folder-card" href={folderUrl(name)}>
-          <span class="folder-icon">◈</span>
-          <div class="folder-name">{name}</div>
-          <div class="folder-count">{count} холстов</div>
-        </a>
-      ))}
-    </div>
+    <FolderTree label="КОРЕНЬ" />
   </section>
 </BaseLayout>

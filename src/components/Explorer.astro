@@ -1,14 +1,50 @@
 ---
 import manifest from '../data/manifest.json';
-import folderUrl from '../utils/folder-url';
 
 const base = import.meta.env.BASE_URL;
+const botUrl = 'https://t.me/Predlozkadegeneratos_bot';
 const canvases = [...manifest.notes];
+
+type Tree = { name: string; folders: Map<string, Tree>; canvases: any[] };
+const makeNode = (name: string): Tree => ({ name, folders: new Map(), canvases: [] });
+const root = makeNode('');
+
+for (const folder of manifest.folders) {
+  let current = root;
+  for (const part of folder.segments) {
+    if (!current.folders.has(part)) current.folders.set(part, makeNode(part));
+    current = current.folders.get(part)!;
+  }
+}
+for (const canvas of canvases) {
+  let current = root;
+  for (const part of (canvas.folder ? String(canvas.folder).split('/') : [])) {
+    if (!current.folders.has(part)) current.folders.set(part, makeNode(part));
+    current = current.folders.get(part)!;
+  }
+  current.canvases.push(canvas);
+}
+
+const esc = (value: any) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+})[char] as string);
+
+const countCanvases = (node: Tree): number =>
+  node.canvases.length + [...node.folders.values()].reduce((sum, child) => sum + countCanvases(child), 0);
+
+const nodeHtml = (node: Tree, depth: number): string => {
+  const folders = [...node.folders.values()].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  const leaves = [...node.canvases].sort((a, b) => String(a.title).localeCompare(String(b.title), 'ru'));
+  return [
+    ...folders.map((folder) => `<details open class="explorer-group"><summary class="explorer-item explorer-item--folder" style="--depth:${depth}" data-explorer-item data-search="${esc(folder.name.toLowerCase())}"><span class="explorer-branch">${depth ? '└' : '▸'}</span><span class="explorer-name">${esc(folder.name)}</span><span class="explorer-count">${countCanvases(folder)}</span></summary>${nodeHtml(folder, depth + 1)}</details>`),
+    ...leaves.map((canvas) => `<a class="explorer-item explorer-item--canvas" style="--depth:${depth}" href="${base}canvases/${encodeURIComponent(canvas.slug)}/" data-explorer-item data-search="${esc(`${canvas.title} ${canvas.folder}`.toLowerCase())}"><span class="explorer-icon">◇</span><span class="explorer-name">${esc(canvas.title)}</span></a>`),
+  ].join('');
+};
 ---
 
 <div class="explorer-backdrop" data-explorer-backdrop></div>
 
-<aside class="explorer" data-explorer aria-label="Проводник разделов">
+<aside class="explorer" data-explorer aria-label="Дерево холстов">
   <div class="explorer-head">
     <div>
       <span class="eyebrow" style="font-size:9px">EXPLORER</span>
@@ -22,44 +58,19 @@ const canvases = [...manifest.notes];
     <input type="search" data-explorer-filter placeholder="найти холст..." autocomplete="off" />
   </label>
 
-  <nav class="explorer-tree" aria-label="Холсты и разделы">
-    <a class="explorer-item explorer-item--root" href={`${base}notes/`} data-explorer-item data-search="все холсты archive notes">
+  <nav class="explorer-tree" aria-label="Холсты по папкам">
+    <a class="explorer-item explorer-item--root" href={`${base}canvases/`} data-explorer-item data-search="все холсты корень">
       <span class="explorer-icon">▣</span><span>Все холсты</span><span class="explorer-count">{canvases.length}</span>
     </a>
-    <a class="explorer-item explorer-item--root" href={`${base}graph/`} data-explorer-item data-search="граф graph">
+    <a class="explorer-item explorer-item--root" href={`${base}graph/`} data-explorer-item data-search="граф связи">
       <span class="explorer-icon">⌘</span><span>Глобальный граф</span><span class="explorer-count">∞</span>
     </a>
-    <a class="explorer-item explorer-item--root" href={`${base}predlozhka/`} data-explorer-item data-search="предложка feedback">
-      <span class="explorer-icon">✎</span><span>Предложка</span><span class="explorer-count">+</span>
+    <a class="explorer-item explorer-item--root" href={botUrl} target="_blank" rel="noopener noreferrer" data-explorer-item data-search="предложка телеграм бот обратная связь">
+      <span class="explorer-icon">✎</span><span>Предложка в Telegram</span><span class="explorer-count">↗</span>
     </a>
 
-    <div class="explorer-divider">ХОЛСТЫ / {canvases.length}</div>
-    {canvases.map((canvas) => (
-      <a
-        class="explorer-item explorer-item--canvas"
-        href={`${base}notes/${canvas.slug}/`}
-        data-explorer-item
-        data-search={`${canvas.title} ${canvas.folder}`.toLowerCase()}
-      >
-        <span class="explorer-icon">◇</span><span class="explorer-name">{canvas.title}</span>
-      </a>
-    ))}
-
-    <div class="explorer-divider">РАЗДЕЛЫ / {manifest.folders.length}</div>
-
-    {manifest.folders.map((folder) => (
-      <a
-        class="explorer-item"
-        style={`--depth:${Math.max(0, folder.segments.length - 1)}`}
-        href={folderUrl(folder.path)}
-        data-explorer-item
-        data-search={folder.path.toLowerCase()}
-      >
-        <span class="explorer-branch">{folder.segments.length > 1 ? '└' : '▸'}</span>
-        <span class="explorer-name">{folder.segments[folder.segments.length - 1]}</span>
-        <span class="explorer-count">{folder.direct}</span>
-      </a>
-    ))}
+    <div class="explorer-divider">ДЕРЕВО / {canvases.length}</div>
+    <Fragment set:html={nodeHtml(root, 0)} />
   </nav>
 
   <div class="explorer-foot">
@@ -75,6 +86,7 @@ const canvases = [...manifest.notes];
   const closeBtn = document.getElementById('explorer-close');
   const filter = document.querySelector('[data-explorer-filter]');
   const items = [...document.querySelectorAll('[data-explorer-item]')];
+  const groups = [...(panel?.querySelectorAll('.explorer-group') || [])].reverse();
 
   function open() {
     panel.dataset.open = 'true';
@@ -86,6 +98,7 @@ const canvases = [...manifest.notes];
     backdrop.dataset.open = 'false';
     if (filter) filter.value = '';
     items.forEach((item) => { item.hidden = false; });
+    groups.forEach((group) => { group.hidden = false; group.open = true; });
   }
 
   openBtn?.addEventListener('click', open);
@@ -97,6 +110,11 @@ const canvases = [...manifest.notes];
     const query = filter.value.trim().toLowerCase();
     items.forEach((item) => {
       item.hidden = Boolean(query) && !(item.dataset.search || '').includes(query);
+    });
+    groups.forEach((group) => {
+      const visible = [...group.querySelectorAll('[data-explorer-item]')].some((item) => !item.hidden);
+      group.hidden = Boolean(query) && !visible;
+      if (visible) group.open = true;
     });
   });
 

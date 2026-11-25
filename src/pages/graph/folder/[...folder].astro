@@ -43,7 +43,7 @@ const graph = { nodes, links };
 const direct = scoped.filter((note) => note.folder === path);
 ---
 
-<BaseLayout title={`Граф · ${path}`} description={`Связи холстов в разделе ${path}`} active="graph" wide>
+<BaseLayout title={`Граф · ${path}`} description={`Связи холстов в папке ${path}`} active="graph" wide>
   <div class="page-top">
     <nav class="crumbs">
       <a href={base}>Главная</a><span>/</span>
@@ -60,12 +60,12 @@ const direct = scoped.filter((note) => note.folder === path);
     </div>
   </div>
 
-  <GraphCanvas graph={graph} label="ГРАФ РАЗДЕЛА" hint="клик по узлу открывает холст" compact />
+  <GraphCanvas graph={graph} label="ГРАФ ПАПКИ" hint="клик по узлу открывает холст" compact />
 
   {children.length > 0 && (
     <section class="section">
       <div class="section-head">
-        <div><span class="eyebrow">Внутри</span><h2>Подразделы</h2></div>
+        <div><span class="eyebrow">Внутри</span><h2>Вложенные папки</h2></div>
       </div>
       <div class="folder-grid">
         {children.map((child) => (
@@ -81,12 +81,12 @@ const direct = scoped.filter((note) => note.folder === path);
 
   <section class="section">
     <div class="section-head">
-      <div><span class="eyebrow">Архив раздела</span><h2>Холсты</h2></div>
+      <div><span class="eyebrow">Папка</span><h2>Холсты</h2></div>
       <p>{direct.length}</p>
     </div>
     <div class="note-list">
       {direct.map((note, index) => (
-        <a class="note-row" href={`${base}notes/${note.slug}/`}>
+        <a class="note-row" href={`${base}canvases/${note.slug}/`}>
           <span class="note-index">{String(index + 1).padStart(2, '0')}</span>
           <span>
             <span class="note-row-title">{note.title}</span>

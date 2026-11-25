@@ -37,13 +37,13 @@ const backlinks = backlinkSlugs
 const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(note.data.updated);
 ---
 
-<BaseLayout title={`${note.data.title} · ${manifest.siteTitle}`} description={note.data.description} active="notes">
+<BaseLayout title={`${note.data.title} · ${manifest.siteTitle}`} description={note.data.description} active="canvases">
   <div class="note-layout">
     <article>
       <header class="note-header">
         <nav class="crumbs" aria-label="Навигация">
           <a href={base}>Главная</a><span>/</span>
-          <a href={`${base}notes/`}>Холсты</a><span>/</span>
+          <a href={`${base}canvases/`}>Холсты</a><span>/</span>
           {note.data.folder && <><span>{note.data.folder}</span><span>/</span></>}
           <span>{note.data.title}</span>
         </nav>
@@ -62,12 +62,12 @@ const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', y
       <footer class="note-footer">
         <div class="prev-next">
           {prev && (
-            <a class="pn-card" href={`${base}notes/${prev.data.slug}/`}>
+            <a class="pn-card" href={`${base}canvases/${prev.data.slug}/`}>
               <span>← новее</span><strong>{prev.data.title}</strong>
             </a>
           )}
           {next && (
-            <a class="pn-card" href={`${base}notes/${next.data.slug}/`}>
+            <a class="pn-card" href={`${base}canvases/${next.data.slug}/`}>
               <span>старее →</span><strong>{next.data.title}</strong>
             </a>
           )}
@@ -81,7 +81,7 @@ const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', y
           <p class="side-title">Связанные холсты · {backlinkSlugs.length}</p>
           <div class="backlink-list">
             {backlinks.map((item: any) => (
-              <a href={`${base}notes/${item.slug}/`}>↳ {item.title}</a>
+              <a href={`${base}canvases/${item.slug}/`}>↳ {item.title}</a>
             ))}
           </div>
         </div>
