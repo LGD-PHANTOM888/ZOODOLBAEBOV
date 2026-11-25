@@ -175,7 +175,6 @@ button { font: inherit; cursor: pointer; }
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-.brand-sub { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
 
 .nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
 .nav a {
@@ -285,18 +284,7 @@ button { font: inherit; cursor: pointer; }
 @keyframes glitch-a { 0%, 92%, 100% { transform: translate(-2px, 0); } 94% { transform: translate(4px, -2px); } 96% { transform: translate(-5px, 1px); } }
 @keyframes glitch-b { 0%, 90%, 100% { transform: translate(2px, 0); } 93% { transform: translate(-4px, 2px); } 97% { transform: translate(5px, -1px); } }
 
-.hero-lead {
-  max-width: 620px;
-  margin: 0 0 30px;
-  color: var(--text-soft);
-  line-height: 1.85;
-}
-.terminal-line { font-family: var(--font-mono); font-size: 13px; }
-.prompt { color: var(--accent-2); }
-.cursor { display: inline-block; color: var(--accent); animation: blink 1.1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
 .btn {
   display: inline-flex;
@@ -1042,7 +1030,6 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
 }
 @media (max-width: 640px) {
   .header-inner { padding: 10px 16px; gap: 12px; }
-  .brand-sub { display: none; }
   .shell { padding: 0 16px 60px; }
   .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat { padding: 16px; }
