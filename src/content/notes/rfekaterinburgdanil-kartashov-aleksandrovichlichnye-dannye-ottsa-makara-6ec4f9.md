@@ -1,11 +1,11 @@
 ---
 title: "Личные данные отца Макара"
-slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-8d051a"
+slug: "rfekaterinburgdanil-kartashov-aleksandrovichlichnye-dannye-ottsa-makara-6ec4f9"
 description: "Фио: Семышев Михаил Викторович Адрес: Екатеринбург ул Авиационная дом 65/1 кв 33, подъезд 1, этаж 17 Номер: +79126276364 ДР: 28.01.1970 (56 лет) Имя на Miltor: Avantbeton.ru Почта:"
 tags: []
-folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
+folder: "РФ/Екатеринбург/Данил Карташов Александрович"
 updated: "2026-09-12T15:10:44.695Z"
-source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные отца Макара.md"
+source: "РФ/Екатеринбург/Данил Карташов Александрович/Личные данные отца Макара.md"
 kind: "note"
 ---
 **Фио:** Семышев Михаил Викторович

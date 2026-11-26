@@ -1,11 +1,11 @@
 ---
 title: "Личные данные матери Матиза"
-slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-4490ea"
+slug: "rfekaterinburgdanil-kartashov-aleksandrovichlichnye-dannye-materi-matiza-ff4ca7"
 description: "Фио: Карташова Ольга Викторовна ДР: 18 ноября 1969г Адрес: Свердловская обл, г Екатеринбург, ул Фролова,23,122 Номер: +79045402003 ВК: https://vk.ru/id864439567?from=gifts Одноклас"
 tags: []
-folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
+folder: "РФ/Екатеринбург/Данил Карташов Александрович"
 updated: "2026-09-12T14:39:44.318Z"
-source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные матери Матиза.md"
+source: "РФ/Екатеринбург/Данил Карташов Александрович/Личные данные матери Матиза.md"
 kind: "note"
 ---
 **Фио:** Карташова Ольга Викторовна  

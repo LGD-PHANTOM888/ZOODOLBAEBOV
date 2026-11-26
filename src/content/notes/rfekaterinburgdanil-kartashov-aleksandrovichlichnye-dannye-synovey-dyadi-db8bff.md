@@ -1,11 +1,11 @@
 ---
 title: "Личные данные сыновей дяди Матиза"
-slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-syn-d748aa"
+slug: "rfekaterinburgdanil-kartashov-aleksandrovichlichnye-dannye-synovey-dyadi-db8bff"
 description: "Фио: Максим Карташев ВК: https://vk.ru/br1ghton"
 tags: []
-folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
+folder: "РФ/Екатеринбург/Данил Карташов Александрович"
 updated: "2026-09-12T14:44:49.394Z"
-source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные сыновей дяди Матиза.md"
+source: "РФ/Екатеринбург/Данил Карташов Александрович/Личные данные сыновей дяди Матиза.md"
 kind: "note"
 ---
 **Фио:** Максим Карташев  

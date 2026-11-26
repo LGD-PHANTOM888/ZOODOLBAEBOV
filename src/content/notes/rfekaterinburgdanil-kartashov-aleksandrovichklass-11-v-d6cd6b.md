@@ -1,11 +1,11 @@
 ---
 title: "Класс 11-В"
-slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichklass-11-v-018f7a"
+slug: "rfekaterinburgdanil-kartashov-aleksandrovichklass-11-v-d6cd6b"
 description: "Ученики Данил Карташов Александрович Макар Семышев Влад Заседко"
 tags: []
-folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
+folder: "РФ/Екатеринбург/Данил Карташов Александрович"
 updated: "2026-09-30T05:13:11.025Z"
-source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Класс 11-В.md"
+source: "РФ/Екатеринбург/Данил Карташов Александрович/Класс 11-В.md"
 kind: "note"
 ---
 **Ученики**

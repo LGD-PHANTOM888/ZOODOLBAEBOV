@@ -1,11 +1,11 @@
 ---
 title: "Личные данные жена дяди Матиза"
-slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-zhe-6d695d"
+slug: "rfekaterinburgdanil-kartashov-aleksandrovichlichnye-dannye-zhena-dyadi-m-4c9723"
 description: "Фио: Светлана Евтюгина Школа: Еланская средняя школа '88 Годы в школе: 1980–1988Номер: +79041711247 ВК: https://vk.ru/id155468868"
 tags: []
-folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
+folder: "РФ/Екатеринбург/Данил Карташов Александрович"
 updated: "2026-09-12T14:43:31.717Z"
-source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные жена дяди Матиза.md"
+source: "РФ/Екатеринбург/Данил Карташов Александрович/Личные данные жена дяди Матиза.md"
 kind: "note"
 ---
 **Фио:** Светлана Евтюгина  
