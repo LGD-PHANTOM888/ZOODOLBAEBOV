@@ -9,6 +9,13 @@ type Tree = { name: string; folders: Map<string, Tree>; canvases: any[] };
 const makeNode = (name: string): Tree => ({ name, folders: new Map(), canvases: [] });
 const root = makeNode('');
 
+for (const folder of manifest.folders) {
+  let current = root;
+  for (const part of folder.segments) {
+    if (!current.folders.has(part)) current.folders.set(part, makeNode(part));
+    current = current.folders.get(part);
+  }
+}
 for (const canvas of manifest.notes) {
   const parts = canvas.folder ? String(canvas.folder).split('/').filter(Boolean) : [];
   let current = root;
