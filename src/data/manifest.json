@@ -1,8 +1,19 @@
 {
-  "generatedAt": "2026-11-26T19:11:00.679Z",
+  "generatedAt": "2026-11-26T19:33:45.220Z",
   "siteTitle": "Зоопарк Долбоебов",
   "siteDescription": "Холсты и связи",
   "notes": [
+    {
+      "slug": "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovholst-mishi-fdeae2",
+      "title": "Холст Миши",
+      "folder": "РФ/Москва/Сергиев-Посад/Скоропусковск/Миша Чернышов",
+      "kind": "canvas",
+      "tags": [],
+      "description": "Холст · 5 узлов · 5 связей",
+      "updated": "2026-11-26T19:32:14.173Z",
+      "words": 0,
+      "outgoing": []
+    },
     {
       "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9",
       "title": "Холст Вики",
@@ -155,6 +166,9 @@
     "rfmoskvasergiev-posadskoropuskovskvika-alekseevnalichnye-dannye-ottsa-vi-d3c780": [],
     "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-3a965d": [],
     "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9": [],
+    "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovlichnye-dannye-mishi-c-b185f3": [],
+    "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovholst-mishi-fdeae2": [],
+    "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovchem-zanimaetsya-misha-3087f4": [],
     "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-brata-yasminy-fathuloe-2740e7": [],
     "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-deda-yasminy-fathuloev-1dbd95": [],
     "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-materi-yasminy-fathulo-01810a": [],
@@ -5137,6 +5151,136 @@
         "media": 4
       }
     },
+    "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovholst-mishi-fdeae2": {
+      "slug": "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovholst-mishi-fdeae2",
+      "title": "Холст Миши",
+      "folder": "РФ/Москва/Сергиев-Посад/Скоропусковск/Миша Чернышов",
+      "nodes": [
+        {
+          "id": "c568307dc5f3862c",
+          "type": "file",
+          "x": 380,
+          "y": -159,
+          "width": 460,
+          "height": 179,
+          "color": null,
+          "kind": "note",
+          "title": "Личные данные Миши Чернышова",
+          "slug": "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovlichnye-dannye-mishi-c-b185f3",
+          "url": null,
+          "preview": "Фио: Миша Чернышов Телефон: +79153864929 Адрес: Скоропусковск, 9 дом, 2 подьезд",
+          "search": "Фио: Миша Чернышов Телефон: +79153864929 Адрес: Скоропусковск, 9 дом, 2 подьезд",
+          "text": ""
+        },
+        {
+          "id": "c4075d315cac690a",
+          "type": "file",
+          "x": 900,
+          "y": -159,
+          "width": 229,
+          "height": 419,
+          "color": null,
+          "kind": "video",
+          "title": "214124214.mp4",
+          "url": "https://lgd-phantom888.github.io/ZOODOLBAEBOV-RF/vault/%D0%A0%D0%A4/%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0/%D0%A1%D0%B5%D1%80%D0%B3%D0%B8%D0%B5%D0%B2-%D0%9F%D0%BE%D1%81%D0%B0%D0%B4/%D0%A1%D0%BA%D0%BE%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA/%D0%9C%D0%B8%D1%88%D0%B0%20%D0%A7%D0%B5%D1%80%D0%BD%D1%8B%D1%88%D0%BE%D0%B2/%D0%A4%D0%BE%D1%82%D0%BE%20%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%20%D0%9C%D0%B8%D1%88%D0%B8/214124214.mp4",
+          "preview": "",
+          "text": ""
+        },
+        {
+          "id": "d8babe742cdb25e8",
+          "type": "file",
+          "x": 380,
+          "y": 60,
+          "width": 460,
+          "height": 200,
+          "color": null,
+          "kind": "note",
+          "title": "Чем занимается Миша Чернышов",
+          "slug": "rfmoskvasergiev-posadskoropuskovskmisha-chernyshovchem-zanimaetsya-misha-3087f4",
+          "url": null,
+          "preview": "Ходит по подьездам докуривает и собирает бычки, тырит дорогие курилки и продает их за копейки. Срет в мусоропроводы, наебывает людей.",
+          "search": "Ходит по подьездам докуривает и собирает бычки, тырит дорогие курилки и продает их за копейки. Срет в мусоропроводы, наебывает людей.",
+          "text": ""
+        },
+        {
+          "id": "9f61e8fe11cc4ce8",
+          "type": "file",
+          "x": 380,
+          "y": 320,
+          "width": 739,
+          "height": 445,
+          "color": null,
+          "kind": "image",
+          "title": "Pasted image 20261126212427.png",
+          "url": "https://lgd-phantom888.github.io/ZOODOLBAEBOV-RF/vault/%D0%A0%D0%A4/%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0/%D0%A1%D0%B5%D1%80%D0%B3%D0%B8%D0%B5%D0%B2-%D0%9F%D0%BE%D1%81%D0%B0%D0%B4/%D0%A1%D0%BA%D0%BE%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA/%D0%9C%D0%B8%D1%88%D0%B0%20%D0%A7%D0%B5%D1%80%D0%BD%D1%8B%D1%88%D0%BE%D0%B2/%D0%A4%D0%BE%D1%82%D0%BE%20%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%20%D0%9C%D0%B8%D1%88%D0%B8/Pasted%20image%2020261126212427.png",
+          "preview": "",
+          "text": ""
+        },
+        {
+          "id": "a31e4df1637f3ed6",
+          "type": "file",
+          "x": 100,
+          "y": -159,
+          "width": 245,
+          "height": 419,
+          "color": null,
+          "kind": "image",
+          "title": "Pasted image 20261126213201.png",
+          "url": "https://lgd-phantom888.github.io/ZOODOLBAEBOV-RF/vault/%D0%A0%D0%A4/%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0/%D0%A1%D0%B5%D1%80%D0%B3%D0%B8%D0%B5%D0%B2-%D0%9F%D0%BE%D1%81%D0%B0%D0%B4/%D0%A1%D0%BA%D0%BE%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA/%D0%9C%D0%B8%D1%88%D0%B0%20%D0%A7%D0%B5%D1%80%D0%BD%D1%8B%D1%88%D0%BE%D0%B2/%D0%A4%D0%BE%D1%82%D0%BE%20%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%20%D0%9C%D0%B8%D1%88%D0%B8/Pasted%20image%2020261126213201.png",
+          "preview": "",
+          "text": ""
+        }
+      ],
+      "edges": [
+        {
+          "id": "426bfd5cd01737f1",
+          "from": "c568307dc5f3862c",
+          "to": "c4075d315cac690a",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "id": "d77115986e82a127",
+          "from": "c4075d315cac690a",
+          "to": "9f61e8fe11cc4ce8",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "id": "bdfb74513f877523",
+          "from": "c568307dc5f3862c",
+          "to": "d8babe742cdb25e8",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "id": "43df952d5cf6d3df",
+          "from": "d8babe742cdb25e8",
+          "to": "c4075d315cac690a",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "id": "fdbcd70ce2c08b76",
+          "from": "a31e4df1637f3ed6",
+          "to": "c568307dc5f3862c",
+          "fromSide": "right",
+          "toSide": "left"
+        }
+      ],
+      "bounds": {
+        "x": -20,
+        "y": -279,
+        "width": 1269,
+        "height": 1164
+      },
+      "stats": {
+        "nodes": 5,
+        "edges": 5,
+        "notes": 2,
+        "media": 3
+      }
+    },
     "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86": {
       "slug": "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86",
       "title": "Холст Ясмины",
@@ -6884,7 +7028,7 @@
       "segments": [
         "РФ"
       ],
-      "count": 5,
+      "count": 6,
       "direct": 0
     },
     {
@@ -6923,7 +7067,7 @@
         "РФ",
         "Москва"
       ],
-      "count": 2,
+      "count": 3,
       "direct": 0
     },
     {
@@ -6933,7 +7077,7 @@
         "Москва",
         "Сергиев-Посад"
       ],
-      "count": 2,
+      "count": 3,
       "direct": 0
     },
     {
@@ -6944,7 +7088,7 @@
         "Сергиев-Посад",
         "Скоропусковск"
       ],
-      "count": 1,
+      "count": 2,
       "direct": 0
     },
     {
@@ -6955,6 +7099,18 @@
         "Сергиев-Посад",
         "Скоропусковск",
         "Вика Алексеевна"
+      ],
+      "count": 1,
+      "direct": 1
+    },
+    {
+      "path": "РФ/Москва/Сергиев-Посад/Скоропусковск/Миша Чернышов",
+      "segments": [
+        "РФ",
+        "Москва",
+        "Сергиев-Посад",
+        "Скоропусковск",
+        "Миша Чернышов"
       ],
       "count": 1,
       "direct": 1
