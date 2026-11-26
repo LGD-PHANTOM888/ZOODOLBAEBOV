@@ -407,51 +407,108 @@ button { font: inherit; cursor: pointer; }
 /* ---------- Дерево папок ---------- */
 .folder-tree {
   border: 1px solid var(--border);
-  background: linear-gradient(155deg, var(--panel-2), var(--panel));
-  padding: 10px 14px 14px;
+  background:
+    linear-gradient(155deg, rgba(124, 255, 107, 0.035), transparent 45%),
+    linear-gradient(155deg, var(--panel-2), var(--panel));
+  padding: 12px 14px 16px;
   box-shadow: var(--shadow);
 }
-.folder-tree summary {
+.folder-tree > details > summary {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
   list-style: none;
-  padding: 8px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border-bright);
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(90deg, rgba(124, 255, 107, 0.09), rgba(124, 255, 107, 0.015));
   color: var(--accent);
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.14em;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
 }
 .folder-tree summary::-webkit-details-marker { display: none; }
-.tree-caret { width: 12px; color: var(--accent-2); }
+.tree-caret {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 18px; height: 18px;
+  border: 1px solid var(--border-bright);
+  background: rgba(124, 255, 107, 0.08);
+  color: var(--accent-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+.folder-tree details:not([open]) > summary > .tree-caret { transform: rotate(-90deg); }
+.folder-tree > details > summary:hover .tree-caret { background: rgba(124, 255, 107, 0.16); }
 .tree-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tree-count { color: var(--muted); font-size: 9px; }
+.tree-count {
+  flex: none;
+  padding: 1px 6px;
+  border: 1px solid var(--border-bright);
+  background: rgba(4, 8, 9, 0.6);
+  color: var(--muted);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
 .tree-list { list-style: none; margin: 0; padding: 0; }
-.tree-list--root { padding-top: 4px; }
-.tree-list ul { list-style: none; margin: 0; padding-left: 18px; border-left: 1px dashed var(--border-bright); }
-.tree-list li { margin: 2px 0; }
+.tree-list--root { padding-top: 8px; }
+.tree-list ul {
+  list-style: none;
+  margin: 2px 0 4px 10px;
+  padding-left: 14px;
+  border-left: 1px solid var(--border);
+}
+.tree-list li { position: relative; margin: 2px 0; }
+.tree-list ul > li::before {
+  content: '';
+  position: absolute;
+  left: -14px; top: 17px;
+  width: 11px;
+  border-top: 1px solid var(--border);
+  pointer-events: none;
+}
 .tree-list summary {
-  border-bottom: 0;
-  padding: 5px 6px;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
   color: var(--text-soft);
+  background: transparent;
   font-size: 10px;
   letter-spacing: 0.04em;
   text-transform: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
-.tree-list summary:hover, .tree-leaf:hover { background: rgba(124, 255, 107, 0.07); color: var(--accent); }
+.tree-list summary:hover,
+.tree-list summary:focus-visible,
+.tree-leaf:hover,
+.tree-leaf:focus-visible {
+  border-color: var(--border-bright);
+  background: rgba(124, 255, 107, 0.08);
+  color: var(--accent);
+  outline: none;
+}
+.tree-list summary:focus-visible,
+.tree-leaf:focus-visible { box-shadow: 0 0 0 1px var(--accent) inset; }
 .tree-leaf {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 6px;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
   color: var(--text-soft);
   font-family: var(--font-mono);
   font-size: 10px;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
-.tree-icon { color: var(--accent-2); }
+.tree-icon { flex: none; color: var(--accent-2); font-size: 9px; }
 .tree-leaf .tree-name { color: inherit; }
 
 /* ---------- Папки ---------- */
@@ -1173,6 +1230,14 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
   .prev-next { grid-template-columns: 1fr; }
   .section-head { align-items: flex-start; flex-direction: column; }
   .section-head p { text-align: left; }
+  .tree-list ul { margin-left: 6px; padding-left: 10px; }
+  .tree-list ul > li::before { left: -10px; width: 8px; }
+  .tree-list summary,
+  .tree-leaf { min-height: 36px; padding: 8px 9px; font-size: 11px; }
+  .tree-caret { width: 22px; height: 22px; }
+  .tree-count { padding: 2px 7px; }
+  .tree-leaf { align-items: flex-start; }
+  .tree-leaf .tree-name { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
   .canvas-viewport { height: 68vh; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
@@ -1191,6 +1256,9 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
   .canvas-edges line.is-active { filter: none; }
   .canvas-stage { will-change: auto; }
   .canvas-viewport.is-dragging .canvas-stage { will-change: transform; }
+  .tree-caret, .tree-list summary, .tree-leaf { transition: none; }
+  .tree-list summary:hover, .tree-leaf:hover { border-color: transparent; background: transparent; color: var(--text-soft); }
+  .tree-list summary:active, .tree-leaf:active { border-color: var(--border-bright); background: rgba(124, 255, 107, 0.12); color: var(--accent); }
 
   [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--image img,
   [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video video,

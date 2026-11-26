@@ -29,9 +29,9 @@ const nodeHtml = (node: Tree, depth: number): string => {
   const children = [
     ...folders.map((folder) => {
       const total = countCanvases(folder);
-      return `<li><details open><summary><span class="tree-caret">▾</span><span class="tree-name">${esc(folder.name)}</span><span class="tree-count">${total}</span></summary>${nodeHtml(folder, depth + 1)}</details></li>`;
+      return `<li><details open><summary title="${esc(folder.name)}"><span class="tree-caret">▾</span><span class="tree-name">${esc(folder.name)}</span><span class="tree-count">${total}</span></summary>${nodeHtml(folder, depth + 1)}</details></li>`;
     }),
-    ...canvases.map((canvas) => `<li><a class="tree-leaf" href="${base}canvases/${encodeURIComponent(canvas.slug)}/"><span class="tree-icon">◇</span><span class="tree-name">${esc(canvas.title)}</span></a></li>`),
+    ...canvases.map((canvas) => `<li><a class="tree-leaf" href="${base}canvases/${encodeURIComponent(canvas.slug)}/" title="${esc(canvas.title)}"><span class="tree-icon">◇</span><span class="tree-name">${esc(canvas.title)}</span></a></li>`),
   ].join('');
   return children ? `<ul class="tree-list${depth === 0 ? ' tree-list--root' : ''}">${children}</ul>` : '';
 };
