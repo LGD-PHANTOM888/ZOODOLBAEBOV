@@ -1,13 +1,13 @@
 @echo off
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
-title СИНХРОНИЗАЦИЯ ХОЛСТОВ
+title UPDATE ALL SITES
 cd /d "%~dp0"
 
 echo.
 echo  ============================================================
-echo   ИСТОЧНИК -^> ХОЛСТЫ -^> СБОРКА -^> ВСЕ РЕПОЗИТОРИИ
-echo   один клик: Новинки / РФ / УКР / РБ и основной сайт обновляются вместе
+echo   SOURCE -^> CANVASES -^> BUILD -^> ALL REPOSITORIES
+echo   one click: NW / RF / UKR / RB media + main site
 echo  ============================================================
 echo.
 
