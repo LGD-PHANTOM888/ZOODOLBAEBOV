@@ -3,7 +3,13 @@
   "siteTitle": "Зоопарк Долбоебов",
   "siteDescription": "Холсты и связи",
   "owner": "LGD-PHANTOM888",
+  "newsFolder": "Новинки",
+  "updatesFile": "Обновления.md",
   "mediaSites": {
+    "Новинки": {
+      "repo": "ZOODOLBAEBOV-NW",
+      "dir": "D:\\tests_new\\astro-garden-media\\NW"
+    },
     "РФ": {
       "repo": "ZOODOLBAEBOV-RF",
       "dir": "D:\\tests_new\\astro-garden-media\\RF"

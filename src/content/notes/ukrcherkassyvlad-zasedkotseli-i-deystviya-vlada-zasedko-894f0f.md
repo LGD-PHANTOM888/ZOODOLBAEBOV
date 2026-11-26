@@ -4,7 +4,7 @@ slug: "ukrcherkassyvlad-zasedkotseli-i-deystviya-vlada-zasedko-894f0f"
 description: "Поиск детей и несовершенно летних по Украине и насилование их при помощи своих 2 см"
 tags: []
 folder: "УКР/Черкассы/Влад Заседко"
-updated: "2026-09-07"
+updated: "2026-09-07T10:12:04.023Z"
 source: "УКР/Черкассы/Влад Заседко/Цели и действия Влада Заседко.md"
 kind: "note"
 ---

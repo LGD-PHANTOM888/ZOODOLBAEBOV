@@ -1,16 +1,38 @@
 {
-  "generatedAt": "2026-11-26T15:18:03.475Z",
+  "generatedAt": "2026-11-26T18:38:56.518Z",
   "siteTitle": "Зоопарк Долбоебов",
   "siteDescription": "Холсты и связи",
   "notes": [
     {
-      "slug": "rbartem-goroshkoartem-goroshko-82bdb6",
-      "title": "Артем Горошко",
-      "folder": "РБ/Артем Горошко",
+      "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9",
+      "title": "Холст Вики",
+      "folder": "РФ/Москва/Сергиев-Посад/Скоропусковск/Вика Алексеевна",
       "kind": "canvas",
       "tags": [],
-      "description": "Холст · 44 узлов · 46 связей",
-      "updated": "2026-11-25",
+      "description": "Холст · 8 узлов · 7 связей",
+      "updated": "2026-11-25T11:23:34.299Z",
+      "words": 0,
+      "outgoing": []
+    },
+    {
+      "slug": "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86",
+      "title": "Холст Ясмины",
+      "folder": "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина",
+      "kind": "canvas",
+      "tags": [],
+      "description": "Холст · 19 узлов · 16 связей",
+      "updated": "2026-11-25T11:04:05.828Z",
+      "words": 0,
+      "outgoing": []
+    },
+    {
+      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791",
+      "title": "Макар",
+      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
+      "kind": "canvas",
+      "tags": [],
+      "description": "Холст · 24 узлов · 21 связей",
+      "updated": "2026-11-25T10:12:31.720Z",
       "words": 0,
       "outgoing": [
         "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
@@ -23,7 +45,7 @@
       "kind": "canvas",
       "tags": [],
       "description": "Холст · 144 узлов · 168 связей",
-      "updated": "2026-11-25",
+      "updated": "2026-11-25T10:12:31.704Z",
       "words": 0,
       "outgoing": [
         "rbartem-goroshkoartem-goroshko-82bdb6",
@@ -32,63 +54,15 @@
       ]
     },
     {
-      "slug": "rfekaterinburgkartashovydanil-kartashov-aleksandrovichmakar-068791",
-      "title": "Макар",
-      "folder": "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович",
-      "kind": "canvas",
-      "tags": [],
-      "description": "Холст · 24 узлов · 21 связей",
-      "updated": "2026-11-25",
-      "words": 0,
-      "outgoing": [
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-      ]
-    },
-    {
-      "slug": "rfmoskvasergiev-posadskoropuskovskvika-alekseevnaholst-viki-0ba2a9",
-      "title": "Холст Вики",
-      "folder": "РФ/Москва/Сергиев-Посад/Скоропусковск/Вика Алексеевна",
-      "kind": "canvas",
-      "tags": [],
-      "description": "Холст · 8 узлов · 7 связей",
-      "updated": "2026-11-25",
-      "words": 0,
-      "outgoing": []
-    },
-    {
-      "slug": "rfmoskvasergiev-posadhotkovoyasminaholst-yasminy-3abe86",
-      "title": "Холст Ясмины",
-      "folder": "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина",
-      "kind": "canvas",
-      "tags": [],
-      "description": "Холст · 19 узлов · 16 связей",
-      "updated": "2026-11-25",
-      "words": 0,
-      "outgoing": []
-    },
-    {
       "slug": "rfomsksindyanov-artem-vladislavovichbez-nazvaniya-14eab1",
       "title": "Без названия",
       "folder": "РФ/Омск/СИНДЯНОВ АРТЕМ ВЛАДИСЛАВОВИЧ",
       "kind": "canvas",
       "tags": [],
       "description": "Холст · 7 узлов · 6 связей",
-      "updated": "2026-11-25",
+      "updated": "2026-11-25T10:12:18.296Z",
       "words": 0,
       "outgoing": []
-    },
-    {
-      "slug": "ukrcherkassyvlad-zasedkovlad-zasedko-e32427",
-      "title": "Влад Заседко",
-      "folder": "УКР/Черкассы/Влад Заседко",
-      "kind": "canvas",
-      "tags": [],
-      "description": "Холст · 43 узлов · 42 связей",
-      "updated": "2026-11-25",
-      "words": 0,
-      "outgoing": [
-        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
-      ]
     },
     {
       "slug": "ukrchernigovholst-evgeniya-b63253",
@@ -97,11 +71,41 @@
       "kind": "canvas",
       "tags": [],
       "description": "Холст · 10 узлов · 9 связей",
-      "updated": "2026-11-25",
+      "updated": "2026-11-25T10:05:20.821Z",
       "words": 0,
       "outgoing": []
+    },
+    {
+      "slug": "rbartem-goroshkoartem-goroshko-82bdb6",
+      "title": "Артем Горошко",
+      "folder": "РБ/Артем Горошко",
+      "kind": "canvas",
+      "tags": [],
+      "description": "Холст · 44 узлов · 46 связей",
+      "updated": "2026-11-25T06:45:58.359Z",
+      "words": 0,
+      "outgoing": [
+        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
+      ]
+    },
+    {
+      "slug": "ukrcherkassyvlad-zasedkovlad-zasedko-e32427",
+      "title": "Влад Заседко",
+      "folder": "УКР/Черкассы/Влад Заседко",
+      "kind": "canvas",
+      "tags": [],
+      "description": "Холст · 43 узлов · 42 связей",
+      "updated": "2026-11-25T06:45:56.304Z",
+      "words": 0,
+      "outgoing": [
+        "rfekaterinburgkartashovydanil-kartashov-aleksandrovichdrevo-pidafilskogo-e275bc"
+      ]
     }
   ],
+  "news": [],
+  "newsRepo": "ZOODOLBAEBOV-NW",
+  "newsOwner": "LGD-PHANTOM888",
+  "updatesFile": "Обновления.md",
   "backlinks": {
     "obnovleniya-10495d": [],
     "predlozhka-tg-bot-predlozkadegeneratos-bot-7a517a": [],

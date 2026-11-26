@@ -4,7 +4,7 @@ slug: "rbartem-goroshkolichnye-dannye-teti-artema-goroshko-8ac483"
 description: "ФИО: Алексеева Дарья Михайловна ПОЧТА: alekseeva.dm3040@gmail.com ДАТА РОЖДЕНИЯ: 27.09.1987 ТЕЛЕФОН: +79267188737 ПАСПОРТ: 4509335207 КЕМ ВЫДАН: ОТДЕЛЕНИЕМ ПО Р-НУ ПРЕСНЕНСКИЙ ОУФМ"
 tags: []
 folder: "РБ/Артем Горошко"
-updated: "2026-09-13"
+updated: "2026-09-13T12:07:59.104Z"
 source: "РБ/Артем Горошко/Личные данные тети Артема Горошко.md"
 kind: "note"
 ---

@@ -4,7 +4,7 @@ slug: "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-ottsa-yasminy-fathuloe-
 description: "Неизвестно, он был нариком, оттрахал мать Ясмины и слинял за рубеж."
 tags: []
 folder: "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина"
-updated: "2026-11-25"
+updated: "2026-11-25T10:17:32.004Z"
 source: "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина/Личные данные отца Ясмины Фатхулоевой.md"
 kind: "note"
 ---

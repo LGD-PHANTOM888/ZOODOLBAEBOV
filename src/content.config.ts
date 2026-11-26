@@ -16,4 +16,24 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { notes };
+const news = defineCollection({
+  loader: glob({ base: './src/content/news', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    description: z.string().default(''),
+    updated: z.coerce.date(),
+    source: z.string().default(''),
+  }),
+});
+
+const updates = defineCollection({
+  loader: glob({ base: './src/content/updates', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string().default('Последние обновления'),
+    updated: z.coerce.date(),
+    source: z.string().default(''),
+  }),
+});
+
+export const collections = { notes, news, updates };

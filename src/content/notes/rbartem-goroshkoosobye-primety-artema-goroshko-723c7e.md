@@ -4,7 +4,7 @@ slug: "rbartem-goroshkoosobye-primety-artema-goroshko-723c7e"
 description: "Родинка на лобке слева, а также родинка на животе слева"
 tags: []
 folder: "РБ/Артем Горошко"
-updated: "2026-09-07"
+updated: "2026-09-07T05:40:45.941Z"
 source: "РБ/Артем Горошко/Особые приметы Артема Горошко.md"
 kind: "note"
 ---

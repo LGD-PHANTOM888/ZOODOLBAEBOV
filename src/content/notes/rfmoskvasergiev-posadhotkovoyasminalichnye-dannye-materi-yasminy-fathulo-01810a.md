@@ -4,7 +4,7 @@ slug: "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-materi-yasminy-fathulo-
 description: "ФИО:САМОФАЛОВА ЕКАТЕРИНА АЛЕКСАНДРОВНА ДР: 18.07.1988 ВК: https://vk.com/id321392841 ВК2: https://vk.com/id571709323 ПОЧТА: samirafath@mail.ru ОК: https://ok.ru/profile/57806713588"
 tags: []
 folder: "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина"
-updated: "2026-11-25"
+updated: "2026-11-25T10:15:20.075Z"
 source: "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина/Личные данные матери Ясмины Фатхулоевой.md"
 kind: "note"
 ---

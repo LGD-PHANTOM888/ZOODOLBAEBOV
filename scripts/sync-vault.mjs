@@ -6,6 +6,8 @@ import { execFileSync } from 'node:child_process';
 const ROOT = process.cwd();
 const CONFIG_PATH = path.join(ROOT, 'sync.config.json');
 const NOTES_DIR = path.join(ROOT, 'src/content/notes');
+const NEWS_DIR = path.join(ROOT, 'src/content/news');
+const UPDATES_DIR = path.join(ROOT, 'src/content/updates');
 const MIRROR_DIR = path.join(ROOT, 'public/vault');
 const DATA_DIR = path.join(ROOT, 'src/data');
 
@@ -169,13 +171,20 @@ async function main() {
   const config = JSON.parse(await fs.readFile(CONFIG_PATH, 'utf8'));
   const vault = path.resolve(ROOT, config.vault);
   const mediaSites = config.mediaSites || {};
+  const newsFolder = toPosix(String(config.newsFolder || 'Новинки'));
+  const updatesFile = toPosix(String(config.updatesFile || 'Обновления.md'));
+  const newsItems = [];
 
   console.log('┌─ Public → Astro ───────────────────────────────');
   console.log(`│ Source: ${vault}`);
 
   await fs.rm(NOTES_DIR, { recursive: true, force: true });
+  await fs.rm(NEWS_DIR, { recursive: true, force: true });
+  await fs.rm(UPDATES_DIR, { recursive: true, force: true });
   await fs.rm(MIRROR_DIR, { recursive: true, force: true });
   await fs.mkdir(NOTES_DIR, { recursive: true });
+  await fs.mkdir(NEWS_DIR, { recursive: true });
+  await fs.mkdir(UPDATES_DIR, { recursive: true });
   await fs.mkdir(MIRROR_DIR, { recursive: true });
   await fs.mkdir(DATA_DIR, { recursive: true });
 
@@ -250,7 +259,7 @@ async function main() {
       rel, ext, title, slug, folder, attrs, body, canvasData,
       descriptionOverride: null,
       canvasOutgoing: [],
-      updated: attrs.updated || attrs.date || stats.mtime.toISOString().slice(0, 10),
+      updated: attrs.updated || attrs.date || stats.mtime.toISOString(),
     });
   }
 
@@ -427,10 +436,22 @@ async function main() {
       return mediaByBasename.get(base) || mediaByBasename.get(clean) || null;
     };
 
-    // ![[embedded.png]] -> markdown image
+    // Видео должно остаться видео: тогда общий мини-плеер сможет его улучшить.
+    const mediaTag = (target, url) => {
+      const ext = path.posix.extname(decodeURIComponent(target).split('?')[0].split('#')[0]).toLowerCase();
+      if (['.mp4', '.mov', '.m4v', '.webm'].includes(ext)) {
+        return `<video controls preload="none" src="${url}"></video>`;
+      }
+      if (['.mp3', '.wav'].includes(ext)) {
+        return `<audio controls preload="none" src="${url}"></audio>`;
+      }
+      return `![${path.posix.basename(target)}](${url})`;
+    };
+
+    // ![[embedded.png]] -> markdown image (или video/audio)
     body = body.replace(/!\[\[([^\]]+)\]\]/g, (match, target) => {
       const media = resolveMedia(target);
-      if (media) return `![${path.posix.basename(target)}](${media})`;
+      if (media) return mediaTag(target, media);
       const slug = resolveNoteTarget(target);
       if (slug) { outgoing.add(slug); return internalLink(slug, target); }
       return match;
@@ -450,7 +471,7 @@ async function main() {
     body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, target) => {
       if (/^(https?:|data:|#|\/media\/)/i.test(target)) return match;
       const media = resolveMedia(target);
-      return media ? `![${alt}](${media})` : match;
+      return media ? mediaTag(target, media) : match;
     });
 
     // Markdown-ссылки на другие .md файлы
@@ -473,6 +494,45 @@ async function main() {
     ).slice(0, 180);
     const words = body.replace(/[#*>`_\[\]()!]/g, '').split(/\s+/).filter(Boolean).length;
     const kind = draft.ext === '.canvas' ? 'canvas' : 'note';
+    const relPosix = toPosix(draft.rel);
+    const isNews = draft.ext === '.md' && (relPosix === newsFolder || relPosix.startsWith(`${newsFolder}/`));
+
+    // Новинки — только текстовые файлы. Вложения остаются в том же репозитории,
+    // но отдельными постами не становятся: они подключаются внутри записи.
+    if (isNews) {
+      const newsYaml = [
+        '---',
+        `title: ${JSON.stringify(draft.title)}`,
+        `slug: ${JSON.stringify(draft.slug)}`,
+        `description: ${JSON.stringify(description)}`,
+        `updated: ${JSON.stringify(draft.updated)}`,
+        `source: ${JSON.stringify(draft.rel)}`,
+        '---',
+        '',
+      ].join('\n');
+      await fs.writeFile(path.join(NEWS_DIR, `${draft.slug}.md`), newsYaml + body + '\n', 'utf8');
+      newsItems.push({
+        slug: draft.slug,
+        title: draft.title,
+        description,
+        updated: draft.updated,
+        source: draft.rel,
+      });
+      continue;
+    }
+
+    // Один файл обновлений показывается по кнопке в шапке.
+    if (draft.ext === '.md' && relPosix === updatesFile) {
+      const updatesYaml = [
+        '---',
+        `title: ${JSON.stringify(draft.title || 'Последние обновления')}`,
+        `updated: ${JSON.stringify(draft.updated)}`,
+        `source: ${JSON.stringify(draft.rel)}`,
+        '---',
+        '',
+      ].join('\n');
+      await fs.writeFile(path.join(UPDATES_DIR, 'latest.md'), updatesYaml + body + '\n', 'utf8');
+    }
 
     const yaml = [
       '---',
@@ -538,13 +598,17 @@ async function main() {
     siteTitle: config.siteTitle || 'Холсты',
     siteDescription: config.siteDescription || '',
     notes: published.sort((a, b) => String(b.updated).localeCompare(String(a.updated))),
+    news: newsItems.sort((a, b) => String(b.updated).localeCompare(String(a.updated))),
+    newsRepo: mediaSites[newsFolder]?.repo || '',
+    newsOwner: String(config.owner || 'LGD-PHANTOM888'),
+    updatesFile,
     backlinks,
     canvases,
     folders,
   };
   await fs.writeFile(path.join(DATA_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
 
-  console.log(`│ Холстов: ${published.length}, файлов: ${notes.length}, вложений: ${mediaCount}`);
+  console.log(`│ Холстов: ${published.length}, новинок: ${newsItems.length}, файлов: ${notes.length}, вложений: ${mediaCount}`);
   console.log('└────────────────────────────────────────────────');
 }
 

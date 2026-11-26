@@ -1,4 +1,5 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FolderTree from '../components/FolderTree.astro';
 import manifest from '../data/manifest.json';
@@ -11,6 +12,14 @@ const nodeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.nodes, 0
 const edgeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.edges, 0);
 const linkCount = Object.values(manifest.backlinks).flat().length;
 const folderCount = new Set(canvases.map((canvas) => canvas.folder).filter(Boolean)).size;
+
+const news = (await getCollection('news'))
+  .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
+const newsContent = new Map();
+for (const item of news) newsContent.set(item.id, (await render(item)).Content);
+const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', {
+  day: 'numeric', month: 'long', year: 'numeric',
+}).format(date);
 ---
 
 <BaseLayout title={manifest.siteTitle} description={manifest.siteDescription}>
@@ -51,5 +60,39 @@ const folderCount = new Set(canvases.map((canvas) => canvas.folder).filter(Boole
       <a href={`${base}canvases/`}>Открыть всё →</a>
     </div>
     <FolderTree label="КОРЕНЬ" />
+  </section>
+
+  <section class="section news-section" id="news">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Лента</span>
+        <h2>Новинки</h2>
+      </div>
+      <div class="section-actions">
+        <button class="section-link" type="button" data-updates-open>Последние обновления</button>
+      </div>
+    </div>
+
+    {news.length > 0 ? (
+      <div class="news-feed">
+        {news.map((item) => {
+          const Content = newsContent.get(item.id);
+          return (
+            <article class="news-card" id={`news-${item.data.slug}`}>
+              <header class="news-card-head">
+                <span class="news-date">◷ {formatDate(item.data.updated)}</span>
+                <h3>{item.data.title}</h3>
+                {item.data.description && <p class="news-description">{item.data.description}</p>}
+              </header>
+              <div class="prose news-body"><Content /></div>
+            </article>
+          );
+        })}
+      </div>
+    ) : (
+      <div class="news-empty">
+        Папка «Новинки» пока пуста. Добавь текстовый файл в Obsidian — запись появится здесь после обновления сайта.
+      </div>
+    )}
   </section>
 </BaseLayout>

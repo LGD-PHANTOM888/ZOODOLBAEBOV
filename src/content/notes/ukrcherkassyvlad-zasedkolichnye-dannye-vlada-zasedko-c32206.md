@@ -4,7 +4,7 @@ slug: "ukrcherkassyvlad-zasedkolichnye-dannye-vlada-zasedko-c32206"
 description: "Фио: Влад Заседко ДР: 2007 ВК: Удален ТГ: Удален ТТ: Удален"
 tags: []
 folder: "УКР/Черкассы/Влад Заседко"
-updated: "2026-09-12"
+updated: "2026-09-12T17:20:33.329Z"
 source: "УКР/Черкассы/Влад Заседко/Личные данные Влада Заседко.md"
 kind: "note"
 ---

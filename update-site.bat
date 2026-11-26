@@ -7,7 +7,7 @@ cd /d "%~dp0"
 echo.
 echo  ============================================================
 echo   ИСТОЧНИК -^> ХОЛСТЫ -^> СБОРКА -^> ВСЕ РЕПОЗИТОРИИ
-echo   один клик: РФ / УКР / РБ и основной сайт обновляются вместе
+echo   один клик: Новинки / РФ / УКР / РБ и основной сайт обновляются вместе
 echo  ============================================================
 echo.
 
@@ -54,7 +54,7 @@ exit /b 1
 :done
 echo.
 echo [OK] Ready. Output: dist\
-echo      Media: ZOODOLBAEBOV-RF / -UKR / -RB
+echo      Media: ZOODOLBAEBOV-NW / -RF / -UKR / -RB
 echo      Main:  ZOODOLBAEBOV
 echo      GitHub Pages deploys automatically after push.
 echo.

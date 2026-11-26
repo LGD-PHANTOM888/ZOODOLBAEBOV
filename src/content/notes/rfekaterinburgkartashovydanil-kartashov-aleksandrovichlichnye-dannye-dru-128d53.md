@@ -4,7 +4,7 @@ slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dru-
 description: "Личные данные: Фио: Макар Семышев Номер: +79676386121 ТГ: @Makar1160 ВК: https://vk.ru/id1098404804 Почты: monarchbog620@mail.ru ruliz620@mail.ru Паспорт: 6514951869 · 6502015842 С"
 tags: []
 folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
-updated: "2026-09-15"
+updated: "2026-09-15T11:05:33.219Z"
 source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные друга Матиза.md"
 kind: "note"
 ---

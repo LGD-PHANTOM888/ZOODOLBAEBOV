@@ -4,7 +4,7 @@ slug: "rfmoskvasergiev-posadhotkovoyasminalichnye-dannye-brata-yasminy-fathuloe-
 description: "ФИО: САМОФАЛОВ АМИР АЛИШЭРОВИЧ ПАСПОРТ: VIИK639053 ПОЛИС: 5087289720000250 ДР: 29.12.2017 СНИЛС: 20108441398"
 tags: []
 folder: "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина"
-updated: "2026-11-25"
+updated: "2026-11-25T10:15:48.502Z"
 source: "РФ/Москва/Сергиев-Посад/Хотьково/Ясмина/Личные данные брата Ясмины Фатхулоевой.md"
 kind: "note"
 ---

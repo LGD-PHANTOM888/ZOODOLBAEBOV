@@ -4,7 +4,7 @@ slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ott-
 description: "Фио: Карташов Александр Номер: ??? ВК: ??? Одноклассники: ???"
 tags: []
 folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
-updated: "2026-09-12"
+updated: "2026-09-12T14:40:19.724Z"
 source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные отца Матиза.md"
 kind: "note"
 ---

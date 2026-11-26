@@ -4,7 +4,7 @@ slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-mat-
 description: "Фио: Поспелова Надежда Николаевна Телефон: +79321218390"
 tags: []
 folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
-updated: "2026-09-12"
+updated: "2026-09-12T15:13:10.821Z"
 source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные матери Макара.md"
 kind: "note"
 ---

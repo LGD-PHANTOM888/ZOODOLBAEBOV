@@ -4,7 +4,7 @@ slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-ses-
 description: "ВК: https://vk.ru/foxoscorp909 Инфа: или сестра или твинк Статус: Умерла"
 tags: []
 folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
-updated: "2026-09-12"
+updated: "2026-09-12T14:40:53.879Z"
 source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные сестры Матиза.md"
 kind: "note"
 ---

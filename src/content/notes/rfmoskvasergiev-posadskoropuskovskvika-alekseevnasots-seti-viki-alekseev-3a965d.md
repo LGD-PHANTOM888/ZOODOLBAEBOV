@@ -4,7 +4,7 @@ slug: "rfmoskvasergiev-posadskoropuskovskvika-alekseevnasots-seti-viki-alekseev-
 description: "ВКонтакте https://vk.com/id751889182 Одноклассники https://ok.ru/profile/591327213219 Telegram https://t.me/llovepasha500 Telegram https://t.me/ralinalove56k Telegram https://t.me/"
 tags: []
 folder: "РФ/Москва/Сергиев-Посад/Скоропусковск/Вика Алексеевна"
-updated: "2026-11-25"
+updated: "2026-11-25T11:08:50.729Z"
 source: "РФ/Москва/Сергиев-Посад/Скоропусковск/Вика Алексеевна/Соц-сети Вики Алексеевны.md"
 kind: "note"
 ---

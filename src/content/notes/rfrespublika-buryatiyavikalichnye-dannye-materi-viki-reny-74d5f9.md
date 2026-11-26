@@ -4,7 +4,7 @@ slug: "rfrespublika-buryatiyavikalichnye-dannye-materi-viki-reny-74d5f9"
 description: "ТЕЛЕФОН: 79025377082"
 tags: []
 folder: "РФ/Республика Бурятия/Вика"
-updated: "2026-09-15"
+updated: "2026-09-15T17:43:27.737Z"
 source: "РФ/Республика Бурятия/Вика/Личные данные матери Вики (Рены).md"
 kind: "note"
 ---

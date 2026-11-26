@@ -4,7 +4,7 @@ slug: "ukrcherkassyvlad-zasedkolichnye-dannye-materi-vlada-zasedko-59c18a"
 description: "Фио: Ольга Заседко ВК: Facebook Был также брат, но Влад его убил и съел."
 tags: []
 folder: "УКР/Черкассы/Влад Заседко"
-updated: "2026-09-12"
+updated: "2026-09-12T17:20:43.918Z"
 source: "УКР/Черкассы/Влад Заседко/Личные данные матери Влада Заседко.md"
 kind: "note"
 ---

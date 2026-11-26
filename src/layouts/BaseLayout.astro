@@ -1,10 +1,17 @@
 ---
 import '../styles/global.css';
+import { getCollection, render } from 'astro:content';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
 import Explorer from '../components/Explorer.astro';
 import manifest from '../data/manifest.json';
+
+const updateEntries = await getCollection('updates');
+const LatestUpdate = updateEntries.length ? (await render(updateEntries[0])).Content : null;
+const updatedAt = updateEntries[0]?.data.updated
+  ? new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(updateEntries[0].data.updated)
+  : '';
 
 interface Props {
   title?: string;
@@ -48,6 +55,53 @@ const {
     </main>
     <Footer />
     <Search />
+
+    <div class="updates-overlay" id="updates-overlay" hidden>
+      <div class="updates-dialog" role="dialog" aria-modal="true" aria-labelledby="updates-title" tabindex="-1">
+        <div class="updates-dialog-head">
+          <div>
+            <span class="eyebrow">// {manifest.updatesFile}</span>
+            <h2 id="updates-title">Последние обновления</h2>
+          </div>
+          <button class="icon-btn" type="button" data-updates-close aria-label="Закрыть обновления" title="Закрыть (Esc)">×</button>
+        </div>
+        {updatedAt && <p class="updates-dialog-date">◷ {updatedAt}</p>}
+        <div class="prose updates-content">
+          {LatestUpdate && <LatestUpdate />}
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const overlay = document.getElementById('updates-overlay');
+        const dialog = overlay?.querySelector('.updates-dialog');
+        let lastFocus = null;
+        const open = () => {
+          if (!overlay || !overlay.hidden) return;
+          lastFocus = document.activeElement;
+          overlay.hidden = false;
+          dialog?.focus();
+        };
+        const close = () => {
+          if (!overlay || overlay.hidden) return;
+          overlay.hidden = true;
+          if (lastFocus instanceof HTMLElement) lastFocus.focus();
+        };
+        document.querySelectorAll('[data-updates-open]').forEach((el) => {
+          el.addEventListener('click', (event) => { event.preventDefault(); open(); });
+        });
+        overlay?.querySelectorAll('[data-updates-close]').forEach((el) => {
+          el.addEventListener('click', close);
+        });
+        overlay?.addEventListener('click', (event) => { if (event.target === overlay) close(); });
+        addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && overlay && !overlay.hidden) { close(); return; }
+          const tag = event.target instanceof Element ? event.target.tagName : '';
+          if (event.key.toLowerCase() === 'u' && !event.ctrlKey && !event.metaKey && !event.altKey && !['INPUT', 'TEXTAREA'].includes(tag)) open();
+        });
+      })();
+    </script>
 
     <script>
       const progress = document.getElementById('progress');

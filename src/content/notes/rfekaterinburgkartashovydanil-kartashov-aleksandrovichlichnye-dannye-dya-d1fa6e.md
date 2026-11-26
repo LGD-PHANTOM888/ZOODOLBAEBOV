@@ -4,7 +4,7 @@ slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-dya-
 description: "Фио: Сергей Карташев ДР: 30 декабря Воинслужб: 57330 0РВБ-БТ Срок воинслужб: 2005-2007 Номер: +789024411462 ВК: https://vk.ru/id122195316 Одноклассники: https://ok.ru/profile/37399"
 tags: []
 folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
-updated: "2026-09-12"
+updated: "2026-09-12T14:42:08.690Z"
 source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные дяди Матиза.md"
 kind: "note"
 ---

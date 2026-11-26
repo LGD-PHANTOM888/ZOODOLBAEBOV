@@ -4,7 +4,7 @@ slug: "rfekaterinburgkartashovydanil-kartashov-aleksandrovichlichnye-dannye-syn-
 description: "Фио: Максим Карташев ВК: https://vk.ru/br1ghton"
 tags: []
 folder: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович"
-updated: "2026-09-12"
+updated: "2026-09-12T14:44:49.394Z"
 source: "РФ/Екатеринбург/Карташовы/Данил Карташов Александрович/Личные данные сыновей дяди Матиза.md"
 kind: "note"
 ---
