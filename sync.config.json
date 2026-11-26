@@ -1,5 +1,20 @@
 {
   "vault": "D:\\ЗООПАРК\\ЗООПАРК\\ЗООПАРК ДОЛБОЕБОВ\\Public",
   "siteTitle": "Зоопарк Долбоебов",
-  "siteDescription": "Холсты и связи"
+  "siteDescription": "Холсты и связи",
+  "owner": "LGD-PHANTOM888",
+  "mediaSites": {
+    "РФ": {
+      "repo": "ZOODOLBAEBOV-RF",
+      "dir": "D:\\tests_new\\astro-garden-media\\RF"
+    },
+    "УКР": {
+      "repo": "ZOODOLBAEBOV-UKR",
+      "dir": "D:\\tests_new\\astro-garden-media\\UKR"
+    },
+    "РБ": {
+      "repo": "ZOODOLBAEBOV-RB",
+      "dir": "D:\\tests_new\\astro-garden-media\\RB"
+    }
+  }
 }

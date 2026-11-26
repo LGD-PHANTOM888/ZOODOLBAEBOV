@@ -60,7 +60,20 @@ function siteBase() {
 
 const BASE = siteBase();
 const withBase = (url) => (url.startsWith('/') ? `${BASE}${url.slice(1)}` : url);
-const mirrorUrl = (rel) => `${BASE}vault/${toPosix(rel).split('/').map(encodeURIComponent).join('/')}`;
+
+const encodedRel = (rel) => toPosix(rel).split('/').map(encodeURIComponent).join('/');
+
+// Папки стран живут в отдельных репозиториях. Obsidian при этом остаётся одной
+// папкой: делится только публикация.
+function mirrorUrl(rel, config = {}) {
+  const top = toPosix(rel).split('/')[0];
+  const site = config.mediaSites?.[top];
+  if (site?.repo) {
+    const owner = String(config.owner || 'LGD-PHANTOM888').toLowerCase();
+    return `https://${owner}.github.io/${site.repo}/vault/${encodedRel(rel)}`;
+  }
+  return `${BASE}vault/${encodedRel(rel)}`;
+}
 
 function parseFrontmatter(raw) {
   if (!raw.startsWith('---')) return { attrs: {}, body: raw };
@@ -155,6 +168,7 @@ async function walk(dir, base = '') {
 async function main() {
   const config = JSON.parse(await fs.readFile(CONFIG_PATH, 'utf8'));
   const vault = path.resolve(ROOT, config.vault);
+  const mediaSites = config.mediaSites || {};
 
   console.log('┌─ Public → Astro ───────────────────────────────');
   console.log(`│ Source: ${vault}`);
@@ -165,22 +179,40 @@ async function main() {
   await fs.mkdir(MIRROR_DIR, { recursive: true });
   await fs.mkdir(DATA_DIR, { recursive: true });
 
+  // Каждая страна — отдельный статический сайт. Папки очищаются целиком, поэтому
+  // удалённые в Obsidian файлы исчезают и из всех репозиториев.
+  const mediaDirs = new Map();
+  for (const [name, site] of Object.entries(mediaSites)) {
+    if (!site?.dir || !site?.repo) continue;
+    const dir = path.resolve(ROOT, site.dir);
+    if (dir === ROOT || dir === vault || dir.startsWith(`${vault}${path.sep}`)) {
+      throw new Error(`Небезопасный mediaSites.${name}.dir: ${dir}`);
+    }
+    await fs.rm(path.join(dir, 'vault'), { recursive: true, force: true });
+    await fs.mkdir(path.join(dir, 'vault'), { recursive: true });
+    await fs.appendFile(path.join(dir, '.nojekyll'), '', 'utf8');
+    mediaDirs.set(name, path.join(dir, 'vault'));
+    console.log(`│ Media: ${name} → ${site.repo} (${dir})`);
+  }
+
   const allFiles = await walk(vault);
 
   // --- Зеркало Public: исходные имена, папки и вложения ---
-  // Папка очищается целиком, поэтому удалённые в Obsidian файлы исчезают и на сайте.
+  // Папки стран уходят в свои репозитории, остальное остаётся на основном сайте.
   const mediaByBasename = new Map();
   const mediaByPath = new Map();
   let mediaCount = 0;
 
   for (const { full, rel } of allFiles) {
-    const dest = path.join(MIRROR_DIR, ...rel.split('/'));
+    const top = toPosix(rel).split('/')[0];
+    const root = mediaDirs.get(top) || MIRROR_DIR;
+    const dest = path.join(root, ...rel.split('/'));
     await fs.mkdir(path.dirname(dest), { recursive: true });
     await fs.copyFile(full, dest);
 
     const ext = path.extname(rel).toLowerCase();
     if (NOTE_EXT.has(ext)) continue;
-    const url = mirrorUrl(rel);
+    const url = mirrorUrl(rel, config);
     mediaByBasename.set(path.basename(rel).toLowerCase(), url);
     mediaByPath.set(rel.toLowerCase(), url);
     mediaCount++;

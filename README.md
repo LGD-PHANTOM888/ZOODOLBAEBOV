@@ -13,38 +13,55 @@
 Двойной клик по `Обновить сайт.bat` в папке источника (`D:\ЗООПАРК\ЗООПАРК\ЗООПАРК ДОЛБОЕБОВ\Public`) или по `update-site.bat` в папке сайта:
 
 1. читает всю папку источника;
-2. зеркалирует всё дерево `Public` в `public/vault` с исходными именами файлов и папок, получает холсты и записи в `src/content/notes`, пишет `src/data/manifest.json`;
+2. раскладывает папки стран по их медиа-репозиториям, остальное зеркалит в `public/vault`, получает холсты и записи в `src/content/notes`, пишет `src/data/manifest.json`;
 3. собирает `dist/`;
-4. коммитит изменения и пушит в `origin`, если remote настроен.
+4. коммитит и пушит **все четыре репозитория**: сначала медиа, потом основной сайт.
 
-Для постоянного наблюдения запустите `Автообновление сайта.bat` в папке источника: он проверяет папку каждые 5 секунд и при изменениях сам делает синхронизацию, сборку, коммит и пуш. Остановка — Ctrl+C. Интервал меняется переменной `SYNC_INTERVAL_MS` (в миллисекундах).
+Для постоянного наблюдения запустите `Автообновление сайта.bat` в папке источника: он проверяет папку каждые 5 секунд и при изменениях сам делает синхронизацию, сборку, коммит и пуш всех репозиториев. Остановка — Ctrl+C. Интервал меняется переменной `SYNC_INTERVAL_MS` (в миллисекундах).
 
-`public/vault` перед каждой синхронизацией очищается, поэтому удалённые и переименованные в Obsidian файлы и папки исчезают из сайта, а новые появляются с исходными именами. Наблюдатель реагирует и на создание/удаление пустых папок.
+Папки репозиториев очищаются перед каждой синхронизацией, поэтому удалённые и переименованные в Obsidian файлы и папки исчезают везде, а новые появляются с исходными именами. Наблюдатель реагирует и на создание/удаление пустых папок.
+
+Obsidian остаётся **одной папкой**: делится только публикация. Папка `Мусор` временно остаётся на основном сайте.
 
 Локальная папка источника в CI недоступна: GitHub Pages собирает уже закоммиченные файлы.
 
-## Публикация в GitHub Pages
+## Разделение медиа
 
-1. Создайте публичный репозиторий на https://github.com/new.
-2. В папке сайта выполните:
+В `sync.config.json` есть `owner` и `mediaSites`:
+
+| Папка в Public | Репозиторий | Адрес файла |
+| --- | --- | --- |
+| `РФ` | `ZOODOLBAEBOV-RF` | `https://lgd-phantom888.github.io/ZOODOLBAEBOV-RF/vault/РФ/...` |
+| `УКР` | `ZOODOLBAEBOV-UKR` | `https://lgd-phantom888.github.io/ZOODOLBAEBOV-UKR/vault/УКР/...` |
+| `РБ` | `ZOODOLBAEBOV-RB` | `https://lgd-phantom888.github.io/ZOODOLBAEBOV-RB/vault/РБ/...` |
+| всё остальное | `ZOODOLBAEBOV` | `/ZOODOLBAEBOV/vault/...` |
+
+### Разовый запуск
+
+`gh` на машине не установлен, поэтому три репозитория нужно создать вручную один раз на https://github.com/new: `ZOODOLBAEBOV-RF`, `ZOODOLBAEBOV-UKR`, `ZOODOLBAEBOV-RB`. Публичные, **пустые**, без README, license и `.gitignore`. Owner — `LGD-PHANTOM888`.
+
+После этого в `D:\tests_new\astro-garden` выполнить:
 
 ```bat
-git init
-git remote add origin https://github.com/ВАС_ИМЯ/ВАС_РЕПОЗИТОРИЙ.git
-git add -A
-git commit -m "initial"
-git pull --rebase origin main
-git push -u origin main
+npm run setup:media
 ```
 
-3. В репозитории: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-4. Дальше при каждом пуше workflow `.github/workflows/pages.yml` сам собирает и публикует сайт. Ссылка: `https://ВАС_ИМЯ.github.io/ВАС_РЕПОЗИТОРИЙ/`.
+Скрипт создаст локальные папки `D:\tests_new\astro-garden-media\{RF,UKR,RB}`, добавит `.nojekyll`, remote и сделает первый push. Дальше достаточно одного батника — `update-site.bat` или `Обновить сайт.bat`.
+
+Если репозитории ещё не созданы, publish остановится с ошибкой: медиа должны появиться раньше сайта, который на них ссылается.
+
+## Публикация в GitHub Pages
+
+Основной сайт: `https://lgd-phantom888.github.io/ZOODOLBAEBOV/`.
+
+1. Создайте публичный репозиторий `ZOODOLBAEBOV` на https://github.com/new (уже создан).
+2. В репозитории: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
+3. При каждом пуше workflow `.github/workflows/pages.yml` сам собирает и публикует сайт.
+4. Для медиа-репозиториев Pages включать не нужно: они отдаются как статические файлы через URL `https://lgd-phantom888.github.io/<repo>/vault/...`. `.nojekyll` уже добавляется автоматически.
 
 `astro.config.mjs` сам определяет `site` и `base` из `GITHUB_REPOSITORY`. Для собственного домена задайте переменные `SITE_URL` и `SITE_BASE` в **Settings → Secrets and variables → Actions → Variables**.
 
-Для GitLab Pages параллельно работает `.gitlab-ci.yml`.
-
-GitHub Pages бесплатный, без карты и работает 24/7. Ограничения: сайт до 1 ГБ и мягкий лимит трафика ~100 ГБ в месяц. Сейчас сайт занимает ~370 МБ.
+GitHub Pages бесплатный, без карты и работает 24/7. Ограничения на **один сайт**: 1 ГБ и мягкий лимит трафика ~100 ГБ в месяц. После разделения: `РФ` ~149 МБ, `РБ` ~111 МБ, `УКР` ~51 МБ, основной сайт с `Мусором` ~60 МБ. Увеличения лимита Pro не даёт, Git LFS с Pages не работает. R2 и Storj не используются, потому что требуют карту или платёж.
 
 ## Защита видео от скачивания
 
@@ -97,6 +114,12 @@ Google-вход и комментарии убраны. Предложения �
 {
   "vault": "D:\\ЗООПАРК\\ЗООПАРК\\ЗООПАРК ДОЛБОЕБОВ\\Public",
   "siteTitle": "Зоопарк Долбоебов",
-  "siteDescription": "Холсты и связи"
+  "siteDescription": "Холсты и связи",
+  "owner": "LGD-PHANTOM888",
+  "mediaSites": {
+    "РФ": { "repo": "ZOODOLBAEBOV-RF", "dir": "D:\\tests_new\\astro-garden-media\\RF" },
+    "УКР": { "repo": "ZOODOLBAEBOV-UKR", "dir": "D:\\tests_new\\astro-garden-media\\UKR" },
+    "РБ": { "repo": "ZOODOLBAEBOV-RB", "dir": "D:\\tests_new\\astro-garden-media\\RB" }
+  }
 }
 ```

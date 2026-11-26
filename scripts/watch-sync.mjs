@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { publishAll } from './publish.mjs';
 
 const ROOT = process.cwd();
 const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'sync.config.json'), 'utf8'));
@@ -50,45 +51,18 @@ function run(command, args) {
   return result.status === 0;
 }
 
-function hasRemote() {
-  const result = spawnSync('git', ['remote', 'get-url', 'origin'], { cwd: ROOT, encoding: 'utf8', shell: true });
-  return result.status === 0 && Boolean(result.stdout.trim());
-}
-
-function hasUpstream() {
-  const result = spawnSync('git', ['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{u}'], {
-    cwd: ROOT, stdio: 'ignore', shell: true,
-  });
-  return result.status === 0;
-}
-
 function publish() {
   if (!run('npm', ['run', 'update'])) {
     log('✖ Сборка не удалась. Повторю после следующих изменений.');
     return false;
   }
 
-  if (!run('git', ['add', '-A'])) return false;
-
-  const diff = spawnSync('git', ['diff', '--cached', '--quiet'], { cwd: ROOT, shell: true });
-  if (diff.status === 0) {
-    log('Изменений для коммита нет.');
-    return true;
+  // Один вызов обновляет все медиа-репозитории и основной сайт.
+  if (!publishAll()) {
+    log('✖ Публикация не удалась. Исправьте ошибку и измените файл в Public ещё раз.');
+    return false;
   }
-
-  const message = `sync: ${new Date().toLocaleString('ru-RU')}`;
-  if (!run('git', ['commit', '-m', message])) return false;
-
-  if (!hasRemote()) {
-    log('⚠ origin не настроен — коммит остался локально.');
-    return true;
-  }
-
-  if (!hasUpstream()) {
-    return run('git', ['push', '-u', 'origin', 'HEAD']);
-  }
-  if (!run('git', ['pull', '--rebase'])) return false;
-  return run('git', ['push', 'origin', 'HEAD']);
+  return true;
 }
 
 if (process.argv.includes('--once')) {
