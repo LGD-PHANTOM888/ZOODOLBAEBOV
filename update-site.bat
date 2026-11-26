@@ -12,7 +12,7 @@ for %%A in (%*) do (
 echo.
 echo  ============================================================
 echo   SOURCE -^> CANVASES -^> BUILD -^> ALL REPOSITORIES
-echo   one click: NW / RF / UKR / RB media + main site
+echo   one click: NW / RF / UKR / RB / DANILO / MAKARO + main site
 echo  ============================================================
 echo.
 

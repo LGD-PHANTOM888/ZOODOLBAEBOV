@@ -8,7 +8,7 @@ if defined SITE_DIR set "PROJECT=%SITE_DIR%"
 
 echo.
 echo  UPDATE ALL: Public -^> news -^> build -^> all repositories
-echo  NW / RF / UKR / RB + main site
+echo  NW / RF / UKR / RB / DANILO / MAKARO + main site
 echo.
 
 if not exist "%PROJECT%\update-site.bat" (

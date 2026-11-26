@@ -21,6 +21,14 @@
     "РБ": {
       "repo": "ZOODOLBAEBOV-RB",
       "dir": "D:\\tests_new\\astro-garden-media\\RB"
+    },
+    "РФ/Екатеринбург/Данил Карташов Александрович": {
+      "repo": "zoodanilo",
+      "dir": "D:\\tests_new\\astro-garden-media\\zoodanilo"
+    },
+    "РФ/Екатеринбург/Макар Семышев": {
+      "repo": "zoomakaro",
+      "dir": "D:\\tests_new\\astro-garden-media\\zoomakaro"
     }
   }
 }

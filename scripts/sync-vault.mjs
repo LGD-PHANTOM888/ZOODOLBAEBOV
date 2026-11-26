@@ -65,14 +65,26 @@ const withBase = (url) => (url.startsWith('/') ? `${BASE}${url.slice(1)}` : url)
 
 const encodedRel = (rel) => toPosix(rel).split('/').map(encodeURIComponent).join('/');
 
-// Папки стран живут в отдельных репозиториях. Obsidian при этом остаётся одной
-// папкой: делится только публикация.
+// Репозиторий выбирается по самому длинному префиксу пути: конкретный человек
+// перекрывает страну. Obsidian при этом остаётся одной папкой, делится только
+// публикация.
+function mediaSiteFor(rel, config = {}) {
+  const clean = toPosix(rel).replace(/\/+$/, '').toLowerCase();
+  let best = null;
+  for (const [name, site] of Object.entries(config.mediaSites || {})) {
+    if (!site?.repo || !site?.dir) continue;
+    const prefix = toPosix(name).replace(/\/+$/, '').toLowerCase();
+    if (clean !== prefix && !clean.startsWith(`${prefix}/`)) continue;
+    if (!best || prefix.length > best.prefix.length) best = { name, site, prefix };
+  }
+  return best;
+}
+
 function mirrorUrl(rel, config = {}) {
-  const top = toPosix(rel).split('/')[0];
-  const site = config.mediaSites?.[top];
-  if (site?.repo) {
+  const match = mediaSiteFor(rel, config);
+  if (match) {
     const owner = String(config.owner || 'LGD-PHANTOM888').toLowerCase();
-    return `https://${owner}.github.io/${site.repo}/vault/${encodedRel(rel)}`;
+    return `https://${owner}.github.io/${match.site.repo}/vault/${encodedRel(rel)}`;
   }
   return `${BASE}vault/${encodedRel(rel)}`;
 }
@@ -167,6 +179,20 @@ async function walk(dir, base = '') {
   return files;
 }
 
+// Empty folders must also reach the tree: the batch should pick up the Obsidian
+// structure even before the first file appears inside a new folder.
+async function walkDirs(dir, base = '') {
+  const found = [];
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const rel = base ? `${base}/${toPosix(entry.name)}` : toPosix(entry.name);
+    found.push(rel);
+    found.push(...await walkDirs(path.join(dir, entry.name), rel));
+  }
+  return found;
+}
+
 async function main() {
   const config = JSON.parse(await fs.readFile(CONFIG_PATH, 'utf8'));
   const vault = path.resolve(ROOT, config.vault);
@@ -205,6 +231,7 @@ async function main() {
   }
 
   const allFiles = await walk(vault);
+  const allDirs = await walkDirs(vault);
 
   // --- Зеркало Public: исходные имена, папки и вложения ---
   // Папки стран уходят в свои репозитории, остальное остаётся на основном сайте.
@@ -213,8 +240,8 @@ async function main() {
   let mediaCount = 0;
 
   for (const { full, rel } of allFiles) {
-    const top = toPosix(rel).split('/')[0];
-    const root = mediaDirs.get(top) || MIRROR_DIR;
+    const match = mediaSiteFor(rel, config);
+    const root = match ? mediaDirs.get(match.name) : MIRROR_DIR;
     const dest = path.join(root, ...rel.split('/'));
     await fs.mkdir(path.dirname(dest), { recursive: true });
     await fs.copyFile(full, dest);
@@ -578,19 +605,26 @@ async function main() {
   const published = notes.filter((note) => note.kind === 'canvas');
 
   // --- Папки для Explorer и графов по разделам ---
-  const folderSet = new Set();
-  for (const note of published) {
+  // All folders from Obsidian are included, not only folders with canvases, so
+  // the tree and folder pages update on the next batch run.
+  const folderSet = new Set(allDirs.map(toPosix));
+  for (const note of notes) {
     if (!note.folder) continue;
-    const parts = note.folder.split('/');
+    const parts = toPosix(note.folder).split('/');
     for (let i = 1; i <= parts.length; i++) folderSet.add(parts.slice(0, i).join('/'));
   }
   const folders = [...folderSet]
-    .map((folder) => ({
-      path: folder,
-      segments: folder.split('/'),
-      count: published.filter((note) => note.folder === folder || note.folder.startsWith(`${folder}/`)).length,
-      direct: published.filter((note) => note.folder === folder).length,
-    }))
+    .map((folder) => {
+      const scoped = notes.filter((note) => note.folder === folder || note.folder.startsWith(`${folder}/`));
+      const canvasesHere = scoped.filter((note) => note.kind === 'canvas');
+      return {
+        path: folder,
+        segments: folder.split('/'),
+        count: canvasesHere.length,
+        direct: canvasesHere.filter((note) => note.folder === folder).length,
+        files: scoped.length,
+      };
+    })
     .sort((a, b) => a.path.localeCompare(b.path, 'ru'));
 
   const manifest = {

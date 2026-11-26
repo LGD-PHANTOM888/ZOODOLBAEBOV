@@ -44,7 +44,7 @@ const graph = { nodes, links };
       <p>каждая папка — своя сеть</p>
     </div>
     <div class="folder-grid">
-      {manifest.folders.slice(0, 24).map((folder) => (
+      {manifest.folders.filter((folder) => folder.count > 0).slice(0, 24).map((folder) => (
         <a class="folder-card" href={folderUrl(folder.path)}>
           <span class="folder-icon">◈</span>
           <div class="folder-name">{folder.path}</div>
