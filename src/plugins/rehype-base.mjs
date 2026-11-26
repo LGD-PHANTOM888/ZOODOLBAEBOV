@@ -20,8 +20,12 @@ export default function rehypeBase({ base = '/' } = {}) {
           node.properties = {
             src: node.properties.src,
             controls: true,
-            preload: 'metadata',
+            preload: 'none',
             playsInline: true,
+            controlsList: 'nodownload',
+            disablePictureInPicture: true,
+            disableRemotePlayback: true,
+            draggable: false,
           };
           return;
         }

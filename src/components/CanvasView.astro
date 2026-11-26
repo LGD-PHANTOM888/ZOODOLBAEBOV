@@ -106,6 +106,14 @@ const kindLabel = {
   const lite = matchMedia('(hover: none), (pointer: coarse), (max-width: 768px)').matches;
   if (lite) shell.dataset.lite = 'true';
 
+  // Авторское видео: без контекстного меню «Сохранить» и без перетаскивания файла.
+  shell?.addEventListener('contextmenu', (event) => {
+    if (event.target instanceof Element && event.target.closest('video')) event.preventDefault();
+  });
+  shell?.addEventListener('dragstart', (event) => {
+    if (event.target instanceof Element && event.target.closest('video, img')) event.preventDefault();
+  });
+
   // На телефоне не грузим десятки фото и видео сразу: включаем их при зуме.
   const media = [...shell.querySelectorAll('[data-media-src]')];
   for (const el of shell.querySelectorAll('.canvas-node-body img, .canvas-node-body video')) {

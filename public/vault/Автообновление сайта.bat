@@ -4,7 +4,7 @@ cd /d "D:\tests_new\astro-garden"
 
 echo.
 echo  ============================================================
-echo   AUTO UPDATE: Public -^> site -^> GitHub
+echo   AUTO UPDATE: Public -^> site -^> GitHub + R2
 echo   Watching source folder and publishing changes.
 echo   Press Ctrl+C to stop.
 echo  ============================================================

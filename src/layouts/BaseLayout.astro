@@ -11,12 +11,14 @@ interface Props {
   description?: string;
   active?: string;
   wide?: boolean;
+  dense?: boolean;
 }
 const {
   title = manifest.siteTitle,
   description = manifest.siteDescription,
   active = '',
   wide = false,
+  dense = false,
 } = Astro.props;
 ---
 
@@ -35,7 +37,7 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body data-dense={dense ? 'true' : undefined}>
     <div class="cyber-grid" aria-hidden="true"></div>
     <div class="scanlines" aria-hidden="true"></div>
     <div class="progress" id="progress"></div>

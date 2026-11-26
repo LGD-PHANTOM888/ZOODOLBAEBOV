@@ -250,7 +250,7 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
-.hero h1 em { color: var(--accent-2); font-style: normal; text-shadow: 0 0 26px rgba(124, 255, 107, 0.3); }
+.hero h1 em { color: var(--accent); font-style: normal; text-shadow: 0 0 26px rgba(0, 255, 200, 0.3); }
 
 .glitch { position: relative; display: inline-block; }
 .glitch::before, .glitch::after {
@@ -264,6 +264,7 @@ button { font: inherit; cursor: pointer; }
 .glitch::after { color: var(--danger); transform: translate(2px, 0); clip-path: inset(58% 0 0 0); animation: glitch-b 3.7s steps(2, end) infinite; }
 @keyframes glitch-a { 0%, 92%, 100% { transform: translate(-2px, 0); } 94% { transform: translate(4px, -2px); } 96% { transform: translate(-5px, 1px); } }
 @keyframes glitch-b { 0%, 90%, 100% { transform: translate(2px, 0); } 93% { transform: translate(-4px, 2px); } 97% { transform: translate(5px, -1px); } }
+.glitch--accent::before { color: var(--accent-2); }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
@@ -674,6 +675,12 @@ button { font: inherit; cursor: pointer; }
 .graph-hint { position: absolute; bottom: 14px; right: 16px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--muted); pointer-events: none; }
 
 /* ---------- Холсты ---------- */
+/* Большой холст: полноэкранные оверлеи и blur шапки перерисовываются
+   каждый кадр при трансформации stage — на 100+ узлах это даёт мигание UI. */
+body[data-dense='true'] .cyber-grid,
+body[data-dense='true'] .scanlines { display: none; }
+body[data-dense='true'] .site-header { backdrop-filter: none; background: rgba(4, 8, 9, 0.97); }
+
 .canvas-shell {
   position: relative;
   width: 100%;
@@ -768,6 +775,10 @@ button { font: inherit; cursor: pointer; }
 .canvas-node--missing .canvas-node-kind { color: var(--danger); }
 .canvas-node--image, .canvas-node--video { padding: 0; }
 .canvas-node--image img, .canvas-node--video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+/* Авторское видео: убираем кнопку скачивания из нативных элементов управления. */
+video::-webkit-media-controls-download-button,
+video::-internal-media-controls-download-button { display: none !important; }
+video::-webkit-media-controls-enclosure { overflow: hidden; }
 .canvas-node--image .canvas-node-kind, .canvas-node--image .canvas-node-title,
 .canvas-node--video .canvas-node-kind, .canvas-node--video .canvas-node-title {
   position: absolute;
@@ -1034,7 +1045,6 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
   .site-header { backdrop-filter: none; background: rgba(4, 8, 9, 0.97); }
   .explorer-backdrop, .search-overlay, .canvas-modal-backdrop { backdrop-filter: none; }
   .progress { box-shadow: none; }
-  .glitch::before, .glitch::after { display: none; }
   .orbit, .float-chip, .status-dot { animation: none !important; }
   .canvas-node, .canvas-node:hover, .canvas-node:focus-visible { box-shadow: none; transition: none; }
   .canvas-edges line.is-active { filter: none; }

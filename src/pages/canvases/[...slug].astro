@@ -36,7 +36,7 @@ const backlinks = backlinkSlugs
 const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(note.data.updated);
 ---
 
-<BaseLayout title={`${note.data.title} · ${manifest.siteTitle}`} description={note.data.description} active="canvases">
+<BaseLayout title={`${note.data.title} · ${manifest.siteTitle}`} description={note.data.description} active="canvases" dense={Boolean(canvas && canvas.stats.nodes > 60)}>
   <div class="note-layout">
     <article>
       <header class="note-header">

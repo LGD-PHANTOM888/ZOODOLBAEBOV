@@ -7,3 +7,7 @@ dist/
 .env
 .env.*
 !.env.example
+deploy.local.json
+wrangler.toml
+.dev.vars
+.wrangler/
