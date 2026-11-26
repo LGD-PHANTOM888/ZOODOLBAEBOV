@@ -916,6 +916,20 @@ video::-webkit-media-controls-enclosure { overflow: hidden; }
 }
 .canvas-node--image .canvas-node-kind, .canvas-node--video .canvas-node-kind { top: 6px; }
 .canvas-node--image .canvas-node-title, .canvas-node--video .canvas-node-title { bottom: 6px; font-size: 12px; }
+/* Название видео — в правом верхнем углу, чтобы не загораживать полосу плеера. */
+.canvas-node--video .canvas-node-kind,
+.canvas-node--video .canvas-node-title {
+  z-index: 5;
+  top: 6px;
+  bottom: auto;
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.canvas-node--video .canvas-node-kind { left: 6px; right: auto; max-width: 40%; }
+.canvas-node--video .canvas-node-title { left: auto; right: 6px; font-size: 12px; }
 .canvas-node--audio { justify-content: flex-end; }
 .canvas-node--audio audio { width: 100%; margin-top: auto; }
 .canvas-status {
