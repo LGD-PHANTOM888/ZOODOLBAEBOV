@@ -9,8 +9,11 @@ const owner = String(config.owner || 'LGD-PHANTOM888');
 
 const log = (message) => console.log(message);
 
+// cmd.exe склеивает аргументы: кавычки нужны, например, для "-m setup: REPO".
+const shellArg = (arg) => (/\s|["&|<>()^]/.test(arg) ? `"${arg.replace(/"/g, '""')}"` : arg);
+
 function run(command, args, cwd, options = {}) {
-  const result = spawnSync(command, args, {
+  const result = spawnSync(command, args.map(shellArg), {
     cwd,
     stdio: options.quiet ? 'ignore' : 'inherit',
     shell: true,
@@ -43,7 +46,60 @@ function remoteHasHead(cwd) {
   return result.status === 0 && Boolean(result.stdout.trim());
 }
 
-function setup(name, site) {
+function gitToken() {
+  if (process.env.GITHUB_TOKEN) return process.env.GITHUB_TOKEN;
+  const result = spawnSync('git', ['credential', 'fill'], {
+    input: 'protocol=https\nhost=github.com\n\n',
+    encoding: 'utf8',
+    timeout: 30000,
+    env: { ...process.env, GIT_TERMINAL_PROMPT: '0', GCM_INTERACTIVE: 'Never' },
+  });
+  const match = /^password=(.+)$/m.exec(result.stdout || '');
+  return match ? match[1].trim() : null;
+}
+
+async function enablePages(site) {
+  const token = gitToken();
+  if (!token) {
+    log('  ⚠ Нет токена GitHub — Pages включите вручную: Settings → Pages → Source = Deploy from a branch → main / (root).');
+    return true;
+  }
+
+  const url = `https://api.github.com/repos/${owner}/${site.repo}/pages`;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/vnd.github+json',
+    'Content-Type': 'application/json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'User-Agent': 'astro-garden-setup',
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ build_type: 'legacy', source: { branch: 'main', path: '/' } }),
+    });
+    if (response.ok || response.status === 409) {
+      log('  Pages: включён.');
+      return true;
+    }
+    if (response.status === 422) {
+      const current = await fetch(url, { headers });
+      if (current.ok) {
+        log('  Pages: уже включён.');
+        return true;
+      }
+    }
+    log(`  ⚠ Pages: HTTP ${response.status}. Включите вручную: Settings → Pages → Source = Deploy from a branch → main / (root).`);
+    return false;
+  } catch (error) {
+    log(`  ⚠ Pages: ${error.message}. Включите вручную: Settings → Pages → Source = Deploy from a branch → main / (root).`);
+    return false;
+  }
+}
+
+async function setup(name, site) {
   log(`\n=== ${name} → ${site.repo} ===`);
 
   const dir = path.resolve(ROOT, site.dir);
@@ -85,15 +141,20 @@ function setup(name, site) {
     return false;
   }
 
+  let pushed = false;
   if (!hasUpstream(dir)) {
     if (remoteHasHead(dir) && !run('git', ['pull', '--rebase', 'origin', 'HEAD'], dir)) return false;
-    return run('git', ['push', '-u', 'origin', 'HEAD'], dir);
+    pushed = run('git', ['push', '-u', 'origin', 'HEAD'], dir);
+  } else {
+    if (!run('git', ['pull', '--rebase'], dir)) return false;
+    pushed = run('git', ['push', 'origin', 'HEAD'], dir);
   }
-  if (!run('git', ['pull', '--rebase'], dir)) return false;
-  return run('git', ['push', 'origin', 'HEAD'], dir);
+  if (!pushed) return false;
+
+  return enablePages(site);
 }
 
-function main() {
+async function main() {
   const sites = Object.entries(config.mediaSites || {});
   if (!sites.length) {
     log('В sync.config.json нет mediaSites.');
@@ -103,7 +164,7 @@ function main() {
   let ok = true;
   for (const [name, site] of sites) {
     if (!site?.dir || !site?.repo) continue;
-    if (!setup(name, site)) ok = false;
+    if (!await setup(name, site)) ok = false;
   }
 
   log('');
@@ -116,5 +177,5 @@ function main() {
 }
 
 if (import.meta.url === pathToFileURL(path.resolve(process.argv[1] || '')).href) {
-  process.exit(main() ? 0 : 1);
+  main().then((ok) => process.exit(ok ? 0 : 1));
 }

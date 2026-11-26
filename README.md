@@ -46,7 +46,7 @@ Obsidian остаётся **одной папкой**: делится тольк
 npm run setup:media
 ```
 
-Скрипт создаст локальные папки `D:\tests_new\astro-garden-media\{RF,UKR,RB}`, добавит `.nojekyll`, remote и сделает первый push. Дальше достаточно одного батника — `update-site.bat` или `Обновить сайт.bat`.
+Скрипт создаст локальные папки `D:\tests_new\astro-garden-media\{RF,UKR,RB}`, добавит `.nojekyll`, remote, сделает первый push и включит Pages в каждого репозитория через GitHub API (токен берётся из `GITHUB_TOKEN` или сохранённого git-логина). Если токена нет, он напечатает, где включить Pages вручную. Дальше достаточно одного батника — `update-site.bat` или `Обновить сайт.bat`.
 
 Если репозитории ещё не созданы, publish остановится с ошибкой: медиа должны появиться раньше сайта, который на них ссылается.
 
@@ -57,7 +57,7 @@ npm run setup:media
 1. Создайте публичный репозиторий `ZOODOLBAEBOV` на https://github.com/new (уже создан).
 2. В репозитории: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
 3. При каждом пуше workflow `.github/workflows/pages.yml` сам собирает и публикует сайт.
-4. Для медиа-репозиториев Pages включать не нужно: они отдаются как статические файлы через URL `https://lgd-phantom888.github.io/<repo>/vault/...`. `.nojekyll` уже добавляется автоматически.
+4. Для каждого медиа-репозитория один раз включите Pages: **Settings → Pages → Build and deployment → Source = Deploy from a branch → main / (root) → Save**. Только после этого заработают URL `https://lgd-phantom888.github.io/<repo>/vault/...`. `.nojekyll` добавляется автоматически.
 
 `astro.config.mjs` сам определяет `site` и `base` из `GITHUB_REPOSITORY`. Для собственного домена задайте переменные `SITE_URL` и `SITE_BASE` в **Settings → Secrets and variables → Actions → Variables**.
 

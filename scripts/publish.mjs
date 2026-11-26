@@ -9,9 +9,13 @@ const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'sync.config.json'), '
 const stamp = () => new Date().toLocaleString('ru-RU');
 const log = (message) => console.log(`[${stamp()}] ${message}`);
 
+// spawnSync с shell:true склеивает аргументы в cmd.exe. Без кавычек сообщение
+// вида "sync: 2026-..." превращается в два аргумента, и git считает второй путём.
+const shellArg = (arg) => (/\s|["&|<>()^]/.test(arg) ? `"${arg.replace(/"/g, '""')}"` : arg);
+
 function run(command, args, cwd = ROOT) {
   log(`> [${path.basename(cwd)}] ${command} ${args.join(' ')}`);
-  const result = spawnSync(command, args, { cwd, stdio: 'inherit', shell: true });
+  const result = spawnSync(command, args.map(shellArg), { cwd, stdio: 'inherit', shell: true });
   if (result.error) {
     log(`✖ ${result.error.message}`);
     return false;
