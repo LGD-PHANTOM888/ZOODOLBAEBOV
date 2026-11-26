@@ -262,7 +262,14 @@ const kindLabel = {
       if (!source) return;
       focusReturn = button;
       if (modalTitle) modalTitle.textContent = node.querySelector('.canvas-node-title')?.textContent?.trim() || 'Холст';
-      modalBody.replaceChildren(source.cloneNode(true));
+      const clone = source.cloneNode(true);
+      // Клон не наследует обработчики плеера — снимаем обёртку и навешиваем заново.
+      clone.querySelectorAll('.video-player').forEach((player) => {
+        const video = player.querySelector('video');
+        if (video) player.replaceWith(video);
+      });
+      modalBody.replaceChildren(clone);
+      window.__enhanceVideos?.(modalBody);
       modal.hidden = false;
       modalBody.scrollTop = 0;
     });

@@ -59,5 +59,145 @@ const {
       addEventListener('resize', updateProgress);
       updateProgress();
     </script>
+
+    <script>
+      // Один и тот же мини-плеер для видео на холстах и в записях.
+      // Нативные кнопки снимаем только после создания своих — без JS видео останется рабочим.
+      (() => {
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+        const fmt = (seconds) => {
+          if (!Number.isFinite(seconds) || seconds < 0) return '--:--';
+          const whole = Math.floor(seconds);
+          return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, '0')}`;
+        };
+
+        function enhance(video) {
+          if (video.parentElement?.classList.contains('video-player')) return;
+
+          const player = document.createElement('div');
+          player.className = 'video-player';
+          video.parentNode?.insertBefore(player, video);
+          player.appendChild(video);
+
+          const play = document.createElement('button');
+          play.type = 'button';
+          play.className = 'video-player-play';
+          play.setAttribute('aria-label', 'Воспроизвести видео');
+          play.innerHTML = '<span class="video-player-icon" aria-hidden="true"></span><span class="video-player-hint">НАЖМИ, ЧТОБЫ СМОТРЕТЬ</span>';
+          player.appendChild(play);
+
+          const bar = document.createElement('div');
+          bar.className = 'video-player-bar';
+          bar.innerHTML = '<button class="video-player-toggle" type="button" aria-label="Воспроизвести">▶</button>' +
+            '<span class="video-player-time">0:00 / --:--</span>' +
+            '<input class="video-player-seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Перемотка видео" disabled />' +
+            '<button class="video-player-sound" type="button" aria-label="Включить звук">ЗВУК</button>' +
+            '<button class="video-player-full" type="button" aria-label="На весь экран">⛶</button>';
+          player.appendChild(bar);
+
+          const toggle = bar.querySelector('.video-player-toggle');
+          const timeLabel = bar.querySelector('.video-player-time');
+          const seek = bar.querySelector('.video-player-seek');
+          const sound = bar.querySelector('.video-player-sound');
+          const full = bar.querySelector('.video-player-full');
+          const hint = play.querySelector('.video-player-hint');
+
+          video.removeAttribute('controls');
+          video.preload = 'none';
+          video.setAttribute('playsinline', '');
+          video.setAttribute('controlslist', 'nodownload');
+          video.setAttribute('disablepictureinpicture', '');
+          video.setAttribute('disableremoteplayback', '');
+          video.draggable = false;
+          video.dataset.videoEnhanced = 'true';
+
+          let started = false;
+          let failed = false;
+          const hintText = () => failed
+            ? 'НЕ УДАЛОСЬ ЗАПУСТИТЬ — НАЖМИ ЕЩЁ РАЗ'
+            : (started ? 'ПРОДОЛЖИТЬ' : 'НАЖМИ, ЧТОБЫ СМОТРЕТЬ');
+
+          function syncTime() {
+            const duration = video.duration;
+            const known = Number.isFinite(duration) && duration > 0;
+            timeLabel.textContent = `${fmt(video.currentTime)} / ${fmt(duration)}`;
+            seek.disabled = !known;
+            const percent = known ? clamp((video.currentTime / duration) * 100, 0, 100) : 0;
+            seek.value = String(percent);
+            seek.style.setProperty('--played', `${percent}%`);
+          }
+
+          function syncState() {
+            const playing = !video.paused && !video.ended;
+            player.classList.toggle('is-playing', playing);
+            player.classList.toggle('is-paused', started && !playing);
+            toggle.textContent = playing ? '❚❚' : '▶';
+            toggle.setAttribute('aria-label', playing ? 'Пауза' : 'Воспроизвести');
+            hint.textContent = hintText();
+          }
+
+          function ensureSource() {
+            if (!video.getAttribute('src') && video.dataset.mediaSrc) video.src = video.dataset.mediaSrc;
+          }
+
+          async function start() {
+            ensureSource();
+            try {
+              await video.play();
+              failed = false;
+            } catch {
+              failed = true;
+            }
+            syncState();
+          }
+
+          function togglePlay() {
+            if (video.paused || video.ended) start();
+            else video.pause();
+          }
+
+          play.addEventListener('click', (event) => { event.preventDefault(); togglePlay(); });
+          toggle.addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); togglePlay(); });
+          video.addEventListener('click', (event) => { event.preventDefault(); togglePlay(); });
+          for (const type of ['play', 'playing', 'pause', 'ended', 'emptied', 'loadedmetadata', 'durationchange', 'timeupdate']) {
+            video.addEventListener(type, () => { syncState(); syncTime(); });
+          }
+          video.addEventListener('ended', () => { started = true; video.currentTime = 0; });
+          video.addEventListener('error', () => { failed = true; hint.textContent = 'ВИДЕО НЕДОСТУПНО'; });
+          video.addEventListener('contextmenu', (event) => event.preventDefault());
+          video.addEventListener('dragstart', (event) => event.preventDefault());
+
+          seek.addEventListener('input', (event) => {
+            event.stopPropagation();
+            if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+            video.currentTime = (Number(seek.value) / 100) * video.duration;
+            syncTime();
+          });
+          seek.addEventListener('pointerdown', (event) => event.stopPropagation());
+          sound.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            video.muted = !video.muted;
+            const label = video.muted ? 'ЗВУК ВЫКЛ' : 'ЗВУК ВКЛ';
+            sound.textContent = label;
+            sound.setAttribute('aria-label', video.muted ? 'Включить звук' : 'Выключить звук');
+          });
+          full.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (document.fullscreenElement === player) document.exitFullscreen?.();
+            else player.requestFullscreen?.();
+          });
+
+          sound.textContent = video.muted ? 'ЗВУК ВЫКЛ' : 'ЗВУК ВКЛ';
+          sound.setAttribute('aria-label', video.muted ? 'Включить звук' : 'Выключить звук');
+          syncTime();
+          syncState();
+        }
+
+        window.__enhanceVideos = (root = document) => root.querySelectorAll('video').forEach((video) => enhance(video));
+        window.__enhanceVideos();
+      })();
+    </script>
   </body>
 </html>
