@@ -57,7 +57,7 @@ npm run setup:media
 1. Создайте публичный репозиторий `ZOODOLBAEBOV` на https://github.com/new (уже создан).
 2. В репозитории: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
 3. При каждом пуше workflow `.github/workflows/pages.yml` сам собирает и публикует сайт.
-4. Для каждого медиа-репозитория один раз включите Pages: **Settings → Pages → Build and deployment → Source = Deploy from a branch → main / (root) → Save**. Только после этого заработают URL `https://lgd-phantom888.github.io/<repo>/vault/...`. `.nojekyll` добавляется автоматически.
+4. Pages для медиа-репозиториев включает `npm run setup:media` через GitHub API (legacy, `main` / root). Если токена нет, один раз включите вручную: **Settings → Pages → Build and deployment → Source = Deploy from a branch → main / (root) → Save**. Только после этого заработают URL `https://lgd-phantom888.github.io/<repo>/vault/...`; `.nojekyll` добавляется автоматически. Корень медиа-сайта может отдавать 404 — это нормально, там нет `index.html`.
 
 `astro.config.mjs` сам определяет `site` и `base` из `GITHUB_REPOSITORY`. Для собственного домена задайте переменные `SITE_URL` и `SITE_BASE` в **Settings → Secrets and variables → Actions → Variables**.
 
