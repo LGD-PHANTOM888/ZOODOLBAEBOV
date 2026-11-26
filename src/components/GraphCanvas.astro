@@ -29,7 +29,8 @@ const prepared = {
     const ctx = canvas.getContext('2d');
     const css = getComputedStyle(document.documentElement);
     let width = 0, height = 0, dpr = 1;
-    let hovered = null, dragged = null, raf = 0, tick = 0;
+    let hovered = null, dragged = null, raf = 0, tick = 0, frame = 0, running = false, visible = true;
+    const lite = matchMedia('(hover: none), (pointer: coarse), (max-width: 768px)').matches;
 
     const nodes = graph.nodes.map((node, i) => {
       const angle = (i / Math.max(1, graph.nodes.length)) * Math.PI * 2;
@@ -50,7 +51,7 @@ const prepared = {
     const color = (name, fallback) => css.getPropertyValue(name).trim() || fallback;
 
     function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, lite ? 1.5 : 2);
       width = wrap.clientWidth;
       height = canvas.clientHeight;
       canvas.width = width * dpr;
@@ -132,7 +133,7 @@ const prepared = {
         ctx.beginPath();
         ctx.arc(node.x, node.y, radius + (node.degree > 6 ? pulse * 3 : 0), 0, Math.PI * 2);
         ctx.fillStyle = node === hovered ? accent : node.color;
-        ctx.shadowBlur = node === hovered ? 22 : 10;
+        ctx.shadowBlur = lite ? 0 : (node === hovered ? 22 : 10);
         ctx.shadowColor = node.color;
         ctx.fill();
         ctx.shadowBlur = 0;
@@ -155,7 +156,31 @@ const prepared = {
       }
     }
 
-    function loop() { step(); draw(); raf = requestAnimationFrame(loop); }
+    function loop() {
+      if (document.hidden) { running = false; return; }
+      // На телефоне обновляем физику и картинку через кадр, пока не тащим узел.
+      if (!lite || dragged || frame++ % 2 === 0) { step(); draw(); }
+      raf = requestAnimationFrame(loop);
+    }
+    function stop() {
+      cancelAnimationFrame(raf);
+      running = false;
+    }
+    function start() {
+      if (running || document.hidden || !visible) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+    // Не тратим кадры, когда граф ушёл за экран (особенно на телефоне).
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        visible = entries[0]?.isIntersecting ?? true;
+        if (visible) start(); else stop();
+      }, { rootMargin: '120px' }).observe(wrap);
+    }
 
     function pointerPosition(event) {
       const rect = canvas.getBoundingClientRect();
@@ -191,6 +216,6 @@ const prepared = {
 
     addEventListener('resize', resize);
     resize();
-    loop();
+    start();
   }
 </script>

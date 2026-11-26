@@ -1044,6 +1044,31 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 
+/* Телефоны: убираем дорогие эффекты и тяжёлые медиа до приближения холста. */
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  html { scroll-behavior: auto; }
+  body { background-attachment: scroll; }
+  body::before { display: none; }
+  .cyber-grid, .scanlines { display: none; }
+  .site-header { backdrop-filter: none; background: rgba(4, 8, 9, 0.97); }
+  .explorer-backdrop, .search-overlay, .canvas-modal-backdrop { backdrop-filter: none; }
+  .progress { box-shadow: none; }
+  .glitch::before, .glitch::after { display: none; }
+  .orbit, .float-chip, .status-dot { animation: none !important; }
+  .canvas-node, .canvas-node:hover, .canvas-node:focus-visible { box-shadow: none; transition: none; }
+  .canvas-edges line.is-active { filter: none; }
+  .canvas-stage { will-change: auto; }
+  .canvas-viewport.is-dragging .canvas-stage { will-change: transform; }
+
+  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--image img,
+  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video video,
+  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--audio audio { display: none; }
+  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--image,
+  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video {
+    background: linear-gradient(135deg, rgba(0, 255, 200, 0.09), rgba(124, 255, 107, 0.04));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }

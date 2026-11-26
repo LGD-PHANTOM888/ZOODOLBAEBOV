@@ -22,13 +22,13 @@ if (node.kind === 'missing') {
   parts.push(`<span class="canvas-node-text">${esc(node.preview)}</span>`);
 }
 if (node.kind === 'image') {
-  parts.push(`<img src="${esc(node.url)}" alt="${esc(node.title)}" loading="lazy" draggable="false" />`);
+  parts.push(`<img data-media-src="${esc(node.url)}" alt="${esc(node.title)}" loading="lazy" decoding="async" fetchpriority="low" draggable="false" />`);
 }
 if (node.kind === 'video') {
-  parts.push(`<video src="${esc(node.url)}" controls muted preload="metadata" playsinline></video>`);
+  parts.push(`<video data-media-src="${esc(node.url)}" controls muted preload="none" playsinline></video>`);
 }
 if (node.kind === 'audio') {
-  parts.push(`<audio src="${esc(node.url)}" controls preload="metadata"></audio>`);
+  parts.push(`<audio data-media-src="${esc(node.url)}" controls preload="none"></audio>`);
 }
 if (node.kind === 'pdf' || node.kind === 'other' || node.kind === 'link') {
   parts.push(`<span class="canvas-node-file">${esc(node.url || node.preview)}</span>`);

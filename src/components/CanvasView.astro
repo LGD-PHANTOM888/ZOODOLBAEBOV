@@ -103,6 +103,29 @@ const kindLabel = {
   const stage = shell?.querySelector('[data-canvas-stage]');
   const zoomLabel = shell?.querySelector('[data-canvas-zoom]');
   const bounds = canvas.bounds;
+  const lite = matchMedia('(hover: none), (pointer: coarse), (max-width: 768px)').matches;
+  if (lite) shell.dataset.lite = 'true';
+
+  // На телефоне не грузим десятки фото и видео сразу: включаем их при зуме.
+  const media = [...shell.querySelectorAll('[data-media-src]')];
+  for (const el of shell.querySelectorAll('.canvas-node-body img, .canvas-node-body video')) {
+    const src = el.getAttribute('src');
+    if (!src) continue;
+    el.dataset.mediaSrc = src;
+    el.removeAttribute('src');
+    if (el.tagName === 'VIDEO') el.preload = 'none';
+    media.push(el);
+  }
+  let mediaLoaded = false;
+  function loadMedia() {
+    if (mediaLoaded) return;
+    mediaLoaded = true;
+    for (const el of media) {
+      const src = el.dataset.mediaSrc;
+      if (src && !el.getAttribute('src')) el.setAttribute('src', src);
+    }
+  }
+  if (!lite) loadMedia();
 
   let scale = 1;
   let tx = 0;
@@ -115,6 +138,21 @@ const kindLabel = {
   function apply() {
     stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
     if (zoomLabel) zoomLabel.textContent = `${Math.round(scale * 100)}%`;
+    if (lite) {
+      const zoomedIn = scale >= 0.32;
+      shell.dataset.zoomedIn = zoomedIn ? 'true' : 'false';
+      if (zoomedIn) loadMedia();
+    }
+  }
+
+  // С style writes только раз на кадр — плавнее при панораме на слабых GPU.
+  let applyFrame = 0;
+  function scheduleApply() {
+    if (applyFrame) return;
+    applyFrame = requestAnimationFrame(() => {
+      applyFrame = 0;
+      apply();
+    });
   }
 
   function fit() {
@@ -132,7 +170,7 @@ const kindLabel = {
     ty = py - (py - ty) * (next / scale);
     scale = next;
     touched = true;
-    apply();
+    scheduleApply();
   }
 
   function center() {
@@ -167,8 +205,8 @@ const kindLabel = {
     tx = drag.tx + event.clientX - drag.x;
     ty = drag.ty + event.clientY - drag.y;
     touched = true;
-    apply();
-  });
+    scheduleApply();
+  }, { passive: true });
 
   const endDrag = () => {
     drag = null;
@@ -177,19 +215,21 @@ const kindLabel = {
   viewport?.addEventListener('pointerup', endDrag);
   viewport?.addEventListener('pointercancel', endDrag);
 
-  shell?.querySelectorAll('[data-canvas-node]').forEach((node) => {
-    node.addEventListener('pointerenter', () => {
-      shell.dataset.activeNode = node.dataset.canvasNode;
-      shell.querySelectorAll('[data-edge-from]').forEach((line) => {
-        const active = line.dataset.edgeFrom === node.dataset.canvasNode || line.dataset.edgeTo === node.dataset.canvasNode;
-        line.classList.toggle('is-active', active);
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    shell?.querySelectorAll('[data-canvas-node]').forEach((node) => {
+      node.addEventListener('pointerenter', () => {
+        shell.dataset.activeNode = node.dataset.canvasNode;
+        shell.querySelectorAll('[data-edge-from]').forEach((line) => {
+          const active = line.dataset.edgeFrom === node.dataset.canvasNode || line.dataset.edgeTo === node.dataset.canvasNode;
+          line.classList.toggle('is-active', active);
+        });
+      });
+      node.addEventListener('pointerleave', () => {
+        delete shell.dataset.activeNode;
+        shell.querySelectorAll('[data-edge-from]').forEach((line) => line.classList.remove('is-active'));
       });
     });
-    node.addEventListener('pointerleave', () => {
-      delete shell.dataset.activeNode;
-      shell.querySelectorAll('[data-edge-from]').forEach((line) => line.classList.remove('is-active'));
-    });
-  });
+  }
 
   const modal = shell?.querySelector('[data-canvas-modal]');
   const modalBody = modal?.querySelector('[data-canvas-modal-body]');
