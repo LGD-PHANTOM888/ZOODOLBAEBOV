@@ -50,14 +50,6 @@ function run(command, args) {
   return result.status === 0;
 }
 
-function deployConfig() {
-  try {
-    return JSON.parse(fs.readFileSync(path.join(ROOT, 'deploy.local.json'), 'utf8'));
-  } catch (_) {
-    return null;
-  }
-}
-
 function hasRemote() {
   const result = spawnSync('git', ['remote', 'get-url', 'origin'], { cwd: ROOT, encoding: 'utf8', shell: true });
   return result.status === 0 && Boolean(result.stdout.trim());
@@ -74,18 +66,6 @@ function publish() {
   if (!run('npm', ['run', 'update'])) {
     log('✖ Сборка не удалась. Повторю после следующих изменений.');
     return false;
-  }
-
-  // Весь site/ уходит в один R2-бакет. Без deploy.local.json шаг просто пропускается.
-  if (!run('npm', ['run', 'deploy:r2'])) {
-    log('✖ Загрузка в R2 не удалась. GitHub Pages остаётся предыдущей версии.');
-    return false;
-  }
-
-  const deploy = deployConfig();
-  if (deploy?.disableGitHubPages) {
-    log('R2 обновлён; публикация в GitHub пропущена.');
-    return true;
   }
 
   if (!run('git', ['add', '-A'])) return false;
