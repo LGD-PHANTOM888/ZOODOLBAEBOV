@@ -17,6 +17,11 @@ if not exist "%PROJECT%\update-site.bat" (
   endlocal & exit /b 1
 )
 
-call "%PROJECT%\update-site.bat"
+call "%PROJECT%\update-site.bat" /NOPAUSE %*
 set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" (
+  echo.
+  echo [FAIL] Update failed. Code %RC%. Window stays open.
+  pause
+)
 endlocal & exit /b %RC%

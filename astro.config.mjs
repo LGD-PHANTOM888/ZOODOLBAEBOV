@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import remarkCallouts from './src/plugins/remark-callouts.mjs';
+import remarkBreaks from './src/plugins/remark-breaks.mjs';
 import rehypeBase from './src/plugins/rehype-base.mjs';
 
 // GitHub Pages:site/base вычисляются сами из GITHUB_REPOSITORY,
@@ -34,7 +35,7 @@ export default defineConfig({
   output: 'static',
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkCallouts],
+      remarkPlugins: [remarkCallouts, remarkBreaks],
       rehypePlugins: [[rehypeBase, { base }]],
       shikiConfig: { theme: 'github-dark', wrap: true },
     }),
