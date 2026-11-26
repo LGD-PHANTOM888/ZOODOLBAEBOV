@@ -33,6 +33,13 @@ export default function rehypeBase({ base = '/' } = {}) {
 
       const keys = attrs[node.tagName];
       if (!keys || !node.properties) return;
+      // Медиа в записях и новинках не должны грузиться до появления на экране.
+      if (node.tagName === 'img') {
+        node.properties.loading ??= 'lazy';
+        node.properties.decoding ??= 'async';
+        node.properties.fetchPriority ??= 'low';
+      }
+      if (node.tagName === 'video') node.properties.preload ??= 'none';
       for (const key of keys) {
         const value = node.properties[key];
         if (typeof value !== 'string') continue;

@@ -130,10 +130,12 @@ const kindLabel = {
     mediaLoaded = true;
     for (const el of media) {
       const src = el.dataset.mediaSrc;
-      if (src && !el.getAttribute('src')) el.setAttribute('src', src);
+      if (src && !el.getAttribute('src')) {
+        el.setAttribute('src', src);
+        el.closest('[data-canvas-node]')?.setAttribute('data-media-ready', 'true');
+      }
     }
   }
-  if (!lite) loadMedia();
 
   let scale = 1;
   let tx = 0;
@@ -143,13 +145,17 @@ const kindLabel = {
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
+  let lastPlayerScale = 0;
   function apply() {
     stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
     if (zoomLabel) zoomLabel.textContent = `${Math.round(scale * 100)}%`;
-    if (lite) {
-      const zoomedIn = scale >= 0.32;
-      shell.dataset.zoomedIn = zoomedIn ? 'true' : 'false';
-      if (zoomedIn) loadMedia();
+    const zoomedIn = scale >= 0.32;
+    shell.dataset.zoomedIn = zoomedIn ? 'true' : 'false';
+    if (zoomedIn) loadMedia();
+    // Плееры video создаём только когда узел стал достаточно крупным.
+    if (Math.abs(scale - lastPlayerScale) >= 0.02) {
+      lastPlayerScale = scale;
+      window.__refreshVideoPlayers?.();
     }
   }
 
@@ -224,17 +230,25 @@ const kindLabel = {
   viewport?.addEventListener('pointercancel', endDrag);
 
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    // Один раз индексируем линии по узлам: на большом холсте наведение не
+    // перебирает все ребра заново для каждого узла.
+    const edgesByNode = new Map();
+    for (const line of shell?.querySelectorAll('[data-edge-from]') || []) {
+      for (const key of [line.dataset.edgeFrom, line.dataset.edgeTo]) {
+        if (!key) continue;
+        if (!edgesByNode.has(key)) edgesByNode.set(key, []);
+        edgesByNode.get(key).push(line);
+      }
+    }
     shell?.querySelectorAll('[data-canvas-node]').forEach((node) => {
+      const activeLines = edgesByNode.get(node.dataset.canvasNode) || [];
       node.addEventListener('pointerenter', () => {
         shell.dataset.activeNode = node.dataset.canvasNode;
-        shell.querySelectorAll('[data-edge-from]').forEach((line) => {
-          const active = line.dataset.edgeFrom === node.dataset.canvasNode || line.dataset.edgeTo === node.dataset.canvasNode;
-          line.classList.toggle('is-active', active);
-        });
+        for (const line of activeLines) line.classList.add('is-active');
       });
       node.addEventListener('pointerleave', () => {
         delete shell.dataset.activeNode;
-        shell.querySelectorAll('[data-edge-from]').forEach((line) => line.classList.remove('is-active'));
+        for (const line of activeLines) line.classList.remove('is-active');
       });
     });
   }
