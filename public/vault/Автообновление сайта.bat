@@ -1,13 +1,12 @@
 @echo off
-chcp 65001 >nul
-title АВТООБНОВЛЕНИЕ САЙТА
+title AUTO UPDATE SITE
 cd /d "D:\tests_new\astro-garden"
 
 echo.
 echo  ============================================================
-echo   АВТООБНОВЛЕНИЕ: Public -^> сайт -^> GitHub
-echo   Следит за папкой источника и публикует изменения.
-echo   Для остановки: Ctrl+C
+echo   AUTO UPDATE: Public -^> site -^> GitHub
+echo   Watching source folder and publishing changes.
+echo   Press Ctrl+C to stop.
 echo  ============================================================
 echo.
 
