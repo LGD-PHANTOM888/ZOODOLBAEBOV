@@ -1,17 +1,22 @@
 @echo off
-chcp 65001 >nul
-title Обновление сайта
+setlocal EnableExtensions
+title UPDATE SITE
 cd /d "%~dp0"
+
+set "PROJECT=D:\tests_new\astro-garden"
+if defined SITE_DIR set "PROJECT=%SITE_DIR%"
+
 echo.
-echo  Запуск синхронизации и публикации сайта...
-echo  Источник: %cd%
+echo  UPDATE SITE: Public -^> build -^> all repositories
 echo.
 
-if not exist "D:\tests_new\astro-garden\update-site.bat" (
-  echo [ERROR] Не найден D:\tests_new\astro-garden\update-site.bat
+if not exist "%PROJECT%\update-site.bat" (
+  echo [ERROR] %PROJECT%\update-site.bat not found
+  echo        Set SITE_DIR to the folder with update-site.bat
   pause
-  exit /b 1
+  endlocal & exit /b 1
 )
 
-call "D:\tests_new\astro-garden\update-site.bat"
-exit /b %errorlevel%
+call "%PROJECT%\update-site.bat"
+set "RC=%ERRORLEVEL%"
+endlocal & exit /b %RC%
