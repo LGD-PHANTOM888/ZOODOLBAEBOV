@@ -2,81 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FolderTree from '../components/FolderTree.astro';
 import manifest from '../data/manifest.json';
-
-const base = import.meta.env.BASE_URL;
-const botUrl = 'https://t.me/Predlozkadegeneratos_bot';
-const canvases = [...manifest.notes];
-const canvasList = Object.values(manifest.canvases as Record<string, any>);
-const nodeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.nodes, 0);
-const edgeCount = canvasList.reduce((sum, canvas) => sum + canvas.stats.edges, 0);
-const linkCount = Object.values(manifest.backlinks).flat().length;
-const folderCount = new Set(canvases.map((canvas) => canvas.folder).filter(Boolean)).size;
-const formatDate = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(date));
 ---
 
 <BaseLayout title={manifest.siteTitle} description={manifest.siteDescription}>
-  <section class="hero">
-    <div>
-      <span class="eyebrow">ЗООПАРК ДОЛБОЕБОВ</span>
-      <h1><span class="glitch" data-text="ЗООПАРК">ЗООПАРК</span><br /><em class="glitch glitch--accent" data-text="ДОЛБОЕБОВ">ДОЛБОЕБОВ</em></h1>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href={`${base}canvases/`}>ХОЛСТЫ <span>→</span></a>
-        <a class="btn btn-ghost" href={`${base}graph/`}>ГРАФ</a>
-        <a class="btn btn-ghost" href={botUrl} target="_blank" rel="noopener noreferrer">ПРЕДЛОЖКА ↗</a>
-      </div>
-    </div>
-
-    <div class="hero-art" aria-hidden="true">
-      <div class="orbit"></div>
-      <div class="orbit orbit-2"></div>
-      <div class="hero-core"><span>З</span></div>
-      <div class="float-chip chip-1">холстов <b>{canvases.length}</b></div>
-      <div class="float-chip chip-2">связей <b>{linkCount}</b></div>
-      <div class="float-chip chip-3">узлов <b>{nodeCount}</b></div>
-    </div>
-  </section>
-
-  <div class="stats">
-    <div class="stat"><span class="stat-value">{canvases.length}</span><span class="stat-label">Холстов</span></div>
-    <div class="stat"><span class="stat-value">{folderCount}</span><span class="stat-label">Папок</span></div>
-    <div class="stat"><span class="stat-value">{nodeCount}</span><span class="stat-label">Узлов</span></div>
-    <div class="stat"><span class="stat-value">{edgeCount}</span><span class="stat-label">Связей</span></div>
-  </div>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Корень</span>
-        <h2>Холсты</h2>
-      </div>
-      <a href={`${base}canvases/`}>Все холсты →</a>
-    </div>
-
-    <div class="note-list">
-      {canvases.slice(0, 10).map((canvas, index) => (
-        <a class="note-row" href={`${base}canvases/${canvas.slug}/`}>
-          <span class="note-index">{String(index + 1).padStart(2, '0')}</span>
-          <span>
-            <span class="note-row-title">{canvas.title}</span>
-            <span class="note-row-desc">{canvas.folder || 'Корень'}</span>
-          </span>
-          <span class="note-row-meta">
-            <span>{formatDate(canvas.updated)}</span>
-            <span class="note-arrow">↗</span>
-          </span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Корень</span>
-        <h2>Дерево холстов</h2>
-      </div>
-      <a href={`${base}canvases/`}>Открыть всё →</a>
-    </div>
+  <section class="section home-tree">
     <FolderTree label="КОРЕНЬ" />
   </section>
 </BaseLayout>
