@@ -2,7 +2,7 @@
 const { graph, compact = false, label = 'ОБЗОР', hint = 'перетаскивайте узлы · клик открывает холст' } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
-const palette = ['#00ffc8', '#7cff6b', '#45b7ff', '#ff4d9d', '#ffb84d', '#b98cff', '#ff6b6b'];
+const palette = ['#7cff6b', '#b6ff8c', '#45b7ff', '#ff4d9d', '#ffb84d', '#b98cff', '#ff6b6b'];
 const groups = [...new Set(graph.nodes.map((node) => node.group))];
 const prepared = {
   nodes: graph.nodes.map((node) => ({
@@ -97,10 +97,10 @@ const prepared = {
     function draw() {
       tick++;
       ctx.clearRect(0, 0, width, height);
-      const line = color('--line', '#1b3336');
+      const line = color('--line', '#24361d');
       const paper = color('--panel', '#0b1114');
       const ink = color('--text', '#d7f7ef');
-      const accent = color('--accent', '#00ffc8');
+      const accent = color('--accent', '#7cff6b');
 
       const neighbors = new Set();
       if (hovered) {
