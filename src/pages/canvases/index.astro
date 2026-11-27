@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FolderTree from '../../components/FolderTree.astro';
 import manifest from '../../data/manifest.json';
 
+const base = import.meta.env.BASE_URL;
 const canvases = [...manifest.notes];
 ---
 
@@ -11,8 +12,53 @@ const canvases = [...manifest.notes];
     <span class="eyebrow">ДЕРЕВО</span>
     <div class="section-head" style="margin-top:10px">
       <h2>Холсты</h2>
-      <p>{canvases.length}</p>
+      <p data-canvas-count>{canvases.length}</p>
     </div>
-    <FolderTree label="КОРЕНЬ" />
+    <p class="canvas-check" data-canvas-check-text>Холстов: {canvases.length}</p>
+    <div data-canvas-tree hidden={canvases.length === 0}>
+      <FolderTree label="КОРЕНЬ" />
+    </div>
+    <div class="news-empty" data-canvas-empty hidden={canvases.length !== 0}>
+      Холстов пока нет. Добавь файл .canvas в Obsidian и запусти «Обновить всё.bat».
+    </div>
   </div>
+
+  <script define:vars={{ base, embeddedCount: canvases.length }}>
+    (async () => {
+      const label = document.querySelector('[data-canvas-check-text]');
+      const tree = document.querySelector('[data-canvas-tree]');
+      const empty = document.querySelector('[data-canvas-empty]');
+
+      const plural = (n) => {
+        const mod10 = n % 10;
+        const mod100 = n % 100;
+        if (mod10 === 1 && mod100 !== 11) return 'холст';
+        if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'холста';
+        return 'холстов';
+      };
+
+      const apply = (count, checked) => {
+        document.querySelectorAll('[data-canvas-count]').forEach((el) => {
+          el.textContent = String(count);
+        });
+        if (tree) tree.hidden = count === 0;
+        if (empty) empty.hidden = count !== 0;
+        if (label) label.textContent = checked
+          ? `Автопроверка при открытии страницы: ${count} ${plural(count)}`
+          : `Холстов: ${count} ${plural(count)}`;
+      };
+
+      apply(embeddedCount, false);
+
+      try {
+        const response = await fetch(`${base}search-index.json`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const index = await response.json();
+        const slugs = new Set(index.map((item) => item.slug).filter(Boolean));
+        apply(slugs.size, true);
+      } catch (error) {
+        console.warn('Не удалось автоматически проверить список холстов', error);
+      }
+    })();
+  </script>
 </BaseLayout>

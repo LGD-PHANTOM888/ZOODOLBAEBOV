@@ -1305,6 +1305,13 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
 }
 .news-description { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
 .news-body { max-width: none; padding-bottom: 10px; }
+.canvas-check {
+  margin: 0 0 12px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 .news-empty {
   padding: 28px;
   border: 1px dashed var(--border-bright);

@@ -32,7 +32,10 @@ function signature() {
       } else if (entry.isFile()) {
         try {
           const stat = fs.statSync(full);
-          entries.push(`${relPath}|${stat.size}|${Math.floor(stat.mtimeMs)}`);
+          // Холсты помечаем явно: появление/удаление .canvas должно менять
+          // подпись даже если размер и время файла совпадают.
+          const kind = path.extname(entry.name).toLowerCase() === '.canvas' ? 'CANVAS' : 'FILE';
+          entries.push(`${kind}|${relPath}|${stat.size}|${Math.floor(stat.mtimeMs)}`);
         } catch (_) {
           // Файл мог исчезнуть во время обхода — следующий тик всё перечитает.
         }
@@ -44,6 +47,37 @@ function signature() {
   entries.sort();
   return crypto.createHash('sha1').update(entries.join('\n')).digest('hex');
 }
+
+// Явная проверка наличия холстов при каждом тике наблюдателя.
+function canvasList() {
+  const found = [];
+
+  function walk(dir, rel = '') {
+    let list;
+    try {
+      list = fs.readdirSync(dir, { withFileTypes: true });
+    } catch (error) {
+      log(`⚠ Не удалось прочитать ${dir}: ${error.message}`);
+      return;
+    }
+    for (const entry of list) {
+      const full = path.join(dir, entry.name);
+      const relPath = rel ? `${rel}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        walk(full, relPath);
+      } else if (entry.isFile() && path.extname(entry.name).toLowerCase() === '.canvas') {
+        found.push(relPath);
+      }
+    }
+  }
+
+  walk(vault);
+  return found.sort();
+}
+
+const canvasSummary = (list) => list.length
+  ? `Холстов: ${list.length}`
+  : 'Холстов нет — в Public не найдено ни одного .canvas';
 
 function run(command, args) {
   log(`> ${command} ${args.join(' ')}`);
@@ -66,6 +100,7 @@ function publish() {
 }
 
 if (process.argv.includes('--once')) {
+  console.log(canvasSummary(canvasList()));
   console.log(signature());
   process.exit(0);
 }
@@ -74,6 +109,8 @@ log(`Наблюдаю за папкой: ${vault}`);
 log(`Интервал проверки: ${INTERVAL} мс. Для выхода — Ctrl+C.`);
 
 let last = signature();
+let lastCanvases = canvasList();
+log(canvasSummary(lastCanvases));
 let stable = 0;
 let busy = false;
 
@@ -86,6 +123,12 @@ setInterval(() => {
   } catch (error) {
     log(`⚠ Ошибка проверки: ${error.message}`);
     return;
+  }
+
+  const canvases = canvasList();
+  if (canvases.join('\n') !== lastCanvases.join('\n')) {
+    log(canvasSummary(canvases));
+    lastCanvases = canvases;
   }
 
   if (current === last) {
