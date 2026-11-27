@@ -9,13 +9,8 @@ type Tree = { name: string; folders: Map<string, Tree>; canvases: any[] };
 const makeNode = (name: string): Tree => ({ name, folders: new Map(), canvases: [] });
 const root = makeNode('');
 
-for (const folder of manifest.folders) {
-  let current = root;
-  for (const part of folder.segments) {
-    if (!current.folders.has(part)) current.folders.set(part, makeNode(part));
-    current = current.folders.get(part)!;
-  }
-}
+// В проводнике только папки, где есть холст (или его родители).
+// manifest.folders всё равно содержит все папки — страницы папок обновляются батником.
 for (const canvas of canvases) {
   let current = root;
   for (const part of (canvas.folder ? String(canvas.folder).split('/') : [])) {
