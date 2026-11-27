@@ -154,8 +154,6 @@ const {
         };
 
         const enhancedVideos = new WeakSet();
-        const observedVideos = new Set();
-        let observer = null;
 
         function enhance(video) {
           if (enhancedVideos.has(video) || video.parentElement?.classList.contains('video-player')) return;
@@ -282,41 +280,13 @@ const {
           syncState();
         }
 
-        // Холст может содержать десятки видео. Собираем плеер только для тех,
-        // которые реально видны достаточно крупно; остальные ждут зуома.
-        function checkVisible() {
-          for (const video of [...observedVideos]) {
-            const rect = video.getBoundingClientRect();
-            if (rect.width < 120 || rect.height < 80) continue;
-            if (rect.right < -200 || rect.bottom < -200 || rect.left > innerWidth + 200 || rect.top > innerHeight + 200) continue;
-            observer?.unobserve(video);
-            observedVideos.delete(video);
-            enhance(video);
-          }
-        }
-
-        if ('IntersectionObserver' in window) {
-          observer = new IntersectionObserver((entries) => {
-            if (entries.some((entry) => entry.isIntersecting)) checkVisible();
-          }, { rootMargin: '200px' });
-        }
-
+        // Плеер создаётся сразу для всех видео. Файл при этом не скачивается:
+        // preload="none" грузит данные только после нажатия «смотреть».
+        // Порог по размеру узла убрал — видео больше не «появляется» на зуме.
         window.__enhanceVideos = (root = document) => {
-          const immediate = root !== document;
-          for (const video of root.querySelectorAll('video')) {
-            if (enhancedVideos.has(video)) continue;
-            if (immediate || !observer) {
-              enhance(video);
-              continue;
-            }
-            if (!observedVideos.has(video)) {
-              observedVideos.add(video);
-              observer.observe(video);
-            }
-          }
-          if (!immediate) checkVisible();
+          for (const video of root.querySelectorAll('video')) enhance(video);
         };
-        window.__refreshVideoPlayers = () => { if (observer) checkVisible(); };
+        window.__refreshVideoPlayers = () => {};
         window.__enhanceVideos();
       })();
     </script>

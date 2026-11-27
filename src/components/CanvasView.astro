@@ -48,7 +48,8 @@ const kindLabel = {
     <button type="button" data-canvas-action="in" title="Увеличить">+</button>
     <button type="button" data-canvas-action="fit" title="Вписать всё">ВМЕСТИТЬ</button>
     <span class="canvas-toolbar-sep"></span>
-    <span class="canvas-toolbar-hint">колесо — масштаб · тянуть фон — панорама</span>
+    <span class="canvas-toolbar-hint">колесо — масштаб · тянуть — панорама · тап — выделить узел</span>
+    <span class="canvas-toolbar-touch">ТЯНУТЬ — ДВИГАТЬ · ДВА ПАЛЬЦА — МАСШТАБ · ТАП — ВЫДЕЛИТЬ</span>
   </div>
 
   <div class="canvas-viewport" data-canvas-viewport>
@@ -114,7 +115,8 @@ const kindLabel = {
     if (event.target instanceof Element && event.target.closest('video, img')) event.preventDefault();
   });
 
-  // На телефоне не грузим десятки фото и видео сразу: включаем их при зуме.
+  // Медиа получают источник сразу. Картинки грузит браузер лениво (loading=lazy),
+  // видео и аудио — только при запуске (preload=none). Порога зуома больше нет.
   const media = [...shell.querySelectorAll('[data-media-src]')];
   for (const el of shell.querySelectorAll('.canvas-node-body img, .canvas-node-body video')) {
     const src = el.getAttribute('src');
@@ -124,34 +126,63 @@ const kindLabel = {
     if (el.tagName === 'VIDEO') el.preload = 'none';
     media.push(el);
   }
-  let mediaLoaded = false;
-  function loadMedia() {
-    if (mediaLoaded) return;
-    mediaLoaded = true;
-    for (const el of media) {
-      const src = el.dataset.mediaSrc;
-      if (src && !el.getAttribute('src')) {
-        el.setAttribute('src', src);
-        el.closest('[data-canvas-node]')?.setAttribute('data-media-ready', 'true');
-      }
+  for (const el of media) {
+    const src = el.dataset.mediaSrc;
+    if (!src) continue;
+    if (el.tagName === 'IMG') {
+      el.loading = 'lazy';
+      el.decoding = 'async';
     }
+    if (el.tagName === 'VIDEO' || el.tagName === 'AUDIO') el.preload = 'none';
+    if (!el.getAttribute('src')) el.setAttribute('src', src);
+    el.closest('[data-canvas-node]')?.setAttribute('data-media-ready', 'true');
   }
 
   let scale = 1;
   let tx = 0;
   let ty = 0;
   let touched = false;
-  let drag = null;
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+  // Рёбра индексируются один раз. Выделение ставим только явным тапом/кликом
+  // по самой заметке; наведение и панорама его не трогают.
+  const edgesByNode = new Map();
+  for (const line of shell?.querySelectorAll('[data-edge-from]') || []) {
+    for (const key of [line.dataset.edgeFrom, line.dataset.edgeTo]) {
+      if (!key) continue;
+      if (!edgesByNode.has(key)) edgesByNode.set(key, []);
+      edgesByNode.get(key).push(line);
+    }
+  }
+  const nodesById = new Map();
+  for (const node of shell?.querySelectorAll('[data-canvas-node]') || []) {
+    nodesById.set(node.dataset.canvasNode, node);
+  }
+  let selectedId = null;
+
+  function clearSelection() {
+    if (!selectedId) return;
+    nodesById.get(selectedId)?.classList.remove('is-selected');
+    for (const line of edgesByNode.get(selectedId) || []) line.classList.remove('is-active');
+    delete shell.dataset.activeNode;
+    selectedId = null;
+  }
+
+  function selectNode(node) {
+    const id = node.dataset.canvasNode;
+    if (!id) return;
+    clearSelection();
+    selectedId = id;
+    node.classList.add('is-selected');
+    shell.dataset.activeNode = id;
+    for (const line of edgesByNode.get(id) || []) line.classList.add('is-active');
+  }
 
   let lastPlayerScale = 0;
   function apply() {
     stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
     if (zoomLabel) zoomLabel.textContent = `${Math.round(scale * 100)}%`;
-    const zoomedIn = scale >= 0.32;
-    shell.dataset.zoomedIn = zoomedIn ? 'true' : 'false';
-    if (zoomedIn) loadMedia();
     // Плееры video создаём только когда узел стал достаточно крупным.
     if (Math.abs(scale - lastPlayerScale) >= 0.02) {
       lastPlayerScale = scale;
@@ -172,7 +203,8 @@ const kindLabel = {
   function fit() {
     const w = viewport.clientWidth || 800;
     const h = viewport.clientHeight || 600;
-    scale = clamp(Math.min((w - 80) / bounds.width, (h - 80) / bounds.height), 0.03, 1.25);
+    const pad = lite ? 24 : 80;
+    scale = clamp(Math.min((w - pad) / bounds.width, (h - pad) / bounds.height), 0.03, 1.25);
     tx = (w - bounds.width * scale) / 2;
     ty = (h - bounds.height * scale) / 2;
     apply();
@@ -207,51 +239,93 @@ const kindLabel = {
     zoomAt(event.deltaY < 0 ? 1.12 : 1 / 1.12, event.clientX - rect.left, event.clientY - rect.top);
   }, { passive: false });
 
+  // Универсальные жесты: панорама может начаться даже на заметке, если палец
+  // сдвинулся; два пальца дают масштаб. Тап без движения остаётся выбором узла.
+  const pointers = new Map();
+  let pan = null;
+  let pinch = null;
+  let lastDragEndAt = 0;
+
   viewport?.addEventListener('pointerdown', (event) => {
-    if (event.target.closest('.canvas-node') || event.button !== 0) return;
-    drag = { x: event.clientX, y: event.clientY, tx, ty };
-    viewport.setPointerCapture(event.pointerId);
-    viewport.classList.add('is-dragging');
+    if (event.target.closest('[data-canvas-expand], .canvas-modal')) return;
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (pointers.size === 1) {
+      pan = { id: event.pointerId, x: event.clientX, y: event.clientY, tx, ty, started: false };
+    } else if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const rect = viewport.getBoundingClientRect();
+      pinch = {
+        dist: Math.hypot(a.x - b.x, a.y - b.y) || 1,
+        scale0: scale,
+        wx: ((a.x + b.x) / 2 - rect.left - tx) / scale,
+        wy: ((a.y + b.y) / 2 - rect.top - ty) / scale,
+      };
+      pan = null;
+      clearSelection();
+      viewport.classList.add('is-dragging');
+    }
   });
 
-  viewport?.addEventListener('pointermove', (event) => {
-    if (!drag) return;
-    tx = drag.tx + event.clientX - drag.x;
-    ty = drag.ty + event.clientY - drag.y;
+  window.addEventListener('pointermove', (event) => {
+    if (!pointers.has(event.pointerId)) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+    if (pointers.size >= 2 && pinch) {
+      const [a, b] = [...pointers.values()];
+      const rect = viewport.getBoundingClientRect();
+      const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      const next = clamp(pinch.scale0 * (dist / pinch.dist), 0.03, 2.5);
+      tx = (a.x + b.x) / 2 - rect.left - pinch.wx * next;
+      ty = (a.y + b.y) / 2 - rect.top - pinch.wy * next;
+      scale = next;
+      touched = true;
+      scheduleApply();
+      return;
+    }
+
+    if (!pan || pan.id !== event.pointerId) return;
+    const dx = event.clientX - pan.x;
+    const dy = event.clientY - pan.y;
+    if (!pan.started) {
+      const limit = event.pointerType === 'touch' ? 8 : 4;
+      if (Math.hypot(dx, dy) < limit) return;
+      pan.started = true;
+      try { viewport.setPointerCapture(event.pointerId); } catch { /* capture is optional */ }
+      viewport.classList.add('is-dragging');
+      clearSelection();
+    }
+    tx = pan.tx + dx;
+    ty = pan.ty + dy;
     touched = true;
     scheduleApply();
   }, { passive: true });
 
-  const endDrag = () => {
-    drag = null;
-    viewport?.classList.remove('is-dragging');
-  };
-  viewport?.addEventListener('pointerup', endDrag);
-  viewport?.addEventListener('pointercancel', endDrag);
-
-  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    // Один раз индексируем линии по узлам: на большом холсте наведение не
-    // перебирает все ребра заново для каждого узла.
-    const edgesByNode = new Map();
-    for (const line of shell?.querySelectorAll('[data-edge-from]') || []) {
-      for (const key of [line.dataset.edgeFrom, line.dataset.edgeTo]) {
-        if (!key) continue;
-        if (!edgesByNode.has(key)) edgesByNode.set(key, []);
-        edgesByNode.get(key).push(line);
-      }
+  function endPointer(event) {
+    if (!pointers.has(event.pointerId)) return;
+    const wasDragging = Boolean(pan?.started || pinch);
+    pointers.delete(event.pointerId);
+    if (pointers.size < 2) pinch = null;
+    if (!pointers.size) {
+      pan = null;
+      viewport?.classList.remove('is-dragging');
+      if (wasDragging) lastDragEndAt = Date.now();
     }
-    shell?.querySelectorAll('[data-canvas-node]').forEach((node) => {
-      const activeLines = edgesByNode.get(node.dataset.canvasNode) || [];
-      node.addEventListener('pointerenter', () => {
-        shell.dataset.activeNode = node.dataset.canvasNode;
-        for (const line of activeLines) line.classList.add('is-active');
-      });
-      node.addEventListener('pointerleave', () => {
-        delete shell.dataset.activeNode;
-        for (const line of activeLines) line.classList.remove('is-active');
-      });
-    });
   }
+  window.addEventListener('pointerup', endPointer);
+  window.addEventListener('pointercancel', endPointer);
+
+  // Единственное место, где ставится выделение: обычный клик/тап по узлу.
+  viewport?.addEventListener('click', (event) => {
+    if (Date.now() - lastDragEndAt < 400) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    const node = event.target.closest('[data-canvas-node]');
+    if (node) selectNode(node);
+    else clearSelection();
+  }, true);
 
   const modal = shell?.querySelector('[data-canvas-modal]');
   const modalBody = modal?.querySelector('[data-canvas-modal-body]');

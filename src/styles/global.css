@@ -776,12 +776,17 @@ body[data-dense='true'] .site-header { backdrop-filter: none; background: rgba(4
 .canvas-toolbar-sep { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
 .canvas-zoom { min-width: 46px; text-align: center; color: var(--accent); }
 .canvas-toolbar-hint { margin-left: auto; color: var(--muted); }
+.canvas-toolbar-touch { display: none; }
 .canvas-viewport {
   position: relative;
   width: 100%;
   height: min(76vh, 760px);
   overflow: hidden;
   cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
   background-color: #060b0c;
   background-image:
     linear-gradient(rgba(124, 255, 107, 0.045) 1px, transparent 1px),
@@ -811,11 +816,17 @@ body[data-dense='true'] .site-header { backdrop-filter: none; background: rgba(4
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-.canvas-node:hover, .canvas-node:focus-visible {
+.canvas-node:focus-visible {
   border-color: var(--node-color);
   box-shadow: 0 0 18px rgba(124, 255, 107, 0.25), 0 0 0 1px var(--node-color);
   z-index: 5;
   outline: none;
+}
+/* Выделяется только узел, который выбрали кликом/тапом. */
+.canvas-node.is-selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(124, 255, 107, 0.3), 0 0 0 2px var(--accent);
+  z-index: 6;
 }
 .canvas-node-kind { color: var(--node-color); font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; }
 .canvas-node-title { font-family: var(--font-display); font-size: 15px; font-weight: 600; line-height: 1.15; max-width: 100%; overflow-wrap: anywhere; }
@@ -994,15 +1005,13 @@ video::-webkit-media-controls-enclosure { overflow: hidden; }
 .canvas-node--video .canvas-node-title { left: auto; right: 6px; font-size: 12px; }
 .canvas-node--audio { justify-content: flex-end; }
 .canvas-node--audio audio { width: 100%; margin-top: auto; }
-/* Медиа холста подключаются только при зуоме >= 0.32 — до этого показываем плашку. */
+/* Медиа доступны сразу: src ставится при загрузке холста, а браузер сам
+   лениво подгружает видимые картинки и не качает видео до запуска. */
 .canvas-node--image:not([data-media-ready='true']),
 .canvas-node--video:not([data-media-ready='true']),
 .canvas-node--audio:not([data-media-ready='true']) {
   background: linear-gradient(135deg, rgba(124, 255, 107, 0.09), rgba(124, 255, 107, 0.035));
 }
-.canvas-node--image:not([data-media-ready='true']) img,
-.canvas-node--video:not([data-media-ready='true']) video,
-.canvas-node--audio:not([data-media-ready='true']) audio { display: none; }
 .canvas-status {
   display: flex;
   flex-wrap: wrap;
@@ -1097,7 +1106,11 @@ video::-webkit-media-controls-enclosure { overflow: hidden; }
   font-size: 24px;
   line-height: 1;
 }
-.canvas-modal-body { overflow: auto; padding: 24px; }
+.canvas-modal-body {
+  overflow: auto; padding: 24px;
+  user-select: text;
+  -webkit-user-select: text;
+}
 .canvas-modal-body .canvas-node-body { overflow: visible; max-height: none; padding: 0; font-size: 13px; }
 
 /* ---------- Проводник ---------- */
@@ -1388,23 +1401,26 @@ kbd { padding: 2px 6px; border: 1px solid var(--border-bright); background: var(
   .progress { box-shadow: none; }
   .orbit, .float-chip, .status-dot, .glitch::before, .glitch::after { animation: none !important; }
   .glitch::before, .glitch::after { display: none; }
-  .canvas-node, .canvas-node:hover, .canvas-node:focus-visible { box-shadow: none; transition: none; }
+  .canvas-node, .canvas-node:focus-visible { box-shadow: none; transition: none; }
+  .canvas-node.is-selected { box-shadow: 0 0 0 2px var(--accent); transition: none; }
   .canvas-edges line.is-active { filter: none; }
   .canvas-stage { will-change: auto; }
   .canvas-viewport.is-dragging .canvas-stage { will-change: transform; }
+  .canvas-toolbar { padding: 8px 10px; gap: 6px; }
+  .canvas-toolbar button { min-width: 40px; min-height: 38px; padding: 8px 10px; font-size: 11px; }
+  .canvas-toolbar [data-canvas-action='fit'] { min-width: auto; }
+  .canvas-zoom { font-size: 12px; min-width: 54px; }
+  .canvas-toolbar-touch {
+    display: block; flex-basis: 100%; margin-left: 0;
+    color: var(--muted); font-size: 10px; letter-spacing: 0.05em;
+  }
+  .canvas-node-expand { width: 32px; height: 32px; top: 3px; right: 3px; font-size: 15px; }
   .tree-caret, .tree-list summary, .tree-leaf { transition: none; }
   .tree-list summary:hover, .tree-leaf:hover { border-color: transparent; background: transparent; color: var(--text-soft); }
   .tree-list summary:active, .tree-leaf:active { border-color: var(--border-bright); background: rgba(124, 255, 107, 0.12); color: var(--accent); }
 
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--image img,
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video video,
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--audio audio { display: none; }
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video .video-player-play,
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video .video-player-bar { display: none; }
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--image,
-  [data-canvas-shell][data-lite='true'][data-zoomed-in='false'] .canvas-node--video {
-    background: linear-gradient(135deg, rgba(124, 255, 107, 0.09), rgba(124, 255, 107, 0.04));
-  }
+  /* Медиа видны на любом масштабе: ленивая загрузка картинок и preload=none
+     у видео защищают трафик без порога 35%. */
 }
 
 @media (prefers-reduced-motion: reduce) {
