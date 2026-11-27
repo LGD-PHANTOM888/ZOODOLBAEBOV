@@ -451,17 +451,46 @@ async function main() {
   // --- Второй проход: конвертируем ссылки и записываем файлы ---
   const notes = [];
   for (const draft of drafts) {
+    const relPosix = toPosix(draft.rel);
+    // Новинки — только .md из папки Новинки (включая вложенные папки).
+    const isNews = draft.ext === '.md'
+      && (relPosix === newsFolder || relPosix.startsWith(`${newsFolder}/`));
     const outgoing = new Set(
       draft.ext === '.canvas' ? (canvasLinks.get(draft.slug) || []) : draft.canvasOutgoing
     );
     let body = draft.body;
 
+    // В новинках вложения ищем ТОЛЬКО внутри папки Новинки: иначе одноимённый
+    // файл из другого раздела мог подменить видео, прикреплённое к записи.
+    const newsMediaPrefix = `${newsFolder.toLowerCase()}/`;
+    const resolveNewsMedia = (target) => {
+      const clean = decodeURIComponent(String(target).replace(/\\/g, '/'))
+        .replace(/^\.?\//, '')
+        .replace(/^Public\//i, '')
+        .split('#')[0]
+        .split('?')[0]
+        .trim()
+        .toLowerCase();
+      if (mediaByPath.has(clean)) return mediaByPath.get(clean);
+      const scoped = clean.startsWith(newsMediaPrefix) ? clean : `${newsMediaPrefix}${clean}`;
+      if (mediaByPath.has(scoped)) return mediaByPath.get(scoped);
+      const base = path.posix.basename(scoped);
+      for (const [relPath, url] of mediaByPath) {
+        if (relPath.startsWith(newsMediaPrefix) && path.posix.basename(relPath) === base) return url;
+      }
+      return null;
+    };
+
     const resolveMedia = (target) => {
+      if (isNews) return resolveNewsMedia(target);
       const clean = target.trim().replace(/^\.\//, '').toLowerCase();
       if (mediaByPath.has(clean)) return mediaByPath.get(clean);
       const base = path.posix.basename(decodeURIComponent(clean));
       return mediaByBasename.get(base) || mediaByBasename.get(clean) || null;
     };
+
+    const isMediaTarget = (target) => /\.(png|jpe?g|gif|webp|svg|avif|mp4|mov|m4v|webm|mp3|wav|pdf)$/i
+      .test(decodeURIComponent(String(target).split('?')[0].split('#')[0]).trim());
 
     // Видео должно остаться видео: тогда общий мини-плеер сможет его улучшить.
     const mediaTag = (target, url) => {
@@ -479,6 +508,7 @@ async function main() {
     body = body.replace(/!\[\[([^\]]+)\]\]/g, (match, target) => {
       const media = resolveMedia(target);
       if (media) return mediaTag(target, media);
+      if (isNews && isMediaTarget(target)) return '';
       const slug = resolveNoteTarget(target);
       if (slug) { outgoing.add(slug); return internalLink(slug, target); }
       return match;
@@ -487,6 +517,7 @@ async function main() {
     // [[Заметка|Подпись]] и [[Заметка#Заголовок]]
     body = body.replace(/(!?)\[\[([^\]]+)\]\]/g, (match, bang, inner) => {
       const [target, alias] = inner.split('|');
+      if (isNews && isMediaTarget(target) && !resolveMedia(target)) return '';
       const slug = resolveNoteTarget(target);
       if (!slug) return match;
       outgoing.add(slug);
@@ -498,7 +529,8 @@ async function main() {
     body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, target) => {
       if (/^(https?:|data:|#|\/media\/)/i.test(target)) return match;
       const media = resolveMedia(target);
-      return media ? mediaTag(target, media) : match;
+      if (media) return mediaTag(target, media);
+      return isNews ? '' : match;
     });
 
     // Markdown-ссылки на другие .md файлы
@@ -517,12 +549,13 @@ async function main() {
     const tags = [...new Set([...frontmatterTags, ...inlineTags].map(normalizeTag).filter(Boolean))];
 
     const description = draft.descriptionOverride || stripMarkdown(
-      body.replace(/^#{1,6}.*$/gm, '').replace(/^\s*>.*$/gm, '').split(/\n\s*\n/).find((p) => p.trim()) || ''
+      (isNews ? body.replace(/<[^>]+>/g, '') : body)
+        .replace(/^#{1,6}.*$/gm, '')
+        .replace(/^\s*>.*$/gm, '')
+        .split(/\n\s*\n/).find((p) => p.trim()) || ''
     ).slice(0, 180);
     const words = body.replace(/[#*>`_\[\]()!]/g, '').split(/\s+/).filter(Boolean).length;
     const kind = draft.ext === '.canvas' ? 'canvas' : 'note';
-    const relPosix = toPosix(draft.rel);
-    const isNews = draft.ext === '.md' && (relPosix === newsFolder || relPosix.startsWith(`${newsFolder}/`));
 
     // Новинки — только текстовые файлы. Вложения остаются в том же репозитории,
     // но отдельными постами не становятся: они подключаются внутри записи.
