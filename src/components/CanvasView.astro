@@ -248,6 +248,10 @@ const kindLabel = {
 
   viewport?.addEventListener('pointerdown', (event) => {
     if (event.target.closest('[data-canvas-expand], .canvas-modal')) return;
+    // В уже выбранной заметке работаем с содержимым: выделяем текст, жмём
+    // ссылки. Тач/мышь не должны превращать это в панораму.
+    const chosen = selectedId ? nodesById.get(selectedId) : null;
+    if (chosen?.contains(event.target) && event.target.closest('.canvas-node-body, .canvas-node-text, a')) return;
     if (event.pointerType === 'mouse' && event.button !== 0) return;
     pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     if (pointers.size === 1) {
@@ -317,7 +321,7 @@ const kindLabel = {
 
   // Единственное место, где ставится выделение: обычный клик/тап по узлу.
   viewport?.addEventListener('click', (event) => {
-    if (Date.now() - lastDragEndAt < 400) {
+    if (Date.now() - lastDragEndAt < 400 && !event.target.closest('a')) {
       event.preventDefault();
       event.stopPropagation();
       return;

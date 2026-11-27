@@ -828,6 +828,13 @@ body[data-dense='true'] .site-header { backdrop-filter: none; background: rgba(4
   box-shadow: 0 0 18px rgba(124, 255, 107, 0.3), 0 0 0 2px var(--accent);
   z-index: 6;
 }
+/* В выбранной заметке текст можно копировать, а ссылки — открывать. */
+.canvas-node.is-selected .canvas-node-body,
+.canvas-node.is-selected .canvas-node-text {
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
 .canvas-node-kind { color: var(--node-color); font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; }
 .canvas-node-title { font-family: var(--font-display); font-size: 15px; font-weight: 600; line-height: 1.15; max-width: 100%; overflow-wrap: anywhere; }
 .canvas-node-text {
